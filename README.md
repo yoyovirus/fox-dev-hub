@@ -9,11 +9,11 @@ A fast, free, browser-based collection of developer tools including JSON formatt
 ## 👨‍💻 Author
 
 **Rahul Khedekar**  
-[GitHub](https://github.com/rahul-khedekar) · [LinkedIn](https://linkedin.com/in/rahul-khedekar)
+[GitHub](https://github.com/yoyovirus) · [LinkedIn](https://linkedin.com/in/rahul-khedekar)
 
 ---
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/rahul-khedekar/fox-dev-hub/build.yml?style=flat-square&logo=github)](https://github.com/rahul-khedekar/fox-dev-hub/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/yoyovirus/fox-dev-hub/build.yml?style=flat-square&logo=github)](https://github.com/yoyovirus/fox-dev-hub/actions)
 [![Deploy Status](https://img.shields.io/badge/deploy-vercel-000000?style=flat-square&logo=vercel)](https://fox-dev-hub.vercel.app/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/next.js-16.x-000000?style=flat-square&logo=next.js)](https://nextjs.org/)
@@ -53,7 +53,7 @@ A fast, free, browser-based collection of developer tools including JSON formatt
 
 ```bash
 # Clone the repository
-git clone https://github.com/rahul-khedekar/fox-dev-hub.git
+git clone https://github.com/yoyovirus/fox-dev-hub.git
 cd fox-dev-hub
 
 # Install dependencies
@@ -145,7 +145,7 @@ Fox Dev Hub is optimized for search engines and social sharing:
 
 ### Deploy with Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rahul-khedekar/fox-dev-hub)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yoyovirus/fox-dev-hub)
 
 1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
 2. Import your project in Vercel
@@ -188,7 +188,7 @@ Contributions are welcome! Here's how you can help:
 - [ ] Customizable tool presets
 - [ ] Export/import tool configurations
 
-Have a tool suggestion? [Open an issue](https://github.com/rahul-khedekar/fox-dev-hub/issues)!
+Have a tool suggestion? [Open an issue](https://github.com/yoyovirus/fox-dev-hub/issues)!
 
 ---
 
