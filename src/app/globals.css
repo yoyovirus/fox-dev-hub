@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4B5FD;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7C3AED;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(124, 58, 237, 0.25);
+  color: inherit;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+/* Exception - don't animate transform, opacity */
+*:hover,
+*:focus,
+button,
+a,
+[class*="MuiButton"],
+[class*="MuiIconButton"],
+[class*="MuiCard"] {
+  transition-duration: 0.2s;
+}
