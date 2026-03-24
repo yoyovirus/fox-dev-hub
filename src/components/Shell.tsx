@@ -52,9 +52,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
         <Box sx={{ display: "flex", height: "100vh", overflow: "hidden", bgcolor: "background.default" }}>
             <Sidebar open={sidebarOpen} onToggle={toggleSidebar} />
 
-            <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
+            <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0, height: "100%" }}>
                 {/* Top AppBar - Collapses in One-Tile Mode */}
-                <Collapse in={!isOneTileMode}>
+                <Collapse in={!isOneTileMode} sx={{ flex: "0 0 auto" }}>
                     <AppBar
                         position="static"
                         color="transparent"
@@ -65,7 +65,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                             backdropFilter: "blur(8px)",
                         }}
                     >
-                        <Toolbar sx={{ justifyContent: "space-between", minHeight: "56px !important", px: 2 }}>
+                        <Toolbar sx={{ justifyContent: "space-between", minHeight: "56px !important", px: 2, py: 0 }}>
                             {/* Left: toggle sidebar */}
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <Tooltip title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}>
