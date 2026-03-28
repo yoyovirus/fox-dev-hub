@@ -613,9 +613,6 @@ function SummaryView({ stats, json }: { stats: JsonStats; json: unknown }) {
 export default function JsonRelationshipVisualizerPage() {
     const theme = useTheme();
 
-    useEffect(() => {
-        document.title = "JSON Relationship Visualizer - FoX Dev Hub";
-    }, []);
     const [input, setInput] = useState<string>("");
     const [parsedJson, setParsedJson] = useState<object | null>(null);
     const [tree, setTree] = useState<TreeNode | null>(null);

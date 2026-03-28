@@ -24,10 +24,6 @@ export default function ValidatorPage() {
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const theme = useTheme();
 
-    useEffect(() => {
-        document.title = "JSON Validator - FoX Dev Hub";
-    }, []);
-
     const handleInputChange = (val: string | undefined) => {
         const newValue = val || "";
         setInput(newValue);

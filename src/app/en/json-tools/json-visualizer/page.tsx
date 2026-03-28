@@ -37,10 +37,6 @@ export default function VisualizerPage() {
     const theme = useTheme();
 
     useEffect(() => {
-        document.title = "JSON Visualizer - FoX Dev Hub";
-    }, []);
-
-    useEffect(() => {
         if (!input.trim()) {
             setError(null);
             return;

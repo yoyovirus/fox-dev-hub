@@ -32,10 +32,6 @@ export default function ToTablePage() {
     const theme = useTheme();
 
     useEffect(() => {
-        document.title = "JSON to Table - FoX Dev Hub";
-    }, []);
-
-    useEffect(() => {
         if (!input.trim()) {
             setError(null);
             return;

@@ -95,10 +95,6 @@ export default function TypeGeneratorPage() {
     const theme = useTheme();
 
     useEffect(() => {
-        document.title = "JSON Type Generator - FoX Dev Hub";
-    }, []);
-
-    useEffect(() => {
         if (!input.trim()) {
             setError(null);
             setOutput("");

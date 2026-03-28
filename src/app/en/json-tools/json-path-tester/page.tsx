@@ -348,9 +348,6 @@ function evalFilter(item: unknown, expr: string): boolean {
 export default function JsonPathTesterPage() {
     const theme = useTheme();
 
-    useEffect(() => {
-        document.title = "JSON Path Tester - FoX Dev Hub";
-    }, []);
     const [input, setInput] = useState<string>("");
     const [pathExpr, setPathExpr] = useState<string>("$.");
     const [results, setResults] = useState<unknown[]>([]);
