@@ -748,7 +748,7 @@ export default function JsonRelationshipVisualizerPage() {
                                 borderRadius: 2.5, border: `1px solid ${theme.palette.divider}`,
                                 bgcolor: "background.paper",
                             }}>
-                                <Typography color="text.secondary" sx={{ fontSize: "0.875rem", textAlign: "center" }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.875rem", textAlign: "center" }}>
                                     Paste valid JSON to visualize its structure and relationships.
                                 </Typography>
                             </Box>

@@ -11,12 +11,11 @@
 import { useState, useCallback, useEffect } from "react";
 import {
     Box, Typography, Button, IconButton, Tooltip, Alert, Snackbar,
-    alpha, useTheme, Paper, Divider, Stack, Chip, TextField
+    alpha, useTheme, Divider, Stack, TextField
 } from "@mui/material";
 import {
     ContentCopy, Download as DownloadIcon, DeleteOutline,
-    CloudUpload as UploadIcon, InsertDriveFile as FileIcon,
-    Image as ImageIcon
+    CloudUpload as UploadIcon, InsertDriveFile as FileIcon
 } from "@mui/icons-material";
 import { Editor } from "@/components/Editor";
 import { ToolHeader } from "@/components/ToolHeader";
@@ -140,75 +139,85 @@ export default function ImageToBase64Page() {
             />
 
             {/* Content Area */}
-            <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2.5, flexGrow: 1, minHeight: 0 }}>
+            <Box sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                gap: 2,
+                minHeight: 0,
+                flex: 1,
+            }}>
                 {/* Upload Section */}
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
-                    <Paper
-                        variant="outlined"
-                        sx={{
-                            p: 4,
-                            border: `2px dashed ${theme.palette.divider}`,
-                            borderRadius: 4,
-                            bgcolor: alpha(theme.palette.background.paper, 0.4),
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: 2,
-                            cursor: "pointer",
-                            transition: "all 0.2s",
-                            "&:hover": {
-                                borderColor: theme.palette.primary.main,
-                                bgcolor: alpha(theme.palette.primary.main, 0.04),
-                            },
-                        }}
-                        onClick={() => document.getElementById("file-input")?.click()}
-                    >
-                        <input
-                            type="file"
-                            id="file-input"
-                            style={{ display: "none" }}
-                            accept="image/*"
-                            onChange={handleFileChange}
-                        />
-                        <Box sx={{
-                            width: 64, height: 64, borderRadius: "50%",
-                            bgcolor: alpha(theme.palette.primary.main, 0.1),
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            color: "primary.main"
-                        }}>
-                            <UploadIcon sx={{ fontSize: 32 }} />
-                        </Box>
-                        <Box sx={{ textAlign: "center" }}>
-                            <Typography variant="h6" fontWeight={700}>Click or Drag Image Here</Typography>
-                            <Typography variant="body2" color="text.secondary">Supports JPG, PNG, WEBP, GIF (Max 5MB recommended)</Typography>
-                        </Box>
-                        <Button 
-                            variant="outlined" 
-                            size="small" 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                processSample();
+                <Box sx={{ flex: "1 1 0", minWidth: 300, display: "flex", flexDirection: "column" }}>
+                    <Typography variant="caption" fontWeight={800} color="text.secondary" sx={{ mb: 1, textTransform: "uppercase", letterSpacing: "0.1em", ml: 0.5 }}>
+                        Image Upload
+                    </Typography>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                        <Box
+                            sx={{
+                                p: 4,
+                                border: `2px dashed ${theme.palette.divider}`,
+                                borderRadius: 4,
+                                bgcolor: alpha(theme.palette.background.paper, 0.4),
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 2,
+                                cursor: "pointer",
+                                transition: "all 0.2s",
+                                "&:hover": {
+                                    borderColor: theme.palette.primary.main,
+                                    bgcolor: alpha(theme.palette.primary.main, 0.04),
+                                },
                             }}
-                            sx={{ borderRadius: 2, px: 3 }}
+                            onClick={() => document.getElementById("file-input")?.click()}
                         >
-                            Load Sample Image
-                        </Button>
-                    </Paper>
-
-                    {file && (
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                            <input
+                                type="file"
+                                id="file-input"
+                                style={{ display: "none" }}
+                                accept="image/*"
+                                onChange={handleFileChange}
+                            />
                             <Box sx={{
-                                p: 2, borderRadius: 3, bgcolor: "background.paper",
-                                border: `1px solid ${theme.palette.divider}`,
-                                display: "flex", alignItems: "center", gap: 2
+                                width: 64, height: 64, borderRadius: "50%",
+                                bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                color: "primary.main"
                             }}>
+                                <UploadIcon sx={{ fontSize: 32 }} />
+                            </Box>
+                            <Box sx={{ textAlign: "center" }}>
+                                <Typography variant="h6" fontWeight={700}>Click or Drag Image Here</Typography>
+                                <Typography variant="body2" color="text.secondary">Supports JPG, PNG, WEBP, GIF (Max 5MB recommended)</Typography>
+                            </Box>
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    processSample();
+                                }}
+                                sx={{ borderRadius: 2, px: 3 }}
+                            >
+                                Load Sample Image
+                            </Button>
+                        </Box>
+
+                        {file && (
+                            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                                 <Box sx={{
-                                    width: 48, height: 48, borderRadius: 1.5,
-                                    bgcolor: alpha(theme.palette.primary.main, 0.1),
-                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                    overflow: "hidden"
+                                    p: 2, borderRadius: 3, bgcolor: "background.paper",
+                                    border: `1px solid ${theme.palette.divider}`,
+                                    display: "flex", alignItems: "center", gap: 2
                                 }}>
+                                    <Box sx={{
+                                        width: 48, height: 48, borderRadius: 1.5,
+                                        bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        overflow: "hidden"
+                                    }}>
                                     {previewUrl ? (
                                         <Box component="img" src={previewUrl} sx={{ width: "100%", height: "100%", objectFit: "cover" }} />
                                     ) : (
@@ -230,152 +239,161 @@ export default function ImageToBase64Page() {
                                     sx={{ textTransform: "uppercase", letterSpacing: "0.1em", mb: 1, display: "block" }}>
                                     Metadata
                                 </Typography>
-                                <Paper variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
+                                <Box sx={{ borderRadius: 3, overflow: "hidden", border: `1px solid ${theme.palette.divider}`, bgcolor: "background.paper" }}>
                                     <Box sx={{ p: 2, bgcolor: alpha(theme.palette.primary.main, 0.02) }}>
-                                    <Stack spacing={1.5}>
-                                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                            <Typography variant="caption" color="text.secondary" fontWeight={700}>Dimen:</Typography>
-                                            <Typography variant="caption" fontWeight={800}>
-                                                {dimensions ? `${dimensions.width} × ${dimensions.height}px` : "Calculating..."}
-                                            </Typography>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                            <Typography variant="caption" color="text.secondary" fontWeight={700}>Type:</Typography>
-                                            <Typography variant="caption" fontWeight={800}>{mimeType}</Typography>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                            <Typography variant="caption" color="text.secondary" fontWeight={700}>Base64 Size:</Typography>
-                                            <Typography variant="caption" fontWeight={800}>{formatSize(base64.length)}</Typography>
-                                        </Box>
-                                        <Divider />
-                                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                            <Typography variant="caption" color="text.secondary" fontWeight={700}>Original Size:</Typography>
-                                            <Typography variant="caption" fontWeight={800}>{formatSize(filesize)}</Typography>
-                                        </Box>
-                                    </Stack>
+                                        <Stack spacing={1.5}>
+                                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                <Typography variant="caption" color="text.secondary" fontWeight={700}>Dimen:</Typography>
+                                                <Typography variant="caption" fontWeight={800}>
+                                                    {dimensions ? `${dimensions.width} × ${dimensions.height}px` : "Calculating..."}
+                                                </Typography>
+                                            </Box>
+                                            <Divider />
+                                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                <Typography variant="caption" color="text.secondary" fontWeight={700}>Type:</Typography>
+                                                <Typography variant="caption" fontWeight={800}>{mimeType}</Typography>
+                                            </Box>
+                                            <Divider />
+                                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                <Typography variant="caption" color="text.secondary" fontWeight={700}>Base64 Size:</Typography>
+                                                <Typography variant="caption" fontWeight={800}>{formatSize(base64.length)}</Typography>
+                                            </Box>
+                                            <Divider />
+                                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                <Typography variant="caption" color="text.secondary" fontWeight={700}>Original Size:</Typography>
+                                                <Typography variant="caption" fontWeight={800}>{formatSize(filesize)}</Typography>
+                                            </Box>
+                                        </Stack>
+                                    </Box>
                                 </Box>
-                            </Paper>
-                        </Box>
+                            </Box>
+                            </Box>
+                        )}
                     </Box>
-                )}
-            </Box>
+                </Box>
 
                 {/* Output Section */}
-                <Box sx={{ flex: 1.2, display: "flex", flexDirection: "column", gap: 2, minHeight: 0 }}>
-                    {!base64 ? (
-                        <Box sx={{
-                            height: "100%", display: "flex", flexDirection: "column",
-                            alignItems: "center", justifyContent: "center", gap: 1.5,
-                            borderRadius: 4, border: `1px solid ${theme.palette.divider}`,
-                            bgcolor: "background.paper",
-                            minHeight: 300,
-                        }}>
-                            <Box sx={{ opacity: 0.2 }}>
-                                <ImageIcon sx={{ fontSize: 64 }} />
+                <Box sx={{ flex: "1 1 0", minWidth: 300, minHeight: 250, display: "flex", flexDirection: "column" }}>
+                    <Typography variant="caption" fontWeight={800} color="text.secondary" sx={{ mb: 1, textTransform: "uppercase", letterSpacing: "0.1em", ml: 0.5 }}>
+                        Base64 Output
+                    </Typography>
+                    <Box sx={{
+                        flexGrow: 1,
+                        minHeight: 0,
+                        borderRadius: 2.5,
+                        overflow: "hidden",
+                        border: `1px solid ${theme.palette.divider}`,
+                        bgcolor: "background.paper",
+                    }}>
+                        {!base64 ? (
+                            <Box sx={{
+                                width: "100%", height: "100%",
+                                display: "flex", alignItems: "center", justifyContent: "center"
+                            }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.875rem" }}>Upload an image to see the Base64 output</Typography>
                             </Box>
-                            <Typography variant="body2" color="text.secondary">Upload an image to see the Base64 output</Typography>
-                        </Box>
-                    ) : (
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, height: "100%", overflow: "auto" }}>
-                            {/* Data URI Output */}
-                            <Box>
-                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-                                    <Typography variant="caption" fontWeight={800} color="text.secondary"
-                                        sx={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                                        Full Data URI
-                                    </Typography>
-                                    <Button size="small" startIcon={<ContentCopy sx={{ fontSize: 14 }} />} onClick={() => handleCopy(base64)} sx={{ fontSize: "0.7rem", py: 0.2 }}>
-                                        Copy
-                                    </Button>
-                                </Box>
-                                <TextField
-                                    fullWidth
-                                    multiline
-                                    rows={4}
-                                    value={base64}
-                                    InputProps={{ readOnly: true }}
-                                    variant="outlined"
-                                    sx={{
-                                        "& .MuiOutlinedInput-root": {
-                                            borderRadius: 2.5,
-                                            fontFamily: "'JetBrains Mono', monospace",
-                                            fontSize: "0.75rem",
-                                            bgcolor: alpha(theme.palette.text.primary, 0.02)
-                                        }
-                                    }}
-                                />
-                            </Box>
-
-                            {/* Raw Base64 */}
-                            <Box>
-                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-                                    <Typography variant="caption" fontWeight={800} color="text.secondary"
-                                        sx={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                                        Raw Base64 (Body Only)
-                                    </Typography>
-                                    <Button size="small" startIcon={<ContentCopy sx={{ fontSize: 14 }} />} onClick={() => handleCopy(getRawBase64())} sx={{ fontSize: "0.7rem", py: 0.2 }}>
-                                        Copy
-                                    </Button>
-                                </Box>
-                                <TextField
-                                    fullWidth
-                                    multiline
-                                    rows={4}
-                                    value={getRawBase64()}
-                                    InputProps={{ readOnly: true }}
-                                    variant="outlined"
-                                    sx={{
-                                        "& .MuiOutlinedInput-root": {
-                                            borderRadius: 2.5,
-                                            fontFamily: "'JetBrains Mono', monospace",
-                                            fontSize: "0.75rem",
-                                            bgcolor: alpha(theme.palette.text.primary, 0.02)
-                                        }
-                                    }}
-                                />
-                            </Box>
-
-                            {/* Snippets */}
-                            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-                                <Box>
-                                    <Typography variant="caption" fontWeight={800} color="text.secondary"
-                                        sx={{ textTransform: "uppercase", letterSpacing: "0.1em", display: "block", mb: 1 }}>
-                                        HTML Snippet
-                                    </Typography>
-                                    <Paper variant="outlined" sx={{
-                                        p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.text.primary, 0.04),
-                                        display: "flex", alignItems: "center", justifyContent: "space-between"
-                                    }}>
-                                        <Typography sx={{ fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
-                                            &lt;img src="{base64.substring(0, 30)}..." /&gt;
+                        ) : (
+                            <Box sx={{ p: 2, height: "100%", overflow: "auto" }}>
+                                {/* Data URI Output */}
+                                <Box sx={{ mb: 2 }}>
+                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
+                                        <Typography variant="caption" fontWeight={800} color="text.secondary"
+                                            sx={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                                            Full Data URI
                                         </Typography>
-                                        <IconButton size="small" onClick={() => handleCopy(`<img src="${base64}" alt="${filename}" />`)}>
-                                            <ContentCopy sx={{ fontSize: 16 }} />
-                                        </IconButton>
-                                    </Paper>
+                                        <Button size="small" startIcon={<ContentCopy sx={{ fontSize: 14 }} />} onClick={() => handleCopy(base64)} sx={{ fontSize: "0.7rem", py: 0.2 }}>
+                                            Copy
+                                        </Button>
+                                    </Box>
+                                    <TextField
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        value={base64}
+                                        InputProps={{ readOnly: true }}
+                                        variant="outlined"
+                                        sx={{
+                                            "& .MuiOutlinedInput-root": {
+                                                borderRadius: 2.5,
+                                                fontFamily: "'JetBrains Mono', monospace",
+                                                fontSize: "0.75rem",
+                                                bgcolor: alpha(theme.palette.text.primary, 0.02)
+                                            }
+                                        }}
+                                    />
                                 </Box>
-                                <Box>
-                                    <Typography variant="caption" fontWeight={800} color="text.secondary"
-                                        sx={{ textTransform: "uppercase", letterSpacing: "0.1em", display: "block", mb: 1 }}>
-                                        CSS Snippet
-                                    </Typography>
-                                    <Paper variant="outlined" sx={{
-                                        p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.text.primary, 0.04),
-                                        display: "flex", alignItems: "center", justifyContent: "space-between"
-                                    }}>
-                                        <Typography sx={{ fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
-                                            background-image: url("{base64.substring(0, 30)}...");
+
+                                {/* Raw Base64 */}
+                                <Box sx={{ mb: 2 }}>
+                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
+                                        <Typography variant="caption" fontWeight={800} color="text.secondary"
+                                            sx={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                                            Raw Base64 (Body Only)
                                         </Typography>
-                                        <IconButton size="small" onClick={() => handleCopy(`background-image: url("${base64}");`)}>
-                                            <ContentCopy sx={{ fontSize: 16 }} />
-                                        </IconButton>
-                                    </Paper>
+                                        <Button size="small" startIcon={<ContentCopy sx={{ fontSize: 14 }} />} onClick={() => handleCopy(getRawBase64())} sx={{ fontSize: "0.7rem", py: 0.2 }}>
+                                            Copy
+                                        </Button>
+                                    </Box>
+                                    <TextField
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        value={getRawBase64()}
+                                        InputProps={{ readOnly: true }}
+                                        variant="outlined"
+                                        sx={{
+                                            "& .MuiOutlinedInput-root": {
+                                                borderRadius: 2.5,
+                                                fontFamily: "'JetBrains Mono', monospace",
+                                                fontSize: "0.75rem",
+                                                bgcolor: alpha(theme.palette.text.primary, 0.02)
+                                            }
+                                        }}
+                                    />
+                                </Box>
+
+                                {/* Snippets */}
+                                <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                                    <Box>
+                                        <Typography variant="caption" fontWeight={800} color="text.secondary"
+                                            sx={{ textTransform: "uppercase", letterSpacing: "0.1em", display: "block", mb: 1 }}>
+                                            HTML Snippet
+                                        </Typography>
+                                        <Box sx={{
+                                            p: 1.5, borderRadius: 2.5, bgcolor: alpha(theme.palette.text.primary, 0.04),
+                                            border: `1px solid ${theme.palette.divider}`,
+                                            display: "flex", alignItems: "center", justifyContent: "space-between"
+                                        }}>
+                                            <Typography sx={{ fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
+                                                &lt;img src="{base64.substring(0, 30)}..." /&gt;
+                                            </Typography>
+                                            <IconButton size="small" onClick={() => handleCopy(`<img src="${base64}" alt="${filename}" />`)}>
+                                                <ContentCopy sx={{ fontSize: 16 }} />
+                                            </IconButton>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        <Typography variant="caption" fontWeight={800} color="text.secondary"
+                                            sx={{ textTransform: "uppercase", letterSpacing: "0.1em", display: "block", mb: 1 }}>
+                                            CSS Snippet
+                                        </Typography>
+                                        <Box sx={{
+                                            p: 1.5, borderRadius: 2.5, bgcolor: alpha(theme.palette.text.primary, 0.04),
+                                            border: `1px solid ${theme.palette.divider}`,
+                                            display: "flex", alignItems: "center", justifyContent: "space-between"
+                                        }}>
+                                            <Typography sx={{ fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
+                                                background-image: url("{base64.substring(0, 30)}...");
+                                            </Typography>
+                                            <IconButton size="small" onClick={() => handleCopy(`background-image: url("${base64}");`)}>
+                                                <ContentCopy sx={{ fontSize: 16 }} />
+                                            </IconButton>
+                                        </Box>
+                                    </Box>
                                 </Box>
                             </Box>
-                        </Box>
-                    )}
+                        )}
+                    </Box>
                 </Box>
             </Box>
 

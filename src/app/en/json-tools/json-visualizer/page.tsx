@@ -184,7 +184,7 @@ export default function VisualizerPage() {
                             </Box>
                         ) : (
                             <Box sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <Typography color="text.secondary" sx={{ fontSize: "0.875rem" }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.875rem" }}>
                                     Enter valid JSON to see the tree view
                                 </Typography>
                             </Box>

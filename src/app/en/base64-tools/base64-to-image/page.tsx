@@ -11,11 +11,11 @@
 import { useState, useEffect } from "react";
 import {
     Box, Typography, Button, IconButton, Tooltip, Alert, Snackbar,
-    alpha, useTheme, Paper, Divider, Stack, TextField, Card, CardMedia
+    alpha, useTheme, Divider, Stack
 } from "@mui/material";
 import {
     ContentCopy, Download as DownloadIcon, DeleteOutline,
-    Image as ImageIcon, InfoOutlined, WarningAmber
+    InfoOutlined, WarningAmber
 } from "@mui/icons-material";
 import { Editor } from "@/components/Editor";
 import { ToolHeader } from "@/components/ToolHeader";
@@ -170,7 +170,7 @@ export default function Base64ToImagePage() {
                 flexGrow: 1,
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
-                gap: 2.5,
+                gap: 2,
                 minHeight: 0,
                 flex: 1,
             }}>
@@ -182,7 +182,7 @@ export default function Base64ToImagePage() {
                     <Box sx={{
                         flexGrow: 1,
                         minHeight: 0,
-                        borderRadius: 3,
+                        borderRadius: 2.5,
                         overflow: "hidden",
                         border: `1px solid ${theme.palette.divider}`,
                     }}>
@@ -198,38 +198,45 @@ export default function Base64ToImagePage() {
                 {/* Preview Section */}
                 <Box sx={{ flex: "1 1 0", minWidth: 300, minHeight: 250, display: "flex", flexDirection: "column" }}>
                     <Typography variant="caption" fontWeight={800} color="text.secondary"
-                        sx={{ textTransform: "uppercase", letterSpacing: "0.1em", ml: 0.5 }}>
+                        sx={{ mb: 1, textTransform: "uppercase", letterSpacing: "0.1em", ml: 0.5 }}>
                         Image Preview
                     </Typography>
 
-                    <Paper variant="outlined" sx={{
-                        flexGrow: 1, p: 2, borderRadius: 4, bgcolor: "background.paper",
-                        display: "flex", flexDirection: "column", alignItems: "center",
-                        justifyContent: "center", minHeight: 0, overflow: "auto",
-                        position: "relative"
+                    <Box sx={{
+                        flexGrow: 1,
+                        minHeight: 0,
+                        borderRadius: 2.5,
+                        overflow: "hidden",
+                        border: `1px solid ${theme.palette.divider}`,
+                        bgcolor: "#FFFFFF",
                     }}>
                         {imageSrc ? (
-                            <>
-                                <Box sx={{ 
-                                    position: "absolute", 
-                                    top: 16, 
-                                    right: 16, 
+                            <Box sx={{
+                                width: "100%", height: "100%",
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                position: "relative"
+                            }}>
+                                <Box sx={{
+                                    position: "absolute",
+                                    top: 8,
+                                    right: 8,
                                     zIndex: 10
                                 }}>
                                     <Tooltip title="Download Image">
-                                        <Button 
+                                        <Button
                                             variant="contained"
-                                            onClick={handleDownload} 
+                                            onClick={handleDownload}
                                             startIcon={<DownloadIcon fontSize="small" />}
-                                            sx={{ 
-                                                bgcolor: alpha(theme.palette.primary.main, 0.9), 
+                                            size="small"
+                                            sx={{
+                                                bgcolor: alpha(theme.palette.primary.main, 0.9),
                                                 color: "white",
-                                                backdropFilter: "blur(4px)", 
+                                                backdropFilter: "blur(4px)",
                                                 boxShadow: "0 2px 8px rgba(124,58,237,0.4)",
                                                 fontWeight: 700,
                                                 textTransform: "none",
                                                 borderRadius: 2,
-                                                px: 2,
+                                                px: 1.5,
                                                 "&:hover": {
                                                     bgcolor: theme.palette.primary.main,
                                                     boxShadow: "0 4px 12px rgba(124,58,237,0.6)"
@@ -245,14 +252,16 @@ export default function Base64ToImagePage() {
                                     borderRadius: 1, bgcolor: alpha(theme.palette.text.primary, 0.02),
                                     boxShadow: "0 4px 20px rgba(0,0,0,0.1)"
                                 }} />
-                            </>
+                            </Box>
                         ) : (
-                            <Stack alignItems="center" spacing={2} sx={{ opacity: 0.2 }}>
-                                <ImageIcon sx={{ fontSize: 80 }} />
-                                <Typography variant="body2">Decoded image will appear here</Typography>
-                            </Stack>
+                            <Box sx={{
+                                width: "100%", height: "100%",
+                                display: "flex", alignItems: "center", justifyContent: "center"
+                            }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.875rem" }}>Decoded image will appear here</Typography>
+                            </Box>
                         )}
-                    </Paper>
+                    </Box>
 
                     {/* Metadata Card */}
                     {metadata && (
@@ -261,7 +270,7 @@ export default function Base64ToImagePage() {
                                 sx={{ textTransform: "uppercase", letterSpacing: "0.1em", mb: 1, display: "block" }}>
                                 Metadata
                             </Typography>
-                            <Paper variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
+                            <Box sx={{ borderRadius: 2.5, overflow: "hidden", border: `1px solid ${theme.palette.divider}`, bgcolor: "background.paper" }}>
                                 <Box sx={{ p: 2, bgcolor: alpha(theme.palette.primary.main, 0.02) }}>
                                     <Stack spacing={1.5}>
                                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -285,7 +294,7 @@ export default function Base64ToImagePage() {
                                         </Box>
                                     </Stack>
                                 </Box>
-                            </Paper>
+                            </Box>
                         </Box>
                     )}
                 </Box>

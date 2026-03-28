@@ -555,7 +555,7 @@ export default function JsonPathTesterPage() {
                     }}>
                         {results.length === 0 ? (
                             <Box sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 1, p: 3 }}>
-                                <Typography color="text.secondary" sx={{ fontSize: "0.875rem", textAlign: "center" }}>
+                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.875rem", textAlign: "center" }}>
                                     {!input.trim() ? "Enter JSON and a JSONPath expression to query." : "No results. Try a different expression."}
                                 </Typography>
                             </Box>
