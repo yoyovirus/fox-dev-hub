@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { JsonDiffEditor } from "@/components/JsonDiffEditor";
 import { Box, Typography, Button, Stack, Tooltip, IconButton, alpha, useTheme, Divider, Snackbar, Alert } from "@mui/material";
 import { SwapHoriz as SwapHorizIcon, Code as CodeIcon, DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 export default function DiffPage() {
     const [original, setOriginal] = useState<string>("");
@@ -87,22 +88,11 @@ export default function DiffPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Page Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#DC2626", 0.1),
-                        border: `1px solid ${alpha("#DC2626", 0.2)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "0.85rem", fontWeight: 800, color: "#DC2626",
-                        fontFamily: "'JetBrains Mono', monospace",
-                    }}>⇄</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Diff</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Compare two JSON objects and highlight their differences.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Diff"
+                toolColor="#DC2626"
+                description="Compare two JSON objects and highlight their differences."
+            />
 
             {/* Toolbar */}
             <Box sx={{

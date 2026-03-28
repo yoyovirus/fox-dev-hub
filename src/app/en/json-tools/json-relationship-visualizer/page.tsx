@@ -20,6 +20,7 @@ import {
     FitScreen as FitScreenIcon,
     ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon,
 } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 const SAMPLE_JSON = `{
   "company": {
@@ -649,21 +650,11 @@ export default function JsonRelationshipVisualizerPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#7C3AED", 0.1),
-                        border: `1px solid ${alpha("#7C3AED", 0.25)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1rem",
-                    }}>{ "⇢" }</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Relationship Visualizer</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Explore JSON structures as an interactive graph and understand their relationships.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Relationship Visualizer"
+                toolColor="#7C3AED"
+                description="Explore JSON structures as an interactive graph and understand their relationships."
+            />
 
             {/* Toolbar */}
             <Box sx={{

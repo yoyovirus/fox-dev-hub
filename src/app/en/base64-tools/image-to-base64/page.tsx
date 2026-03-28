@@ -19,6 +19,7 @@ import {
     Image as ImageIcon
 } from "@mui/icons-material";
 import { Editor } from "@/components/Editor";
+import { ToolHeader } from "@/components/ToolHeader";
 
 export default function ImageToBase64Page() {
     const theme = useTheme();
@@ -128,23 +129,11 @@ export default function ImageToBase64Page() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#059669", 0.1),
-                        border: `1px solid ${alpha("#059669", 0.25)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1.1rem", color: "#059669",
-                    }}>
-                        <ImageIcon />
-                    </Box>
-                    <Typography variant="h5" fontWeight={800}>Image to Base64</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Convert image files into Base64 strings for CSS, HTML, or data transfer.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="Image to Base64"
+                toolColor="#059669"
+                description="Convert image files into Base64 strings for CSS, HTML, or data transfer."
+            />
 
             {/* Content Area */}
             <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2.5, flexGrow: 1, minHeight: 0 }}>

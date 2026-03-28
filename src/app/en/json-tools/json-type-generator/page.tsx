@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { Editor } from "@/components/Editor";
 import { Box, Typography, Button, Snackbar, alpha, useTheme, Select, IconButton, Tooltip, Divider, Alert } from "@mui/material";
 import { ContentCopy, Code as CodeIcon, DeleteOutline, Download as DownloadIcon } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 function generateTypeScript(jsonStr: string, rootName = "Root"): string {
     try {
@@ -135,22 +136,11 @@ export default function TypeGeneratorPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Page Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#B45309", 0.1),
-                        border: `1px solid ${alpha("#B45309", 0.2)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "0.7rem", fontWeight: 900, color: "#B45309",
-                        fontFamily: "'JetBrains Mono', monospace",
-                    }}>TS</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Type Generator</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Automatically generate TypeScript interfaces and Go structs from any JSON structure.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Type Generator"
+                toolColor="#B45309"
+                description="Automatically generate TypeScript interfaces and Go structs from any JSON structure."
+            />
 
             {/* Toolbar */}
             <Box sx={{

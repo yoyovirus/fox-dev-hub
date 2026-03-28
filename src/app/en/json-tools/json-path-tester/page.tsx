@@ -18,6 +18,7 @@ import {
     ContentCopy, Download as DownloadIcon, DeleteOutline,
     Search as SearchIcon, FilterList as FilterIcon,
 } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 const SAMPLE_JSON = `{
   "store": {
@@ -408,21 +409,11 @@ export default function JsonPathTesterPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#0EA5E9", 0.1),
-                        border: `1px solid ${alpha("#0EA5E9", 0.25)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1rem",
-                    }}>$.</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Path Tester</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Test JSONPath expressions against your JSON data and see matched values instantly.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Path Tester"
+                toolColor="#0EA5E9"
+                description="Test JSONPath expressions against your JSON data and see matched values instantly."
+            />
 
             {/* Toolbar */}
             <Box sx={{

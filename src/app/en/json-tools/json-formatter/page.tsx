@@ -16,6 +16,7 @@ import {
     Select, MenuItem, FormControl, InputLabel, Divider, alpha, useTheme, Chip
 } from "@mui/material";
 import { ContentCopy, Download as DownloadIcon, DeleteOutline, AutoAwesome, SwapHoriz as SwapHorizIcon } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 const SAMPLE_JSON = `{
   "name": "Jane Doe",
@@ -105,22 +106,11 @@ export default function FormatterPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column", gap: 0 }}>
             {/* Page Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha(theme.palette.primary.main, 0.1),
-                        border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "0.85rem", fontWeight: 800, color: "primary.main",
-                        fontFamily: "'JetBrains Mono', monospace",
-                    }}>{"{ }"}</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Formatter</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Beautify and minify JSON with customizable indentation.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Formatter"
+                toolColor="#7C3AED"
+                description="Beautify and minify JSON with customizable indentation."
+            />
 
             {/* Toolbar */}
             <Box sx={{

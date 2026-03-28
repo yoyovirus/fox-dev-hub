@@ -15,6 +15,7 @@ import {
     alpha, useTheme, Chip, IconButton, Tooltip, Divider
 } from "@mui/material";
 import { CheckCircle, ErrorOutline, DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 export default function ValidatorPage() {
     const [input, setInput] = useState<string>("");
@@ -66,21 +67,11 @@ export default function ValidatorPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Page Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#059669", 0.1),
-                        border: `1px solid ${alpha("#059669", 0.2)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1rem", fontWeight: 800, color: "#059669",
-                    }}>✓</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Validator</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Quickly validate your JSON data to pinpoint syntax errors.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Validator"
+                toolColor="#059669"
+                description="Quickly validate your JSON data to pinpoint syntax errors."
+            />
 
             {/* Toolbar */}
             <Box sx={{

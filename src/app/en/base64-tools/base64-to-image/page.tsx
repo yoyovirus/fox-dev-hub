@@ -18,6 +18,7 @@ import {
     Image as ImageIcon, InfoOutlined, WarningAmber
 } from "@mui/icons-material";
 import { Editor } from "@/components/Editor";
+import { ToolHeader } from "@/components/ToolHeader";
 
 export default function Base64ToImagePage() {
     const theme = useTheme();
@@ -114,23 +115,11 @@ export default function Base64ToImagePage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#0EA5E9", 0.1),
-                        border: `1px solid ${alpha("#0EA5E9", 0.25)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1.1rem", color: "#0EA5E9",
-                    }}>
-                        <ImageIcon />
-                    </Box>
-                    <Typography variant="h5" fontWeight={800}>Base64 to Image</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Decode Base64 strings or Data URIs back into images and view their properties.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="Base64 to Image"
+                toolColor="#0EA5E9"
+                description="Decode Base64 strings or Data URIs back into images and view their properties."
+            />
 
             {/* Toolbar */}
             <Box sx={{

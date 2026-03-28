@@ -15,6 +15,7 @@ import { Editor } from "@/components/Editor";
 import { Box, Typography, Button, alpha, useTheme, IconButton, Tooltip, Divider, Snackbar, Alert } from "@mui/material";
 import { DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
 import { useThemeContext } from "@/components/AppThemeProvider";
+import { ToolHeader } from "@/components/ToolHeader";
 
 const SAMPLE_JSON = `{
   "project": "ToolMaster",
@@ -78,21 +79,11 @@ export default function VisualizerPage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Page Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha("#0284C7", 0.1),
-                        border: `1px solid ${alpha("#0284C7", 0.2)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1rem",
-                    }}>❖</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON Visualizer</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Explore JSON structures in an interactive, collapsible tree view.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON Visualizer"
+                toolColor="#0284C7"
+                description="Explore JSON structures in an interactive, collapsible tree view."
+            />
 
             {/* Toolbar */}
             <Box sx={{

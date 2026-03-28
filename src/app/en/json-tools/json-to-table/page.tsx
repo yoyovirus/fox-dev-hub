@@ -15,6 +15,7 @@ import {
     TableHead, TableRow, Paper, alpha, useTheme, Chip, TextField, IconButton, Tooltip, Snackbar, Divider, Alert, InputAdornment
 } from "@mui/material";
 import { Search as SearchIcon, Download as DownloadIcon, ContentCopy as ContentCopyIcon, Clear as ClearIcon, DeleteOutline } from "@mui/icons-material";
+import { ToolHeader } from "@/components/ToolHeader";
 
 const SAMPLE_JSON = `[
   { "id": 1, "name": "Alice", "role": "Admin", "active": true },
@@ -104,21 +105,11 @@ export default function ToTablePage() {
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Page Header */}
-            <Box sx={{ mb: 2.5 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 0.5 }}>
-                    <Box sx={{
-                        width: 36, height: 36, borderRadius: 2,
-                        bgcolor: alpha(theme.palette.primary.main, 0.1),
-                        border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1rem", color: "primary.main",
-                    }}>⊞</Box>
-                    <Typography variant="h5" fontWeight={800}>JSON to Table</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 6.5 }}>
-                    Convert JSON arrays into clean, readable tables instantly.
-                </Typography>
-            </Box>
+            <ToolHeader
+                toolName="JSON to Table"
+                toolColor="#7C3AED"
+                description="Convert JSON arrays into clean, readable tables instantly."
+            />
 
             {/* Toolbar */}
             <Box sx={{

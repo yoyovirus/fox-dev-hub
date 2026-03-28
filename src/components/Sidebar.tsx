@@ -20,45 +20,35 @@ import {
     alpha,
 } from "@mui/material";
 import {
-    Code as CodeIcon,
-    DataObject as DataObjectIcon,
-    Difference as DifferenceIcon,
-    CheckCircleOutline as CheckCircleIcon,
-    TableChart as TableChartIcon,
-    AccountTree as AccountTreeIcon,
-    Search as SearchIcon,
-    Share as ShareIcon,
     ExpandLess,
     ExpandMore,
-    Build as BuildIcon,
-    AutoAwesome as AutoAwesomeIcon,
-    Image as ImageIcon,
 } from "@mui/icons-material";
+import { ToolIcon } from "./ToolIcon";
 
 const drawerWidth = 300;
 const collapsedDrawerWidth = 84;
 
 const JSON_TOOLS = [
-    { name: "JSON Formatter", href: "/en/json-tools/json-formatter", icon: <CodeIcon />, emoji: "{ }", color: "#7C3AED" },
-    { name: "JSON Validator", href: "/en/json-tools/json-validator", icon: <CheckCircleIcon />, emoji: "✓", color: "#059669" },
-    { name: "JSON Diff", href: "/en/json-tools/json-diff", icon: <DifferenceIcon />, emoji: "⇄", color: "#DC2626" },
-    { name: "JSON Visualizer", href: "/en/json-tools/json-visualizer", icon: <AccountTreeIcon />, emoji: "❖", color: "#0284C7" },
-    { name: "JSON Type Generator", href: "/en/json-tools/json-type-generator", icon: <DataObjectIcon />, emoji: "TS", color: "#B45309" },
-    { name: "JSON to Table", href: "/en/json-tools/json-to-table", icon: <TableChartIcon />, emoji: "⊞", color: "#7C3AED" },
-    { name: "JSON Path Tester", href: "/en/json-tools/json-path-tester", icon: <SearchIcon />, emoji: "$.", color: "#0EA5E9" },
-    { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ShareIcon />, emoji: "⇢", color: "#7C3AED" },
+    { name: "JSON Formatter", href: "/en/json-tools/json-formatter", icon: <ToolIcon toolName="JSON Formatter" size={24} />, color: "#7C3AED" },
+    { name: "JSON Validator", href: "/en/json-tools/json-validator", icon: <ToolIcon toolName="JSON Validator" size={24} />, color: "#059669" },
+    { name: "JSON Diff", href: "/en/json-tools/json-diff", icon: <ToolIcon toolName="JSON Diff" size={24} />, color: "#DC2626" },
+    { name: "JSON Visualizer", href: "/en/json-tools/json-visualizer", icon: <ToolIcon toolName="JSON Visualizer" size={24} />, color: "#0284C7" },
+    { name: "JSON Type Generator", href: "/en/json-tools/json-type-generator", icon: <ToolIcon toolName="JSON Type Generator" size={24} />, color: "#B45309" },
+    { name: "JSON to Table", href: "/en/json-tools/json-to-table", icon: <ToolIcon toolName="JSON to Table" size={24} />, color: "#7C3AED" },
+    { name: "JSON Path Tester", href: "/en/json-tools/json-path-tester", icon: <ToolIcon toolName="JSON Path Tester" size={24} />, color: "#0EA5E9" },
+    { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ToolIcon toolName="JSON Relationship Visualizer" size={24} />, color: "#7C3AED" },
 ];
 
 const BASE64_TOOLS = [
-    { name: "Base64 Encoder / Decoder", href: "/en/base64-tools/base64-encoder-decoder", icon: <AutoAwesomeIcon />, emoji: "64", color: "#7C3AED" },
-    { name: "Image to Base64", href: "/en/base64-tools/image-to-base64", icon: <ImageIcon />, emoji: <ImageIcon sx={{ fontSize: 14 }} />, color: "#059669" },
-    { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ImageIcon />, emoji: <ImageIcon sx={{ fontSize: 14 }} />, color: "#0EA5E9" },
+    { name: "Base64 Encoder / Decoder", href: "/en/base64-tools/base64-encoder-decoder", icon: <ToolIcon toolName="Base64 Encoder / Decoder" size={24} />, color: "#7C3AED" },
+    { name: "Image to Base64", href: "/en/base64-tools/image-to-base64", icon: <ToolIcon toolName="Image to Base64" size={24} />, color: "#059669" },
+    { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ToolIcon toolName="Base64 to Image" size={24} />, color: "#0EA5E9" },
 ];
 
 interface ToolCategoryProps {
     name: string;
     icon: React.ReactNode;
-    tools: { name: string; href: string; icon: React.ReactNode; emoji: React.ReactNode; color: string }[];
+    tools: { name: string; href: string; icon: React.ReactNode; emoji?: React.ReactNode; color: string }[];
     isOpen: boolean;
     onToggle: () => void;
     pathname: string;
@@ -178,26 +168,7 @@ function ToolCategory({ name, icon, tools, isOpen, onToggle, pathname, open, the
                                             alignItems: "center",
                                         }}
                                     >
-                                        <Box
-                                            sx={{
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: 1.5,
-                                                bgcolor: isActive
-                                                    ? alpha(theme.palette.primary.main, 0.15)
-                                                    : alpha(theme.palette.text.secondary, 0.06),
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: "0.7rem",
-                                                fontWeight: 700,
-                                                color: isActive ? "primary.main" : "text.secondary",
-                                                fontFamily: "'JetBrains Mono', monospace",
-                                                flexShrink: 0,
-                                            }}
-                                        >
-                                            {typeof item.emoji === "string" ? item.emoji : item.emoji}
-                                        </Box>
+                                        {item.icon}
                                     </ListItemIcon>
                                     <ListItemText
                                         primary={item.name}
@@ -241,19 +212,15 @@ function ToolCategory({ name, icon, tools, isOpen, onToggle, pathname, open, the
                                                 width: 36,
                                                 height: 36,
                                                 borderRadius: 1.5,
-                                                bgcolor: isActive
-                                                    ? alpha(theme.palette.primary.main, 0.15)
-                                                    : alpha(theme.palette.text.secondary, 0.06),
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
-                                                fontSize: "0.65rem",
-                                                fontWeight: 700,
-                                                color: isActive ? "primary.main" : "text.secondary",
-                                                fontFamily: "'JetBrains Mono', monospace",
                                             }}
                                         >
-                                            {typeof item.emoji === "string" ? item.emoji : item.emoji}
+                                            {React.cloneElement(item.icon as React.ReactElement<{ isActive?: boolean; size?: number }>, {
+                                                isActive,
+                                                size: 24,
+                                            })}
                                         </Box>
                                     </ListItemButton>
                                 </Tooltip>
@@ -343,7 +310,7 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
             <List sx={{ px: 1.5, pt: 2, pb: 1 }}>
                 <ToolCategory
                     name="JSON Tools"
-                    icon={<DataObjectIcon sx={{ fontSize: 20 }} />}
+                    icon={<ToolIcon toolName="JSON Formatter" size={24} />}
                     tools={JSON_TOOLS}
                     isOpen={jsonOpen}
                     onToggle={handleJsonClick}
@@ -354,7 +321,7 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
 
                 <ToolCategory
                     name="Base64 Tools"
-                    icon={<AutoAwesomeIcon sx={{ fontSize: 20 }} />}
+                    icon={<ToolIcon toolName="Base64 Encoder / Decoder" size={24} />}
                     tools={BASE64_TOOLS}
                     isOpen={base64Open}
                     onToggle={handleBase64Click}
