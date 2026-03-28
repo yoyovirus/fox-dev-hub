@@ -8,7 +8,7 @@
 */
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
     Box, Typography, Button, IconButton, Tooltip, Alert, Snackbar,
     alpha, useTheme, Paper, Divider, Stack, Chip, TextField
@@ -23,6 +23,10 @@ import { ToolHeader } from "@/components/ToolHeader";
 
 export default function ImageToBase64Page() {
     const theme = useTheme();
+
+    useEffect(() => {
+        document.title = "Image to Base64 - FoX Dev Hub";
+    }, []);
     const [file, setFile] = useState<File | null>(null);
     const [base64, setBase64] = useState<string>("");
     const [previewUrl, setPreviewUrl] = useState<string>("");

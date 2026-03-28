@@ -3,7 +3,10 @@ import "./globals.css";
 import { Shell } from "@/components/Shell";
 
 export const metadata: Metadata = {
-  title: "FoX Dev Hub - Developer JSON Utilities",
+  title: {
+    default: "FoX Dev Hub - Tools for Developers",
+    template: "%s | FoX Dev Hub"
+  },
   description: "A fast, privacy-first suite of JSON developer tools. Format, validate, diff, and visualize JSON right in your browser.",
 };
 

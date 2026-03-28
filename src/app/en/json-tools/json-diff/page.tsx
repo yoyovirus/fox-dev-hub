@@ -24,6 +24,10 @@ export default function DiffPage() {
     const theme = useTheme();
 
     useEffect(() => {
+        document.title = "JSON Diff - FoX Dev Hub";
+    }, []);
+
+    useEffect(() => {
         if (!original.trim()) {
             setOrigError(null);
             return;

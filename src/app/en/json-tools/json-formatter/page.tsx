@@ -39,6 +39,10 @@ export default function FormatterPage() {
     const theme = useTheme();
 
     useEffect(() => {
+        document.title = "JSON Formatter - FoX Dev Hub";
+    }, []);
+
+    useEffect(() => {
         if (!input.trim()) {
             setError(null);
             return;

@@ -22,6 +22,10 @@ import { ToolHeader } from "@/components/ToolHeader";
 
 export default function Base64EncoderDecoderPage() {
     const theme = useTheme();
+
+    useEffect(() => {
+        document.title = "Base64 Encoder / Decoder - FoX Dev Hub";
+    }, []);
     const [plainText, setPlainText] = useState<string>("");
     const [base64Text, setBase64Text] = useState<string>("");
     const [isUrlSafe, setIsUrlSafe] = useState<boolean>(false);

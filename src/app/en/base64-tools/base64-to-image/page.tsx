@@ -22,6 +22,10 @@ import { ToolHeader } from "@/components/ToolHeader";
 
 export default function Base64ToImagePage() {
     const theme = useTheme();
+
+    useEffect(() => {
+        document.title = "Base64 to Image - FoX Dev Hub";
+    }, []);
     const [input, setInput] = useState<string>("");
     const [imageSrc, setImageSrc] = useState<string>("");
     const [metadata, setMetadata] = useState<{ width: number; height: number; size: number; mime: string } | null>(null);

@@ -8,7 +8,7 @@
 */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Editor } from "@/components/Editor";
 import {
     Box, Typography, Button, Alert, Snackbar,
@@ -23,6 +23,10 @@ export default function ValidatorPage() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const theme = useTheme();
+
+    useEffect(() => {
+        document.title = "JSON Validator - FoX Dev Hub";
+    }, []);
 
     const handleInputChange = (val: string | undefined) => {
         const newValue = val || "";
