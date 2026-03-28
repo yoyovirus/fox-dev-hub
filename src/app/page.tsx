@@ -40,6 +40,8 @@ const CATEGORIES = [
             { id: "viz", name: "JSON Visualizer", description: "Explore JSON structures in an interactive, collapsible tree view.", href: "/en/json-tools/json-visualizer", emoji: "❖", color: "#0284C7", tags: ["Tree View", "Navigate"] },
             { id: "gen", name: "JSON Type Generator", description: "Automatically generate TypeScript interfaces and Go structs from any JSON structure.", href: "/en/json-tools/json-type-generator", emoji: "TS", color: "#B45309", tags: ["TypeScript", "Types"] },
             { id: "tbl", name: "JSON to Table", description: "Convert JSON arrays into clean, readable tables instantly.", href: "/en/json-tools/json-to-table", emoji: "⊞", color: "#7C3AED", tags: ["Table", "Convert"] },
+            { id: "pth", name: "JSON Path Tester", description: "Test JSONPath expressions against your data and see matched values instantly.", href: "/en/json-tools/json-path-tester", emoji: "$.", color: "#0EA5E9", tags: ["JSONPath", "Query"] },
+            { id: "rel", name: "JSON Relationship Visualizer", description: "Explore JSON structures as an interactive node graph and understand their relationships.", href: "/en/json-tools/json-relationship-visualizer", emoji: "⇢", color: "#7C3AED", tags: ["Graph", "Structure"] },
         ]
     }
 ];

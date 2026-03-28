@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { Editor } from "@/components/Editor";
 import {
     Box, Typography, Button, Table, TableBody, TableCell, TableContainer,
-    TableHead, TableRow, Paper, alpha, useTheme, Chip, TextField, IconButton, Tooltip, Snackbar, Divider, Alert
+    TableHead, TableRow, Paper, alpha, useTheme, Chip, TextField, IconButton, Tooltip, Snackbar, Divider, Alert, InputAdornment
 } from "@mui/material";
 import { Search as SearchIcon, Download as DownloadIcon, ContentCopy as ContentCopyIcon, Clear as ClearIcon, DeleteOutline } from "@mui/icons-material";
 
@@ -128,24 +128,34 @@ export default function ToTablePage() {
                 borderRadius: 2.5,
                 border: `1px solid ${theme.palette.divider}`,
             }}>
-                <Box sx={{ flexGrow: 1 }} />
-                
-                {parsedData && (
+                {parsedData ? (
                     <TextField
                         size="small"
-                        placeholder="Search table..."
+                        label="Search Table"
+                        placeholder="Search in any column..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         InputProps={{
-                            startAdornment: <SearchIcon sx={{ color: "text.secondary", fontSize: 18, mr: 1 }} />,
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon sx={{ fontSize: 18, color: "primary.main" }} />
+                                </InputAdornment>
+                            ),
                             endAdornment: searchQuery ? (
                                 <IconButton size="small" onClick={() => setSearchQuery("")} sx={{ mr: -1 }}>
                                     <ClearIcon sx={{ fontSize: 16 }} />
                                 </IconButton>
                             ) : null,
-                            sx: { borderRadius: 2, fontSize: "0.85rem", height: 32, width: 220, bgcolor: "background.default" }
+                            sx: { borderRadius: 2, fontSize: "0.875rem", fontFamily: "'JetBrains Mono', monospace" }
+                        }}
+                        sx={{
+                            flexGrow: 1,
+                            "& .MuiOutlinedInput-root": { borderRadius: 2 },
+                            "& .MuiFormLabel-root": { fontSize: "0.875rem" }
                         }}
                     />
+                ) : (
+                    <Box sx={{ flexGrow: 1 }} />
                 )}
                 <Box sx={{ flexGrow: 0, width: 8 }} />
                 {parsedData && (
@@ -310,9 +320,8 @@ export default function ToTablePage() {
                                 </TableBody>
                             </Table>
                         ) : (
-                            <Box sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "text.secondary", gap: 1 }}>
-                                <Box sx={{ fontSize: "2rem", opacity: 0.3 }}>⊞</Box>
-                                <Typography sx={{ fontSize: "0.875rem" }}>
+                            <Box sx={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "text.secondary", gap: 1, p: 3 }}>
+                                <Typography sx={{ fontSize: "0.875rem", textAlign: "center" }}>
                                     Provide a valid JSON array to generate a table
                                 </Typography>
                             </Box>

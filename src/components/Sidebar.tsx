@@ -26,12 +26,14 @@ import {
     CheckCircleOutline as CheckCircleIcon,
     TableChart as TableChartIcon,
     AccountTree as AccountTreeIcon,
+    Search as SearchIcon,
+    Share as ShareIcon,
     ExpandLess,
     ExpandMore,
     Build as BuildIcon,
 } from "@mui/icons-material";
 
-const drawerWidth = 260;
+const drawerWidth = 280;
 const collapsedDrawerWidth = 84;
 
 const JSON_TOOLS = [
@@ -41,6 +43,8 @@ const JSON_TOOLS = [
     { name: "JSON Visualizer", href: "/en/json-tools/json-visualizer", icon: <AccountTreeIcon />, emoji: "❖", color: "#0284C7" },
     { name: "JSON Type Generator", href: "/en/json-tools/json-type-generator", icon: <DataObjectIcon />, emoji: "TS", color: "#B45309" },
     { name: "JSON to Table", href: "/en/json-tools/json-to-table", icon: <TableChartIcon />, emoji: "⊞", color: "#7C3AED" },
+    { name: "JSON Path Tester", href: "/en/json-tools/json-path-tester", icon: <SearchIcon />, emoji: "$.", color: "#0EA5E9" },
+    { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ShareIcon />, emoji: "⇢", color: "#7C3AED" },
 ];
 
 export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
