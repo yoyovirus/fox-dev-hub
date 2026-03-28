@@ -62,6 +62,7 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
                     fontSize: 14,
                     fontFamily: "var(--font-mono), monospace",
                     wordWrap: "on",
+                    wrappingStrategy: "advanced",
                     lineNumbers: language === "plaintext" ? "off" : "on",
                     readOnly: readOnly,
                     padding: { top: 16, bottom: 16 },
@@ -69,6 +70,8 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
                     smoothScrolling: true,
                     cursorSmoothCaretAnimation: "on",
                     formatOnPaste: true,
+                    automaticLayout: true,
+                    scrollBeyondLastColumn: 0,
                 }}
                 loading={<Box sx={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "text.secondary" }}>Loading editor...</Box>}
                 onMount={handleEditorDidMount}

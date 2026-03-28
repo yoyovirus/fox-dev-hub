@@ -8,7 +8,7 @@
 */
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Editor } from "@/components/Editor";
 import {
     Box, Typography, Button, IconButton, Tooltip, Alert, Snackbar,
@@ -38,9 +38,26 @@ export default function Base64EncoderDecoderPage() {
     const [detectedFile, setDetectedFile] = useState<{ type: string; mime: string; extension: string; size: number } | null>(null);
     const [imagePreview, setImagePreview] = useState<string>("");
     const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(null);
-    
+    const [downloadBase64, setDownloadBase64] = useState<string>(""); // Store clean Base64 for downloads
+
     // Track which field currently has focus to determine input direction
     const [inputField, setInputField] = useState<"left" | "right">("left");
+
+    // Debounce refs to avoid freezing on large Base64 strings
+    const processPlainTextTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const processBase64TimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Cleanup timeouts on unmount
+    useEffect(() => {
+        return () => {
+            if (processPlainTextTimeoutRef.current) {
+                clearTimeout(processPlainTextTimeoutRef.current);
+            }
+            if (processBase64TimeoutRef.current) {
+                clearTimeout(processBase64TimeoutRef.current);
+            }
+        };
+    }, []);
 
     // File type detection based on magic bytes
     const detectFileType = useCallback((binaryData: Uint8Array): { type: string; mime: string; extension: string } | null => {
@@ -70,7 +87,7 @@ export default function Base64EncoderDecoderPage() {
             return { type: "SVGZ (Compressed SVG)", mime: "image/svg+xml", extension: "svgz" };
         }
         
-        // Document formats
+        // Document formats (PDF)
         if (bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46) {
             return { type: "PDF Document", mime: "application/pdf", extension: "pdf" };
         }
@@ -78,11 +95,9 @@ export default function Base64EncoderDecoderPage() {
         if (bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46 && bytes[4] === 0x2D) {
             return { type: "PDF Document", mime: "application/pdf", extension: "pdf" };
         }
-        if (bytes[0] === 0x50 && bytes[1] === 0x4B && bytes[2] === 0x03 && bytes[3] === 0x04) {
-            return { type: "Office Document", mime: "application/vnd.openxmlformats-officedocument", extension: "docx" };
-        }
-        
-        // Archive formats
+
+        // Archive formats - ZIP and derivatives (DOCX, XLSX, PPTX are all ZIP-based)
+        // PK\x03\x04 is the local file header signature for ZIP
         if (bytes[0] === 0x50 && bytes[1] === 0x4B && (bytes[2] === 0x03 || bytes[2] === 0x05 || bytes[2] === 0x07)) {
             return { type: "ZIP Archive", mime: "application/zip", extension: "zip" };
         }
@@ -296,6 +311,7 @@ export default function Base64EncoderDecoderPage() {
                 // Debug: log first few bytes
                 console.log('First 10 bytes:', Array.from(binaryData.slice(0, 10)).map(b => '0x' + b.toString(16).padStart(2, '0')).join(' '));
                 console.log('File type detected:', fileType);
+                console.log('base64Only length:', base64Only.length);
                 
                 // Check if it's an image - handle separately with early return
                 if (fileType && fileType.type.includes("Image")) {
@@ -313,6 +329,7 @@ export default function Base64EncoderDecoderPage() {
                     // SWAP: Put Base64 in plainText (left pane), empty in base64Text (right pane shows image)
                     setPlainText(trimmed);
                     setBase64Text("");
+                    setDownloadBase64(base64Only); // Store clean Base64 for download
                     setDetectedType("base64");
                     
                     const base64Bytes = new Blob([base64Only]).size;
@@ -334,6 +351,7 @@ export default function Base64EncoderDecoderPage() {
                     setDetectedFile({ ...fileType, size: binaryData.length });
                     decodedText = `[${fileType.type}]`;
                     setImagePreview("");
+                    setDownloadBase64(base64Only); // Store clean Base64 for download
                 } 
                 // Fallback: Check decoded text for known signatures
                 else {
@@ -350,6 +368,43 @@ export default function Base64EncoderDecoderPage() {
                             });
                             decodedText = `[PDF Document]`;
                             setImagePreview("");
+                            setDownloadBase64(base64Only); // Store clean Base64 for download
+                        }
+                        // Check for DOCX signature (contains word/ folder)
+                        else if (decodedText.includes('word/') || decodedText.includes('[Content_Types].xml')) {
+                            setDetectedFile({
+                                type: "Word Document",
+                                mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                                extension: "docx",
+                                size: binaryData.length,
+                            });
+                            decodedText = `[Word Document]`;
+                            setImagePreview("");
+                            setDownloadBase64(base64Only); // Store clean Base64 for download
+                        }
+                        // Check for XLSX signature (contains xl/ folder)
+                        else if (decodedText.includes('xl/') || decodedText.includes('workbook.xml')) {
+                            setDetectedFile({
+                                type: "Excel Spreadsheet",
+                                mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                extension: "xlsx",
+                                size: binaryData.length,
+                            });
+                            decodedText = `[Excel Spreadsheet]`;
+                            setImagePreview("");
+                            setDownloadBase64(base64Only); // Store clean Base64 for download
+                        }
+                        // Check for PPTX signature (contains ppt/ folder)
+                        else if (decodedText.includes('ppt/')) {
+                            setDetectedFile({
+                                type: "PowerPoint Presentation",
+                                mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                                extension: "pptx",
+                                size: binaryData.length,
+                            });
+                            decodedText = `[PowerPoint Presentation]`;
+                            setImagePreview("");
+                            setDownloadBase64(base64Only); // Store clean Base64 for download
                         }
                         // Check for ZIP signature (PK)
                         else if (decodedText.startsWith('PK') || binaryData[0] === 0x50 && binaryData[1] === 0x4B) {
@@ -361,6 +416,7 @@ export default function Base64EncoderDecoderPage() {
                             });
                             decodedText = `[ZIP Archive]`;
                             setImagePreview("");
+                            setDownloadBase64(base64Only); // Store clean Base64 for download
                         }
                         // Check if it's binary data
                         else if (isBinaryData(binaryData)) {
@@ -372,10 +428,12 @@ export default function Base64EncoderDecoderPage() {
                             });
                             decodedText = `[Binary Data - ${binaryData.length} bytes]`;
                             setImagePreview("");
+                            setDownloadBase64(base64Only); // Store clean Base64 for download
                         }
                         // It's readable text
                         else {
                             setDetectedFile(null);
+                            setDownloadBase64(""); // Clear for plain text
                             setImagePreview("");
                         }
                     } catch (e) {
@@ -387,6 +445,7 @@ export default function Base64EncoderDecoderPage() {
                             size: binaryData.length,
                         });
                         decodedText = `[Binary Data - ${binaryData.length} bytes]`;
+                        setDownloadBase64(base64Only); // Store for download
                         setImagePreview("");
                     }
                 }
@@ -529,8 +588,22 @@ export default function Base64EncoderDecoderPage() {
 
     const handlePlainTextChange = (val: string | undefined) => {
         const text = val || "";
+        
+        // Clear any pending timeout
+        if (processPlainTextTimeoutRef.current) {
+            clearTimeout(processPlainTextTimeoutRef.current);
+        }
+        
         if (mode === "auto") {
-            processPlainText(text);
+            // Always update plain text immediately for responsive typing
+            setPlainText(text);
+            
+            // Debounce the heavy processing for large Base64 strings
+            // Use shorter delay for small inputs, longer for large ones
+            const delay = text.length > 1000 ? 150 : 50;
+            processPlainTextTimeoutRef.current = setTimeout(() => {
+                processPlainText(text);
+            }, delay);
         } else if (mode === "encode") {
             setPlainText(text);
             encode(text, isUrlSafe);
@@ -542,8 +615,22 @@ export default function Base64EncoderDecoderPage() {
 
     const handleBase64Change = (val: string | undefined) => {
         const base64 = val || "";
+        
+        // Clear any pending timeout
+        if (processBase64TimeoutRef.current) {
+            clearTimeout(processBase64TimeoutRef.current);
+        }
+        
         if (mode === "auto") {
-            processBase64(base64);
+            // Always update base64 text immediately for responsive typing
+            setBase64Text(base64);
+            
+            // Debounce the heavy processing for large Base64 strings
+            // Use shorter delay for small inputs, longer for large ones
+            const delay = base64.length > 1000 ? 150 : 50;
+            processBase64TimeoutRef.current = setTimeout(() => {
+                processBase64(base64);
+            }, delay);
         } else if (mode === "decode") {
             setBase64Text(base64);
             decode(base64, isUrlSafe);
@@ -592,11 +679,23 @@ export default function Base64EncoderDecoderPage() {
     };
 
     const handleDownload = () => {
-        if (!base64Text && !plainText) return;
+        // Use the stored clean Base64 for downloads
+        let base64Only = downloadBase64;
+        let source = "downloadBase64 state";
         
-        // Get the Base64 string (could be in either field depending on mode)
-        const base64Input = base64Text || plainText;
-        const base64Only = base64Input.replace(/\s+/g, '');
+        if (!base64Only) {
+            base64Only = (base64Text || plainText).replace(/[^A-Za-z0-9+/=_\-]/g, '');
+            source = "extracted from text fields";
+        }
+
+        console.log('Download - Base64 source:', source);
+        console.log('Download - Base64 length:', base64Only?.length || 0);
+        console.log('Download - detectedFile:', detectedFile);
+
+        if (!base64Only || base64Only.length < 4) {
+            setError("Download failed: Invalid Base64 data");
+            return;
+        }
 
         try {
             let toDecode = base64Only;
@@ -611,10 +710,13 @@ export default function Base64EncoderDecoderPage() {
                 binaryData[i] = binaryString.charCodeAt(i);
             }
 
+            console.log('Download - Binary data length:', binaryData.length);
+            console.log('Download - First 10 bytes:', Array.from(binaryData.slice(0, 10)).map(b => '0x' + b.toString(16).padStart(2, '0')).join(' '));
+
             // Use detected file info if available, otherwise use generic
             const mime = detectedFile?.mime || "application/octet-stream";
             const extension = detectedFile?.extension || "bin";
-            
+
             const blob = new Blob([binaryData], { type: mime });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
@@ -627,8 +729,9 @@ export default function Base64EncoderDecoderPage() {
 
             setSnackbarMessage(`Downloaded ${detectedFile?.type || "file"}!`);
             setSnackbarOpen(true);
-        } catch (e) {
-            setError("Download failed: " + (e instanceof Error ? e.message : String(e)));
+        } catch (e: any) {
+            console.error('Download error:', e);
+            setError("Download failed: " + (e?.message || String(e)));
         }
     };
 
@@ -640,6 +743,7 @@ export default function Base64EncoderDecoderPage() {
         setDetectedType(null);
         setImagePreview("");
         setImageDimensions(null);
+        setDownloadBase64("");
     };
 
     const loadSample = () => {
@@ -647,6 +751,7 @@ export default function Base64EncoderDecoderPage() {
         // Clear any existing image preview and file detection
         setImagePreview("");
         setImageDimensions(null);
+        setDownloadBase64("");
         setDetectedFile(null);
 
         if (mode === "decode") {
@@ -800,20 +905,12 @@ export default function Base64EncoderDecoderPage() {
                             sx={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>
                             {mode === "auto" ? "Input" : mode === "encode" ? "Plain Text" : "Base64 String"}
                         </Typography>
-                        {detectedFile && !imagePreview && (
-                            <Tooltip title="Download File">
-                                <IconButton size="small" onClick={handleDownload} sx={{ p: 0.5 }} color="info">
-                                    <DownloadIcon sx={{ fontSize: 14 }} />
-                                </IconButton>
-                            </Tooltip>
-                        )}
                     </Box>
                     <Box sx={{
                         flexGrow: 1, minHeight: 0, borderRadius: 2.5, overflow: "hidden",
                         border: `1px solid ${theme.palette.divider}`,
                     }}>
                         <Editor
-                            key={`input-${plainText.length}`}
                             value={mode === "auto" ? plainText : mode === "decode" ? base64Text : plainText}
                             placeholder={mode === "encode" ? "Type or paste text to encode..." : mode === "decode" ? "Paste Base64 to decode..." : "Type or paste text or Base64..."}
                             onChange={mode === "auto" ? handlePlainTextChange : mode === "decode" ? handleBase64Change : handlePlainTextChange}

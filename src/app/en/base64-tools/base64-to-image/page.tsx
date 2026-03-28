@@ -166,6 +166,12 @@ export default function Base64ToImagePage() {
                 )}
             </Box>
 
+            {error && (
+                <Alert severity="warning" icon={<WarningAmber />} sx={{ mb: 2, borderRadius: 2 }}>
+                    {error}
+                </Alert>
+            )}
+
             {/* Content Area */}
             <Box sx={{
                 flexGrow: 1,
@@ -288,12 +294,6 @@ export default function Base64ToImagePage() {
                                 </Box>
                             </Paper>
                         </Box>
-                    )}
-
-                    {error && (
-                        <Alert severity="warning" icon={<WarningAmber />} sx={{ borderRadius: 2.5 }}>
-                            {error}
-                        </Alert>
                     )}
                 </Box>
             </Box>
