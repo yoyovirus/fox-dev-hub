@@ -31,9 +31,11 @@ import {
     ExpandLess,
     ExpandMore,
     Build as BuildIcon,
+    AutoAwesome as AutoAwesomeIcon,
+    Image as ImageIcon,
 } from "@mui/icons-material";
 
-const drawerWidth = 280;
+const drawerWidth = 300;
 const collapsedDrawerWidth = 84;
 
 const JSON_TOOLS = [
@@ -47,14 +49,236 @@ const JSON_TOOLS = [
     { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ShareIcon />, emoji: "⇢", color: "#7C3AED" },
 ];
 
+const BASE64_TOOLS = [
+    { name: "Base64 Encoder / Decoder", href: "/en/base64-tools/base64-encoder-decoder", icon: <AutoAwesomeIcon />, emoji: "64", color: "#7C3AED" },
+    { name: "Image to Base64", href: "/en/base64-tools/image-to-base64", icon: <ImageIcon />, emoji: <ImageIcon sx={{ fontSize: 14 }} />, color: "#059669" },
+    { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ImageIcon />, emoji: <ImageIcon sx={{ fontSize: 14 }} />, color: "#0EA5E9" },
+];
+
+interface ToolCategoryProps {
+    name: string;
+    icon: React.ReactNode;
+    tools: { name: string; href: string; icon: React.ReactNode; emoji: React.ReactNode; color: string }[];
+    isOpen: boolean;
+    onToggle: () => void;
+    pathname: string;
+    open: boolean;
+    theme: any;
+}
+
+function ToolCategory({ name, icon, tools, isOpen, onToggle, pathname, open, theme }: ToolCategoryProps) {
+    return (
+        <>
+            <ListItem disablePadding sx={{ display: "block", mt: name === "JSON Tools" ? 0 : 1 }}>
+                <Tooltip title={!open ? name : ""} placement="right">
+                    <ListItemButton
+                        onClick={onToggle}
+                        sx={{
+                            minHeight: 44,
+                            justifyContent: open ? "initial" : "center",
+                            px: 1.5,
+                            borderRadius: 2.5,
+                            mb: 0.5,
+                            position: "relative",
+                            bgcolor: isOpen ? alpha(theme.palette.primary.main, 0.08) : "transparent",
+                            "&:hover": {
+                                bgcolor: alpha(theme.palette.primary.main, 0.08),
+                            },
+                        }}
+                    >
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 1.5 : "auto",
+                                justifyContent: "center",
+                                color: "primary.main",
+                            }}
+                        >
+                            {icon}
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={name}
+                            sx={{ opacity: open ? 1 : 0 }}
+                            primaryTypographyProps={{
+                                fontWeight: 700,
+                                fontSize: "0.78rem",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.08em",
+                                color: "text.secondary",
+                            }}
+                        />
+                        {open && (isOpen ? (
+                            <ExpandLess sx={{ fontSize: 18 }} />
+                        ) : (
+                            <ExpandMore sx={{ fontSize: 18 }} />
+                        ))}
+                    </ListItemButton>
+                </Tooltip>
+            </ListItem>
+
+            <Collapse in={isOpen && open} timeout="auto" unmountOnExit>
+                <Box sx={{
+                    mx: 0.5,
+                    mb: 1,
+                    borderRadius: 2,
+                    bgcolor: alpha(theme.palette.text.secondary, 0.03),
+                }}>
+                    <List component="div" disablePadding>
+                        {tools.map((item) => {
+                            const isActive = pathname === item.href;
+                            return (
+                                <ListItemButton
+                                    key={item.href}
+                                    component={Link}
+                                    href={item.href}
+                                    selected={isActive}
+                                    sx={{
+                                        pl: 2,
+                                        pr: 1.5,
+                                        py: 0.75,
+                                        mb: 0.25,
+                                        mx: 0.5,
+                                        borderRadius: 2,
+                                        position: "relative",
+                                        "&.Mui-selected": {
+                                            bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                            color: "primary.main",
+                                            "&::before": {
+                                                content: '""',
+                                                position: "absolute",
+                                                left: 0,
+                                                top: "50%",
+                                                transform: "translateY(-50%)",
+                                                width: 3,
+                                                height: "60%",
+                                                borderRadius: "0 4px 4px 0",
+                                                bgcolor: "primary.main",
+                                            },
+                                            "& .MuiListItemIcon-root": {
+                                                color: "primary.main",
+                                            },
+                                            "&:hover": {
+                                                bgcolor: alpha(theme.palette.primary.main, 0.15),
+                                            },
+                                        },
+                                        "&:hover": {
+                                            bgcolor: alpha(theme.palette.primary.main, 0.06),
+                                        },
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: 1.5,
+                                            justifyContent: "center",
+                                            color: isActive ? "primary.main" : "text.secondary",
+                                            width: 32,
+                                            height: 32,
+                                            display: "flex",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                width: 32,
+                                                height: 32,
+                                                borderRadius: 1.5,
+                                                bgcolor: isActive
+                                                    ? alpha(theme.palette.primary.main, 0.15)
+                                                    : alpha(theme.palette.text.secondary, 0.06),
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                fontSize: "0.7rem",
+                                                fontWeight: 700,
+                                                color: isActive ? "primary.main" : "text.secondary",
+                                                fontFamily: "'JetBrains Mono', monospace",
+                                                flexShrink: 0,
+                                            }}
+                                        >
+                                            {typeof item.emoji === "string" ? item.emoji : item.emoji}
+                                        </Box>
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={item.name}
+                                        primaryTypographyProps={{
+                                            fontSize: "0.875rem",
+                                            fontWeight: isActive ? 700 : 500,
+                                            color: isActive ? "primary.main" : "text.primary",
+                                        }}
+                                    />
+                                </ListItemButton>
+                            );
+                        })}
+                    </List>
+                </Box>
+            </Collapse>
+
+            {!open && (
+                <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding sx={{ mt: 0.5 }}>
+                        {tools.map((item) => {
+                            const isActive = pathname === item.href;
+                            return (
+                                <Tooltip key={item.href} title={item.name} placement="right">
+                                    <ListItemButton
+                                        component={Link}
+                                        href={item.href}
+                                        sx={{
+                                            justifyContent: "center",
+                                            py: 1.2,
+                                            px: 1,
+                                            mb: 0.5,
+                                            borderRadius: 2.5,
+                                            bgcolor: isActive ? alpha(theme.palette.primary.main, 0.1) : "transparent",
+                                            "&:hover": {
+                                                bgcolor: alpha(theme.palette.primary.main, 0.08),
+                                            },
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                width: 36,
+                                                height: 36,
+                                                borderRadius: 1.5,
+                                                bgcolor: isActive
+                                                    ? alpha(theme.palette.primary.main, 0.15)
+                                                    : alpha(theme.palette.text.secondary, 0.06),
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                fontSize: "0.65rem",
+                                                fontWeight: 700,
+                                                color: isActive ? "primary.main" : "text.secondary",
+                                                fontFamily: "'JetBrains Mono', monospace",
+                                            }}
+                                        >
+                                            {typeof item.emoji === "string" ? item.emoji : item.emoji}
+                                        </Box>
+                                    </ListItemButton>
+                                </Tooltip>
+                            );
+                        })}
+                    </List>
+                </Collapse>
+            )}
+        </>
+    );
+}
+
 export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
     const pathname = usePathname();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     const [jsonOpen, setJsonOpen] = useState(true);
+    const [base64Open, setBase64Open] = useState(true);
 
     const handleJsonClick = () => {
         setJsonOpen(!jsonOpen);
+    };
+
+    const handleBase64Click = () => {
+        setBase64Open(!base64Open);
     };
 
     const drawerContent = (
@@ -117,195 +341,27 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
             <Divider sx={{ mx: 2, opacity: 0.5 }} />
 
             <List sx={{ px: 1.5, pt: 2, pb: 1 }}>
-                {/* Category Header */}
-                <ListItem disablePadding sx={{ display: "block" }}>
-                    <Tooltip title={!open ? "JSON Tools" : ""} placement="right">
-                        <ListItemButton
-                            onClick={handleJsonClick}
-                            sx={{
-                                minHeight: 44,
-                                justifyContent: open ? "initial" : "center",
-                                px: 1.5,
-                                borderRadius: 2.5,
-                                mb: 0.5,
-                                position: "relative",
-                                bgcolor: jsonOpen
-                                    ? alpha(theme.palette.primary.main, 0.08)
-                                    : "transparent",
-                                "&:hover": {
-                                    bgcolor: alpha(theme.palette.primary.main, 0.08),
-                                },
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 1.5 : "auto",
-                                    justifyContent: "center",
-                                    color: "primary.main",
-                                }}
-                            >
-                                <DataObjectIcon sx={{ fontSize: 20 }} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="JSON Tools"
-                                sx={{ opacity: open ? 1 : 0 }}
-                                primaryTypographyProps={{
-                                    fontWeight: 700,
-                                    fontSize: "0.78rem",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.08em",
-                                    color: "text.secondary",
-                                }}
-                            />
-                            {jsonOpen ? (
-                                <ExpandLess sx={{ fontSize: 18, ml: open ? 0 : 1 }} />
-                            ) : (
-                                <ExpandMore sx={{ fontSize: 18, ml: open ? 0 : 1 }} />
-                            )}
-                        </ListItemButton>
-                    </Tooltip>
-                </ListItem>
+                <ToolCategory
+                    name="JSON Tools"
+                    icon={<DataObjectIcon sx={{ fontSize: 20 }} />}
+                    tools={JSON_TOOLS}
+                    isOpen={jsonOpen}
+                    onToggle={handleJsonClick}
+                    pathname={pathname}
+                    open={open}
+                    theme={theme}
+                />
 
-                <Collapse in={jsonOpen && open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        {JSON_TOOLS.map((item) => {
-                            const isActive = pathname === item.href;
-                            return (
-                                <ListItemButton
-                                    key={item.href}
-                                    component={Link}
-                                    href={item.href}
-                                    selected={isActive}
-                                    sx={{
-                                        pl: 1.5,
-                                        pr: 1.5,
-                                        py: 1,
-                                        mb: 0.5,
-                                        borderRadius: 2.5,
-                                        position: "relative",
-                                        "&.Mui-selected": {
-                                            bgcolor: alpha(theme.palette.primary.main, 0.1),
-                                            color: "primary.main",
-                                            "&::before": {
-                                                content: '""',
-                                                position: "absolute",
-                                                left: 0,
-                                                top: "50%",
-                                                transform: "translateY(-50%)",
-                                                width: 3,
-                                                height: "60%",
-                                                borderRadius: "0 4px 4px 0",
-                                                bgcolor: "primary.main",
-                                            },
-                                            "& .MuiListItemIcon-root": {
-                                                color: "primary.main",
-                                            },
-                                            "&:hover": {
-                                                bgcolor: alpha(theme.palette.primary.main, 0.15),
-                                            },
-                                        },
-                                        "&:hover": {
-                                            bgcolor: alpha(theme.palette.primary.main, 0.06),
-                                        },
-                                    }}
-                                >
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: 1.5,
-                                            justifyContent: "center",
-                                            color: isActive ? "primary.main" : "text.secondary",
-                                            width: 32,
-                                            height: 32,
-                                            display: "flex",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: 1.5,
-                                                bgcolor: isActive
-                                                    ? alpha(theme.palette.primary.main, 0.15)
-                                                    : alpha(theme.palette.text.secondary, 0.06),
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: "0.7rem",
-                                                fontWeight: 700,
-                                                color: isActive ? "primary.main" : "text.secondary",
-                                                fontFamily: "'JetBrains Mono', monospace",
-                                                flexShrink: 0,
-                                            }}
-                                        >
-                                            {item.emoji}
-                                        </Box>
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={item.name}
-                                        primaryTypographyProps={{
-                                            fontSize: "0.875rem",
-                                            fontWeight: isActive ? 700 : 500,
-                                            color: isActive ? "primary.main" : "text.primary",
-                                        }}
-                                    />
-                                </ListItemButton>
-                            );
-                        })}
-                    </List>
-                </Collapse>
-
-                {/* Collapsed state - show icons only */}
-                {!open && (
-                    <Collapse in={jsonOpen} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding sx={{ mt: 0.5 }}>
-                            {JSON_TOOLS.map((item) => {
-                                const isActive = pathname === item.href;
-                                return (
-                                    <Tooltip key={item.href} title={item.name} placement="right">
-                                        <ListItemButton
-                                            component={Link}
-                                            href={item.href}
-                                            sx={{
-                                                justifyContent: "center",
-                                                py: 1.2,
-                                                px: 1,
-                                                mb: 0.5,
-                                                borderRadius: 2.5,
-                                                bgcolor: isActive ? alpha(theme.palette.primary.main, 0.1) : "transparent",
-                                                "&:hover": {
-                                                    bgcolor: alpha(theme.palette.primary.main, 0.08),
-                                                },
-                                            }}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    width: 36,
-                                                    height: 36,
-                                                    borderRadius: 1.5,
-                                                    bgcolor: isActive
-                                                        ? alpha(theme.palette.primary.main, 0.15)
-                                                        : alpha(theme.palette.text.secondary, 0.06),
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    fontSize: "0.65rem",
-                                                    fontWeight: 700,
-                                                    color: isActive ? "primary.main" : "text.secondary",
-                                                    fontFamily: "'JetBrains Mono', monospace",
-                                                }}
-                                            >
-                                                {item.emoji}
-                                            </Box>
-                                        </ListItemButton>
-                                    </Tooltip>
-                                );
-                            })}
-                        </List>
-                    </Collapse>
-                )}
+                <ToolCategory
+                    name="Base64 Tools"
+                    icon={<AutoAwesomeIcon sx={{ fontSize: 20 }} />}
+                    tools={BASE64_TOOLS}
+                    isOpen={base64Open}
+                    onToggle={handleBase64Click}
+                    pathname={pathname}
+                    open={open}
+                    theme={theme}
+                />
             </List>
 
             {/* Footer */}

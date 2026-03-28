@@ -23,7 +23,8 @@ import {
     SettingsEthernetOutlined as ServerIcon,
     LockOutlined as LockIcon,
     AddRounded as AddIcon,
-    AutoAwesomeOutlined as SparklesIcon
+    AutoAwesomeOutlined as SparklesIcon,
+    Image as ImageIcon
 } from "@mui/icons-material";
 
 const CATEGORIES = [
@@ -42,6 +43,18 @@ const CATEGORIES = [
             { id: "tbl", name: "JSON to Table", description: "Convert JSON arrays into clean, readable tables instantly.", href: "/en/json-tools/json-to-table", emoji: "⊞", color: "#7C3AED", tags: ["Table", "Convert"] },
             { id: "pth", name: "JSON Path Tester", description: "Test JSONPath expressions against your data and see matched values instantly.", href: "/en/json-tools/json-path-tester", emoji: "$.", color: "#0EA5E9", tags: ["JSONPath", "Query"] },
             { id: "rel", name: "JSON Relationship Visualizer", description: "Explore JSON structures as an interactive node graph and understand their relationships.", href: "/en/json-tools/json-relationship-visualizer", emoji: "⇢", color: "#7C3AED", tags: ["Graph", "Structure"] },
+        ]
+    },
+    {
+        id: "base64",
+        name: "Base64 Tools",
+        description: "Encode, decode, and convert between Base64 and images.",
+        color: "#0EA5E9",
+        icon: <SparklesIcon />,
+        tools: [
+            { id: "enc", name: "Base64 Encoder / Decoder", description: "Encode text to Base64 or decode it back in real-time.", href: "/en/base64-tools/base64-encoder-decoder", emoji: "64", color: "#7C3AED", tags: ["Encode", "Decode"] },
+            { id: "i2b", name: "Image to Base64", description: "Convert images to Base64 strings instantly.", href: "/en/base64-tools/image-to-base64", emoji: <ImageIcon sx={{ fontSize: 14 }} />, color: "#059669", tags: ["Image", "Convert"] },
+            { id: "b2i", name: "Base64 to Image", description: "Decode Base64 strings back into images.", href: "/en/base64-tools/base64-to-image", emoji: <ImageIcon sx={{ fontSize: 14 }} />, color: "#0EA5E9", tags: ["Base64", "Image"] },
         ]
     }
 ];
@@ -249,7 +262,9 @@ export default function Home() {
                                                 <CardContent sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1, justifyContent: "center" }}>
                                                     <Box sx={{ width: 120, height: 86, mb: 3, borderRadius: 3.5, bgcolor: isDark ? alpha(cat.color, 0.1) : "#F8FAFC", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridTemplateRows: "repeat(2, 1fr)", gap: 0.75, p: 1.25 }}>
                                                         {cat.tools.map((tool) => (
-                                                            <motion.div key={tool.id} layoutId={`icon-${cat.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} style={{ backgroundColor: alpha(tool.color, 0.12), borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", fontWeight: 800, color: tool.color, fontFamily: "'JetBrains Mono', monospace", zIndex: 10 }}>{tool.emoji}</motion.div>
+                                                            <motion.div key={tool.id} layoutId={`icon-${cat.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} style={{ backgroundColor: alpha(tool.color, 0.12), borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem", fontWeight: 800, color: tool.color, fontFamily: "'JetBrains Mono', monospace", zIndex: 10 }}>
+                                                                {typeof tool.emoji === "string" ? tool.emoji : tool.emoji}
+                                                            </motion.div>
                                                         ))}
                                                     </Box>
                                                     <Typography variant="h6" fontWeight={950} sx={{ mb: 0.5 }}>{cat.name}</Typography>
@@ -392,7 +407,9 @@ export default function Home() {
                                                         <CardContent sx={{ p: 4, flexGrow: 1, display: "flex", flexDirection: "column", gap: 2, justifyContent: "space-between", boxSizing: "border-box" }}>
                                                             <Box>
                                                                 <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                                                                    <motion.div layoutId={`icon-${activeCategory.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} className="tool-icon-box" style={{ width: "52px", height: "52px", borderRadius: "12px", backgroundColor: alpha(tool.color, 0.12), display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", fontWeight: 900, color: tool.color, fontFamily: "'JetBrains Mono', monospace" }}>{tool.emoji}</motion.div>
+                                                                    <motion.div layoutId={`icon-${activeCategory.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} className="tool-icon-box" style={{ width: "52px", height: "52px", borderRadius: "12px", backgroundColor: alpha(tool.color, 0.12), display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", fontWeight: 900, color: tool.color, fontFamily: "'JetBrains Mono', monospace" }}>
+                                                                        {typeof tool.emoji === "string" ? tool.emoji : tool.emoji}
+                                                                    </motion.div>
                                                                     <Typography variant="subtitle1" fontWeight={950}>{tool.name}</Typography>
                                                                 </Box>
                                                                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6, fontWeight: 500 }}>{tool.description}</Typography>

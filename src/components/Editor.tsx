@@ -62,7 +62,7 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
                     fontSize: 14,
                     fontFamily: "var(--font-mono), monospace",
                     wordWrap: "on",
-                    lineNumbers: "on",
+                    lineNumbers: language === "plaintext" ? "off" : "on",
                     readOnly: readOnly,
                     padding: { top: 16, bottom: 16 },
                     scrollBeyondLastLine: false,
