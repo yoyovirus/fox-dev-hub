@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Shell } from "@/components/Shell";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: {
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body>
         <div dangerouslySetInnerHTML={{ __html: '<!-- Website: FoX Dev Hub - Tools for Developers | Author: Rahul Khedekar | Copyright © 2026 FoX Dev Hub. All rights reserved. -->' }} />
         <Shell>{children}</Shell>
+        <Analytics />
       </body>
     </html>
   );
