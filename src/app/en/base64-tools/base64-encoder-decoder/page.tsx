@@ -309,12 +309,7 @@ export default function Base64EncoderDecoderPage() {
                 }
 
                 const fileType = detectFileType(binaryData);
-                
-                // Debug: log first few bytes
-                console.log('First 10 bytes:', Array.from(binaryData.slice(0, 10)).map(b => '0x' + b.toString(16).padStart(2, '0')).join(' '));
-                console.log('File type detected:', fileType);
-                console.log('base64Only length:', base64Only.length);
-                
+
                 // Check if it's an image - handle separately with early return
                 if (fileType && fileType.type.includes("Image")) {
                     const dataUri = `data:${fileType.mime};base64,${base64Only}`;
@@ -684,15 +679,11 @@ export default function Base64EncoderDecoderPage() {
         // Use the stored clean Base64 for downloads
         let base64Only = downloadBase64;
         let source = "downloadBase64 state";
-        
+
         if (!base64Only) {
             base64Only = (base64Text || plainText).replace(/[^A-Za-z0-9+/=_\-]/g, '');
             source = "extracted from text fields";
         }
-
-        console.log('Download - Base64 source:', source);
-        console.log('Download - Base64 length:', base64Only?.length || 0);
-        console.log('Download - detectedFile:', detectedFile);
 
         if (!base64Only || base64Only.length < 4) {
             setError("Download failed: Invalid Base64 data");
@@ -712,9 +703,6 @@ export default function Base64EncoderDecoderPage() {
                 binaryData[i] = binaryString.charCodeAt(i);
             }
 
-            console.log('Download - Binary data length:', binaryData.length);
-            console.log('Download - First 10 bytes:', Array.from(binaryData.slice(0, 10)).map(b => '0x' + b.toString(16).padStart(2, '0')).join(' '));
-
             // Use detected file info if available, otherwise use generic
             const mime = detectedFile?.mime || "application/octet-stream";
             const extension = detectedFile?.extension || "bin";
@@ -732,7 +720,6 @@ export default function Base64EncoderDecoderPage() {
             setSnackbarMessage(`Downloaded ${detectedFile?.type || "file"}!`);
             setSnackbarOpen(true);
         } catch (e: any) {
-            console.error('Download error:', e);
             setError("Download failed: " + (e?.message || String(e)));
         }
     };

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { alpha, useTheme, Box } from "@mui/material";
 import { SvgIcon } from "@mui/material";
 import { getToolColor } from "@/lib/toolColors";
@@ -15,7 +15,7 @@ interface ToolIconProps {
  * Custom SVG icon component for tools
  * Maps tool names to their corresponding custom SVG icons
  */
-export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProps) {
+export const ToolIcon = memo(function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProps) {
   const theme = useTheme();
   const toolColor = getToolColor(toolName);
 

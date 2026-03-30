@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { Box, Typography, alpha, useTheme, SvgIcon } from "@mui/material";
 import { getToolColor } from "@/lib/toolColors";
 
@@ -27,7 +27,7 @@ const iconContent: Record<string, string> = {
 /**
  * Reusable tool header component with custom icon
  */
-export function ToolHeader({ toolName, toolColor, description }: ToolHeaderProps) {
+export const ToolHeader = memo(function ToolHeader({ toolName, toolColor, description }: ToolHeaderProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const iconColor = getToolColor(toolName) || toolColor;

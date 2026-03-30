@@ -1,7 +1,7 @@
 "use client";
 
 import MonacoEditor from "@monaco-editor/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useThemeContext } from "@/components/AppThemeProvider";
 import { Box, Typography } from "@mui/material";
 
@@ -13,7 +13,7 @@ interface EditorProps {
     placeholder?: string;
 }
 
-export function Editor({ value, onChange, language = "json", readOnly = false, placeholder }: EditorProps) {
+export const Editor = memo(function Editor({ value, onChange, language = "json", readOnly = false, placeholder }: EditorProps) {
     const [mounted, setMounted] = useState(false);
     const [cursorPos, setCursorPos] = useState({ line: 1, column: 1, position: 0 });
     const { mode } = useThemeContext();
@@ -101,4 +101,4 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
             )}
         </Box>
     );
-}
+});

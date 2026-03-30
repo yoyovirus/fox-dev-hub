@@ -19,43 +19,7 @@ import {
     Search as SearchIcon, FilterList as FilterIcon,
 } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
-
-const SAMPLE_JSON = `{
-  "store": {
-    "book": [
-      {
-        "category": "reference",
-        "author": "Nigel Rees",
-        "title": "Sayings of the Century",
-        "price": 8.95
-      },
-      {
-        "category": "fiction",
-        "author": "Evelyn Waugh",
-        "title": "Sword of Honour",
-        "price": 12.99
-      },
-      {
-        "category": "fiction",
-        "author": "Herman Melville",
-        "title": "Moby Dick",
-        "isbn": "0-553-21311-3",
-        "price": 8.99
-      },
-      {
-        "category": "fiction",
-        "author": "J. R. R. Tolkien",
-        "title": "The Lord of the Rings",
-        "isbn": "0-395-19395-8",
-        "price": 22.99
-      }
-    ],
-    "bicycle": {
-      "color": "red",
-      "price": 19.95
-    }
-  }
-}`;
+import { SAMPLE_JSON_PATH_TESTER } from "@/lib/sampleData";
 
 // ── Dynamic path generator ────────────────────────────────────────────────────
 interface DynamicPath { label: string; path: string; desc: string; }
@@ -403,7 +367,7 @@ export default function JsonPathTesterPage() {
     };
 
     const loadSample = () => {
-        setInput(SAMPLE_JSON);
+        setInput(SAMPLE_JSON_PATH_TESTER);
         setPathExpr("$.store.book[*].author");
     };
 

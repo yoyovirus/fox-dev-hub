@@ -1,7 +1,7 @@
 "use client";
 
 import { DiffEditor } from "@monaco-editor/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useThemeContext } from "@/components/AppThemeProvider";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 
@@ -14,7 +14,7 @@ interface JsonDiffEditorProps {
     onChangeModified?: (val: string) => void;
 }
 
-export function JsonDiffEditor({ original, modified, originalPlaceholder, modifiedPlaceholder, onChangeOriginal, onChangeModified }: JsonDiffEditorProps) {
+export const JsonDiffEditor = memo(function JsonDiffEditor({ original, modified, originalPlaceholder, modifiedPlaceholder, onChangeOriginal, onChangeModified }: JsonDiffEditorProps) {
     const [mounted, setMounted] = useState(false);
     const [origCursor, setOrigCursor] = useState({ line: 1, column: 1, position: 0 });
     const [modCursor, setModCursor] = useState({ line: 1, column: 1, position: 0 });
@@ -176,4 +176,4 @@ export function JsonDiffEditor({ original, modified, originalPlaceholder, modifi
             )}
         </Box>
     );
-}
+});

@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { SvgIcon } from "@mui/material";
-import { TOOL_COLORS, getToolColor } from "@/lib/toolColors";
+import { getToolColor } from "@/lib/toolColors";
 
 interface ToolIconSmallProps {
   toolName: string;
@@ -26,7 +26,7 @@ const iconContent: Record<string, string> = {
 /**
  * Small icon component for tool cards on home page
  */
-export function ToolIconSmall({ toolName, size = 20 }: ToolIconSmallProps) {
+export const ToolIconSmall = memo(function ToolIconSmall({ toolName, size = 20 }: ToolIconSmallProps) {
   if (!iconContent[toolName]) {
     return null;
   }

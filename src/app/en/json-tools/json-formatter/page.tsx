@@ -16,17 +16,7 @@ import {
 } from "@mui/material";
 import { ContentCopy, Download as DownloadIcon, DeleteOutline, AutoAwesome, SwapHoriz as SwapHorizIcon } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
-
-const SAMPLE_JSON = `{
-  "name": "Jane Doe",
-  "age": 28,
-  "skills": ["JavaScript", "React"],
-  "address": {
-    "city": "San Francisco",
-    "state": "CA",
-    "zip": "94105"
-  }
-}`;
+import { SAMPLE_JSON_FORMATTER } from "@/lib/sampleData";
 
 export default function FormatterPage() {
     const [input, setInput] = useState<string>("");
@@ -165,7 +155,7 @@ export default function FormatterPage() {
                 <Box sx={{ flexGrow: 1 }} />
                 <Button
                     variant="outlined"
-                    onClick={() => { setInput(SAMPLE_JSON); setOutput(""); setError(null); }}
+                    onClick={() => { setInput(SAMPLE_JSON_FORMATTER); setOutput(""); setError(null); }}
                     size="small"
                     sx={{ borderRadius: 2 }}
                 >

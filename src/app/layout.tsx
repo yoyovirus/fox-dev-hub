@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Shell } from "@/components/Shell";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +26,9 @@ export default function RootLayout({
         <meta name="author" content="Rahul Khedekar" />
       </head>
       <body>
-        <Shell>{children}</Shell>
+        <ErrorBoundary>
+          <Shell>{children}</Shell>
+        </ErrorBoundary>
       </body>
     </html>
   );

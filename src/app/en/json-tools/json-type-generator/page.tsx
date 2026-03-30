@@ -75,7 +75,7 @@ function generateGoStructs(jsonStr: string, rootName = "Root"): string {
     }
 }
 
-const SAMPLE_JSON = `{
+const SAMPLE_JSON_TYPE_GENERATOR = `{
   "id": 1,
   "user": {
     "name": "Alice",
@@ -206,7 +206,7 @@ export default function TypeGeneratorPage() {
                 <Box sx={{ flexGrow: 1 }} />
                 <Button
                     variant="outlined"
-                    onClick={() => setInput(SAMPLE_JSON)}
+                    onClick={() => setInput(SAMPLE_JSON_TYPE_GENERATOR)}
                     size="small"
                     sx={{ borderRadius: 2 }}
                 >

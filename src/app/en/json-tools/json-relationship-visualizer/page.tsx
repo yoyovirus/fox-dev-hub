@@ -21,36 +21,7 @@ import {
     ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon,
 } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
-
-const SAMPLE_JSON = `{
-  "company": {
-    "name": "TechCorp",
-    "founded": 2010,
-    "departments": [
-      {
-        "id": "eng",
-        "name": "Engineering",
-        "head": "Alice Johnson",
-        "employees": [
-          { "id": "e1", "name": "Bob Smith", "role": "Backend Dev", "yearsExp": 5 },
-          { "id": "e2", "name": "Carol White", "role": "Frontend Dev", "yearsExp": 3 }
-        ]
-      },
-      {
-        "id": "mkt",
-        "name": "Marketing",
-        "head": "Dave Lee",
-        "employees": [
-          { "id": "e3", "name": "Eve Brown", "role": "SEO Specialist", "yearsExp": 4 }
-        ]
-      }
-    ],
-    "products": [
-      { "sku": "P001", "name": "DevKit Pro", "price": 299, "tags": ["dev", "tools"] },
-      { "sku": "P002", "name": "CloudSync", "price": 99, "tags": ["cloud", "sync"] }
-    ]
-  }
-}`;
+import { SAMPLE_JSON_RELATIONSHIP_VISUALIZER } from "@/lib/sampleData";
 
 type NodeType = "object" | "array" | "string" | "number" | "boolean" | "null";
 
@@ -678,7 +649,7 @@ export default function JsonRelationshipVisualizerPage() {
 
                 <Box sx={{ flexGrow: 1 }} />
 
-                <Button variant="outlined" onClick={() => setInput(SAMPLE_JSON)} size="small" sx={{ borderRadius: 2 }}>
+                <Button variant="outlined" onClick={() => setInput(SAMPLE_JSON_RELATIONSHIP_VISUALIZER)} size="small" sx={{ borderRadius: 2 }}>
                     Sample
                 </Button>
                 {parsedJson && (

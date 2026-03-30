@@ -16,12 +16,7 @@ import {
 } from "@mui/material";
 import { Search as SearchIcon, Download as DownloadIcon, ContentCopy as ContentCopyIcon, Clear as ClearIcon, DeleteOutline } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
-
-const SAMPLE_JSON = `[
-  { "id": 1, "name": "Alice", "role": "Admin", "active": true },
-  { "id": 2, "name": "Bob", "role": "Editor", "active": true },
-  { "id": 3, "name": "Charlie", "role": "Viewer", "active": false }
-]`;
+import { SAMPLE_JSON_TO_TABLE } from "@/lib/sampleData";
 
 export default function ToTablePage() {
     const [input, setInput] = useState<string>("");
@@ -163,7 +158,7 @@ export default function ToTablePage() {
                 )}
                 <Button
                     variant="outlined"
-                    onClick={() => setInput(SAMPLE_JSON)}
+                    onClick={() => setInput(SAMPLE_JSON_TO_TABLE)}
                     size="small"
                     sx={{ borderRadius: 2, ml: parsedData ? 1.5 : 0 }}
                 >

@@ -16,17 +16,7 @@ import { Box, Typography, Button, alpha, useTheme, IconButton, Tooltip, Divider,
 import { DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
 import { useThemeContext } from "@/components/AppThemeProvider";
 import { ToolHeader } from "@/components/ToolHeader";
-
-const SAMPLE_JSON = `{
-  "project": "ToolMaster",
-  "version": "2.0",
-  "features": ["Formatter", "Validator", "Diff", "Visualizer"],
-  "details": {
-    "author": "Developer",
-    "license": "MIT",
-    "active": true
-  }
-}`;
+import { SAMPLE_JSON_VISUALIZER } from "@/lib/sampleData";
 
 export default function VisualizerPage() {
     const [input, setInput] = useState<string>("");
@@ -95,7 +85,7 @@ export default function VisualizerPage() {
                 <Box sx={{ flexGrow: 1 }} />
                 <Button
                     variant="outlined"
-                    onClick={() => setInput(SAMPLE_JSON)}
+                    onClick={() => setInput(SAMPLE_JSON_VISUALIZER)}
                     size="small"
                     sx={{ borderRadius: 2 }}
                 >
