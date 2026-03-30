@@ -82,19 +82,19 @@ export function JsonDiffEditor({ original, modified, originalPlaceholder, modifi
         }}>
             {/* Mobile Consolidated Placeholder */}
             {isMobile && !original && !modified && (
-                <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontFamily: "var(--font-mono), monospace", fontSize: 13, textAlign: "center", width: "80%" }}>
+                <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontSize: 13, textAlign: "center", width: "80%" }}>
                     Paste original and modified JSON to see differences
                 </Box>
             )}
 
             {/* Desktop Placeholders */}
             {!isMobile && originalPlaceholder && !original && (
-                <Box sx={{ position: "absolute", top: "50%", left: "25%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontFamily: "var(--font-mono), monospace", fontSize: 14, textAlign: "center" }}>
+                <Box sx={{ position: "absolute", top: "50%", left: "25%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontSize: 14, textAlign: "center" }}>
                     {originalPlaceholder}
                 </Box>
             )}
             {!isMobile && modifiedPlaceholder && !modified && (
-                <Box sx={{ position: "absolute", top: "50%", left: "75%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontFamily: "var(--font-mono), monospace", fontSize: 14, textAlign: "center" }}>
+                <Box sx={{ position: "absolute", top: "50%", left: "75%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontSize: 14, textAlign: "center" }}>
                     {modifiedPlaceholder}
                 </Box>
             )}
@@ -108,7 +108,6 @@ export function JsonDiffEditor({ original, modified, originalPlaceholder, modifi
                 options={{
                     minimap: { enabled: false },
                     fontSize: 14,
-                    fontFamily: "var(--font-mono), monospace",
                     wordWrap: "on",
                     lineNumbers: "on",
                     padding: { top: 16, bottom: 16 },
@@ -144,11 +143,11 @@ export function JsonDiffEditor({ original, modified, originalPlaceholder, modifi
                     pointerEvents: "none",
                     zIndex: 10,
                 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>ORIGINAL —</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>length: {originalCharCount}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>lines: {originalLineCount}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Ln: {origCursor.line}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Col: {origCursor.column}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>ORIGINAL —</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>length: {originalCharCount}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>lines: {originalLineCount}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Ln: {origCursor.line}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Col: {origCursor.column}</Typography>
                 </Box>
             )}
             {modified.length > 0 && (
@@ -168,11 +167,11 @@ export function JsonDiffEditor({ original, modified, originalPlaceholder, modifi
                     pointerEvents: "none",
                     zIndex: 10,
                 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>MODIFIED —</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>length: {modifiedCharCount}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>lines: {modifiedLineCount}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Ln: {modCursor.line}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Col: {modCursor.column}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>MODIFIED —</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>length: {modifiedCharCount}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>lines: {modifiedLineCount}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Ln: {modCursor.line}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Col: {modCursor.column}</Typography>
                 </Box>
             )}
         </Box>

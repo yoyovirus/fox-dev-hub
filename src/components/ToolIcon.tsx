@@ -31,7 +31,6 @@ export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProp
           fontSize: "0.7rem",
           fontWeight: 700,
           color: isActive ? theme.palette.primary.main : theme.palette.text.secondary,
-          fontFamily: "'JetBrains Mono', monospace",
           flexShrink: 0,
         }}
       >
@@ -99,3 +98,4 @@ const iconContent: Record<string, string> = {
   "Image to Base64": `<rect x="4" y="5" width="11" height="10" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M7 11L9 9L11 11L14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 10H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 8L20 10L18 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
   "Base64 to Image": `<path d="M4 10H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 8L8 10L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="10" y="5" width="11" height="10" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M13 11L15 9L17 11L20 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
 };
+

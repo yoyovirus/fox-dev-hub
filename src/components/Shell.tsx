@@ -87,7 +87,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                                         {sidebarOpen ? <ChevronLeftIcon sx={{ fontSize: 18 }} /> : <ChevronRightIcon sx={{ fontSize: 18 }} />}
                                     </IconButton>
                                 </Tooltip>
-                                
+
                                 {isMobile && (
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: 1 }}>
                                         <Box component="img" src="/foxdevhub_logo.png" alt="FoX Dev Hub" sx={{ width: 28, height: 28, borderRadius: 1.5 }} />

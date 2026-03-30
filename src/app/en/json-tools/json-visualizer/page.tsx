@@ -175,7 +175,7 @@ export default function VisualizerPage() {
                         p: 2,
                     }}>
                         {parsedJson ? (
-                            <Box sx={{ ...(mode === "dark" ? darkTheme : {}), backgroundColor: "transparent", fontFamily: "'JetBrains Mono', monospace", fontSize: "13px" }}>
+                            <Box sx={{ ...(mode === "dark" ? darkTheme : {}), backgroundColor: "transparent", fontSize: "13px" }}>
                                 <JsonView value={parsedJson} displayDataTypes={false} />
                             </Box>
                         ) : (
@@ -199,3 +199,4 @@ export default function VisualizerPage() {
         </Box>
     );
 }
+

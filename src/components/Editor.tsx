@@ -47,7 +47,7 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
     return (
         <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
             {placeholder && !value && (
-                <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontFamily: "var(--font-mono), monospace", fontSize: 14, textAlign: "center" }}>
+                <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", pointerEvents: "none", zIndex: 10, color: "text.disabled", fontSize: 14, textAlign: "center" }}>
                     {placeholder}
                 </Box>
             )}
@@ -60,7 +60,6 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
                 options={{
                     minimap: { enabled: false },
                     fontSize: 14,
-                    fontFamily: "var(--font-mono), monospace",
                     wordWrap: "on",
                     wrappingStrategy: "advanced",
                     lineNumbers: language === "plaintext" ? "off" : "on",
@@ -93,11 +92,11 @@ export function Editor({ value, onChange, language = "json", readOnly = false, p
                     pointerEvents: "none",
                     zIndex: 10,
                 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>length: {charCount}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>lines: {lineCount}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Ln: {cursorPos.line}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Col: {cursorPos.column}</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontFamily: "var(--font-mono), monospace", fontSize: "0.68rem", fontWeight: 700 }}>Pos: {cursorPos.position}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>length: {charCount}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>lines: {lineCount}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Ln: {cursorPos.line}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Col: {cursorPos.column}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ opacity: 0.8, fontSize: "0.68rem", fontWeight: 700 }}>Pos: {cursorPos.position}</Typography>
                 </Box>
             )}
         </Box>

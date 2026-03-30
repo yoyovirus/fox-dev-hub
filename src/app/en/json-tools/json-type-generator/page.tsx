@@ -172,12 +172,12 @@ export default function TypeGeneratorPage() {
                                 }
                             }}
                         >
-                            <Typography sx={{ fontSize: "0.75rem", fontWeight: 800, fontFamily: "var(--font-mono), monospace" }}>
+                            <Typography sx={{ fontSize: "0.75rem", fontWeight: 800 }}>
                                 TS
                             </Typography>
                         </IconButton>
                     </Tooltip>
-                    
+
                     <Tooltip title="Go Structs">
                         <IconButton
                             onClick={() => {
@@ -198,7 +198,7 @@ export default function TypeGeneratorPage() {
                                 }
                             }}
                         >
-                            <Typography sx={{ fontSize: "0.75rem", fontWeight: 800, fontFamily: "var(--font-mono), monospace" }}>
+                            <Typography sx={{ fontSize: "0.75rem", fontWeight: 800 }}>
                                 GO
                             </Typography>
                         </IconButton>

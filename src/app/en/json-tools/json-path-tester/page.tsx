@@ -438,7 +438,7 @@ export default function JsonPathTesterPage() {
                                 <SearchIcon sx={{ fontSize: 18, color: "#0EA5E9" }} />
                             </InputAdornment>
                         ),
-                        sx: { fontFamily: "'JetBrains Mono', monospace", fontSize: "0.875rem", borderRadius: 2 }
+                        sx: { fontSize: "0.875rem", borderRadius: 2 }
                     }}
                     sx={{
                         flexGrow: 1,
@@ -492,7 +492,7 @@ export default function JsonPathTesterPage() {
                                     onClick={() => setPathExpr(ex.path)}
                                     icon={<FilterIcon sx={{ fontSize: "13px !important" }} />}
                                     sx={{
-                                        fontSize: "0.72rem", fontFamily: "'JetBrains Mono', monospace",
+                                        fontSize: "0.72rem",
                                         cursor: "pointer", height: 26,
                                         borderColor: alpha("#0EA5E9", 0.3),
                                         color: "#0EA5E9",
@@ -569,7 +569,6 @@ export default function JsonPathTesterPage() {
                                                     height: 20, fontSize: "0.65rem", fontWeight: 800,
                                                     minWidth: 28, mt: 0.5,
                                                     bgcolor: alpha("#0EA5E9", 0.1), color: "#0EA5E9",
-                                                    fontFamily: "'JetBrains Mono', monospace",
                                                     flexShrink: 0,
                                                 }}
                                             />
@@ -580,7 +579,6 @@ export default function JsonPathTesterPage() {
                                                 overflow: "auto",
                                             }}>
                                                 <Typography component="pre" sx={{
-                                                    fontFamily: "'JetBrains Mono', monospace",
                                                     fontSize: "0.8rem",
                                                     m: 0, whiteSpace: "pre-wrap", wordBreak: "break-all",
                                                     color: "text.primary",
@@ -604,3 +602,4 @@ export default function JsonPathTesterPage() {
         </Box>
     );
 }
+

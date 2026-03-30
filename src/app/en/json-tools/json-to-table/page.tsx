@@ -137,7 +137,7 @@ export default function ToTablePage() {
                                     <ClearIcon sx={{ fontSize: 16 }} />
                                 </IconButton>
                             ) : null,
-                            sx: { borderRadius: 2, fontSize: "0.875rem", fontFamily: "'JetBrains Mono', monospace" }
+                            sx: { borderRadius: 2, fontSize: "0.875rem" }
                         }}
                         sx={{
                             flexGrow: 1,
@@ -285,7 +285,7 @@ export default function ToTablePage() {
                                             {headers.map((h, j) => (
                                                 <TableCell
                                                     key={j}
-                                                    sx={{ fontSize: "0.82rem", fontFamily: "'JetBrains Mono', monospace" }}
+                                                    sx={{ fontSize: "0.82rem" }}
                                                 >
                                                     {typeof row[h] === "boolean"
                                                         ? (
@@ -331,3 +331,4 @@ export default function ToTablePage() {
         </Box>
     );
 }
+

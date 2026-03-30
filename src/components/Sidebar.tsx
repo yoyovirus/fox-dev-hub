@@ -257,9 +257,9 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
                     alignItems: "center",
                     justifyContent: open ? "flex-start" : "center",
                     px: open ? 2.5 : 1,
-                    py: 2,
-                    minHeight: 64,
-                    gap: 1.5,
+                    py: 3,
+                    minHeight: 80,
+                    gap: 2,
                     textDecoration: "none",
                     color: "inherit",
                 }}
@@ -268,37 +268,32 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
             >
                 <Box
                     sx={{
-                        width: 56,
-                        height: 56,
+                        width: 64,
+                        height: 64,
                         borderRadius: 3,
-                        background: "linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         flexShrink: 0,
-                        boxShadow: "0 4px 12px rgba(124, 58, 237, 0.35)",
-                        mb: open ? 1.5 : 0,
                     }}
                 >
-                    <Box component="img" src="/foxdevhub_logo.png" alt="FoX Dev Hub" sx={{ width: 40, height: 40, borderRadius: 1 }} />
+                    <Box component="img" src="/foxdevhub_logo.png" alt="FoX Dev Hub" sx={{ width: 56, height: 56, objectFit: "contain" }} />
                 </Box>
                 {open && (
                     <Box sx={{ textAlign: "center" }}>
                         <Typography
-                            variant="subtitle1"
-                            fontWeight={800}
+                            variant="h5"
                             sx={{
-                                lineHeight: 1.1,
-                                background: "linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                                mb: 0.5
+                                lineHeight: 1.2,
+                                fontWeight: 700,
+                                color: "primary.main",
+                                mb: 0.5,
+                                fontSize: "1.5rem"
                             }}
                         >
                             FoX Dev Hub
                         </Typography>
-                        <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1, display: "block" }}>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.3, display: "block", fontWeight: 500 }}>
                             Tools for Developers
                         </Typography>
                     </Box>

@@ -85,6 +85,7 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
                         }),
                 },
                 typography: {
+                    fontFamily: '"Roboto", sans-serif',
                     button: {
                         textTransform: "none",
                         fontWeight: 600,

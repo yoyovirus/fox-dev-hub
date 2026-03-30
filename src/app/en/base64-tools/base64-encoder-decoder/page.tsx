@@ -861,22 +861,22 @@ export default function Base64EncoderDecoderPage() {
                 }}>
                     <Box sx={{ display: "flex", gap: 0.5, alignItems: "center" }}>
                         <Typography variant="caption" color="text.secondary" fontWeight={600}>Plain Text:</Typography>
-                        <Typography variant="caption" fontWeight={700} sx={{ fontFamily: "monospace" }}>
+                        <Typography variant="caption" fontWeight={700}>
                             {stats.plainChars} chars
                         </Typography>
                         <Typography variant="caption" color="text.secondary">•</Typography>
-                        <Typography variant="caption" fontWeight={700} sx={{ fontFamily: "monospace" }}>
+                        <Typography variant="caption" fontWeight={700}>
                             {formatSize(stats.plainBytes)}
                         </Typography>
                     </Box>
                     <Divider orientation="vertical" flexItem sx={{ height: 16, alignSelf: "center" }} />
                     <Box sx={{ display: "flex", gap: 0.5, alignItems: "center" }}>
                         <Typography variant="caption" color="text.secondary" fontWeight={600}>Base64:</Typography>
-                        <Typography variant="caption" fontWeight={700} sx={{ fontFamily: "monospace" }}>
+                        <Typography variant="caption" fontWeight={700}>
                             {stats.base64Chars} chars
                         </Typography>
                         <Typography variant="caption" color="text.secondary">•</Typography>
-                        <Typography variant="caption" fontWeight={700} sx={{ fontFamily: "monospace" }}>
+                        <Typography variant="caption" fontWeight={700}>
                             {formatSize(stats.base64Bytes)}
                         </Typography>
                     </Box>
@@ -1096,3 +1096,4 @@ export default function Base64EncoderDecoderPage() {
         </Box>
     );
 }
+

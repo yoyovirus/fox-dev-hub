@@ -12,6 +12,12 @@ html, body {
   height: 100%;
 }
 
+/* Font variables */
+:root {
+  --font-mono: 'Roboto', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+}
+
 /* Custom Scrollbar - MUI does not provide scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;

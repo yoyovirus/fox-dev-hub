@@ -350,7 +350,7 @@ function TreeView({ tree, stats, json }: { tree: TreeNode, stats: JsonStats | nu
                                     <Typography variant="caption" sx={{ fontWeight: 800, color: s.color, opacity: 0.8, textTransform: "uppercase", fontSize: "0.55rem" }}>
                                         {s.label}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ fontWeight: 900, fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem" }}>
+                                    <Typography variant="body2" sx={{ fontWeight: 900, fontSize: "0.8rem" }}>
                                         {s.value}
                                     </Typography>
                                     {i < 3 && <Box sx={{ ml: 1, width: 3, height: 3, borderRadius: "50%", bgcolor: "divider" }} />}
@@ -402,11 +402,10 @@ function TreeView({ tree, stats, json }: { tree: TreeNode, stats: JsonStats | nu
                                     />
                                     <text 
                                         x={(e.x1 + e.x2) / 2} 
-                                        y={my + 4} 
-                                        textAnchor="middle" 
-                                        fontSize={10} 
+                                        y={my + 4}
+                                        textAnchor="middle"
+                                        fontSize={10}
                                         fontWeight="600"
-                                        fontFamily="'JetBrains Mono', monospace"
                                         fill={isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)"}
                                     >
                                         {e.label}
@@ -451,7 +450,7 @@ function TreeView({ tree, stats, json }: { tree: TreeNode, stats: JsonStats | nu
                                     />
                                     
                                     {/* Type Icon & Label */}
-                                    <text x={x + 12} y={y + 22} fontSize={12} fontWeight={800} fill="#FFFFFF" fontFamily="'JetBrains Mono', monospace">
+                                    <text x={x + 12} y={y + 22} fontSize={12} fontWeight={800} fill="#FFFFFF">
                                         {node.type === "array" ? "ARR" : "OBJ"}
                                     </text>
                                     <text x={x + 45} y={y + 22} fontSize={13} fontWeight={700} fill="#FFFFFF" style={{ userSelect: "none" }}>
@@ -482,11 +481,10 @@ function TreeView({ tree, stats, json }: { tree: TreeNode, stats: JsonStats | nu
                                     {node.primitives.length > 0 && (
                                         <g transform={`translate(${x + 12}, ${y + HEADER_H + 8})`}>
                                             {node.primitives.map((p, pi) => (
-                                                <text 
-                                                    key={pi} 
-                                                    y={pi * ROW_H + 10} 
-                                                    fontSize={11} 
-                                                    fontFamily="'JetBrains Mono', monospace"
+                                                <text
+                                                    key={pi}
+                                                    y={pi * ROW_H + 10}
+                                                    fontSize={11}
                                                 >
                                                     <tspan fill="#EC4899" fontWeight="800">{p.key} : </tspan>
                                                     <tspan fill={TYPE_COLORS[p.type]}>{String(p.value)}</tspan>
@@ -582,7 +580,7 @@ function SummaryView({ stats, json }: { stats: JsonStats; json: unknown }) {
                             {topEntries.map((e, i) => (
                                 <Box key={i} sx={{ display: "contents" }}>
                                     <Box sx={{ p: 1.25, borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`, display: "flex", alignItems: "center" }}>
-                                        <Typography sx={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem", fontWeight: 700, color: "#EC4899" }}>
+                                        <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: "#EC4899" }}>
                                             {e.key}
                                         </Typography>
                                     </Box>
@@ -595,7 +593,7 @@ function SummaryView({ stats, json }: { stats: JsonStats; json: unknown }) {
                                         }} />
                                     </Box>
                                     <Box sx={{ p: 1.25, borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                        <Typography sx={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem", color: "text.secondary" }}>
+                                        <Typography sx={{ fontSize: "0.8rem", color: "text.secondary" }}>
                                             {e.children ?? "—"}
                                         </Typography>
                                     </Box>
@@ -788,3 +786,4 @@ export default function JsonRelationshipVisualizerPage() {
         </Box>
     );
 }
+

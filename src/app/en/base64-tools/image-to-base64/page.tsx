@@ -313,7 +313,6 @@ export default function ImageToBase64Page() {
                                         sx={{
                                             "& .MuiOutlinedInput-root": {
                                                 borderRadius: 2.5,
-                                                fontFamily: "'JetBrains Mono', monospace",
                                                 fontSize: "0.75rem",
                                                 bgcolor: alpha(theme.palette.text.primary, 0.02)
                                             }
@@ -342,7 +341,6 @@ export default function ImageToBase64Page() {
                                         sx={{
                                             "& .MuiOutlinedInput-root": {
                                                 borderRadius: 2.5,
-                                                fontFamily: "'JetBrains Mono', monospace",
                                                 fontSize: "0.75rem",
                                                 bgcolor: alpha(theme.palette.text.primary, 0.02)
                                             }
@@ -362,7 +360,7 @@ export default function ImageToBase64Page() {
                                             border: `1px solid ${theme.palette.divider}`,
                                             display: "flex", alignItems: "center", justifyContent: "space-between"
                                         }}>
-                                            <Typography sx={{ fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
+                                            <Typography sx={{ fontSize: "0.75rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
                                                 &lt;img src="{base64.substring(0, 30)}..." /&gt;
                                             </Typography>
                                             <IconButton size="small" onClick={() => handleCopy(`<img src="${base64}" alt="${filename}" />`)}>
@@ -380,7 +378,7 @@ export default function ImageToBase64Page() {
                                             border: `1px solid ${theme.palette.divider}`,
                                             display: "flex", alignItems: "center", justifyContent: "space-between"
                                         }}>
-                                            <Typography sx={{ fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
+                                            <Typography sx={{ fontSize: "0.75rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
                                                 background-image: url("{base64.substring(0, 30)}...");
                                             </Typography>
                                             <IconButton size="small" onClick={() => handleCopy(`background-image: url("${base64}");`)}>
@@ -400,3 +398,4 @@ export default function ImageToBase64Page() {
         </Box>
     );
 }
+
