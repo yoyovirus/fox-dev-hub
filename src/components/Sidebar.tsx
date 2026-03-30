@@ -25,6 +25,7 @@ import {
 } from "@mui/icons-material";
 import { ToolIcon } from "./ToolIcon";
 import { TOOL_COLORS } from "@/lib/toolColors";
+import Image from 'next/image';
 
 const drawerWidth = 300;
 const collapsedDrawerWidth = 84;
@@ -278,7 +279,14 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
                         flexShrink: 0,
                     }}
                 >
-                    <Box component="img" src="/foxdevhub_logo.png" alt="FoX Dev Hub" sx={{ width: 56, height: 56, objectFit: "contain" }} />
+                    <Image
+                        src="/foxdevhub_logo.png"
+                        alt="FoX Dev Hub"
+                        width={56}
+                        height={56}
+                        priority
+                        style={{ objectFit: 'contain' }}
+                    />
                 </Box>
                 {open && (
                     <Box sx={{ textAlign: "center" }}>

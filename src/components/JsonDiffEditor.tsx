@@ -1,9 +1,9 @@
 "use client";
 
-import { DiffEditor } from "@monaco-editor/react";
+import dynamic from 'next/dynamic';
 import { useState, useEffect, memo } from "react";
 import { useThemeContext } from "@/components/AppThemeProvider";
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, CircularProgress, useTheme, useMediaQuery } from "@mui/material";
 
 interface JsonDiffEditorProps {
     original: string;
@@ -14,6 +14,27 @@ interface JsonDiffEditorProps {
     onChangeModified?: (val: string) => void;
 }
 
+// Lazy load Monaco Diff Editor with loading state
+const DiffEditor = dynamic(
+    () => import('@monaco-editor/react').then(m => m.DiffEditor),
+    {
+        loading: () => (
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                gap: 2,
+            }}>
+                <CircularProgress size={24} />
+                <Typography variant="body2" color="text.secondary">Loading diff editor...</Typography>
+            </Box>
+        ),
+        ssr: false,
+    }
+);
+
+// Memoized to prevent unnecessary re-renders
 export const JsonDiffEditor = memo(function JsonDiffEditor({ original, modified, originalPlaceholder, modifiedPlaceholder, onChangeOriginal, onChangeModified }: JsonDiffEditorProps) {
     const [mounted, setMounted] = useState(false);
     const [origCursor, setOrigCursor] = useState({ line: 1, column: 1, position: 0 });

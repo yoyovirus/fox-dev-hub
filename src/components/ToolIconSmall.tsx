@@ -25,6 +25,7 @@ const iconContent: Record<string, string> = {
 
 /**
  * Small icon component for tool cards on home page
+ * Memoized to prevent unnecessary re-renders
  */
 export const ToolIconSmall = memo(function ToolIconSmall({ toolName, size = 20 }: ToolIconSmallProps) {
   if (!iconContent[toolName]) {
@@ -44,4 +45,4 @@ export const ToolIconSmall = memo(function ToolIconSmall({ toolName, size = 20 }
       <g dangerouslySetInnerHTML={{ __html: iconContent[toolName] }} />
     </SvgIcon>
   );
-}
+});

@@ -26,6 +26,7 @@ const iconContent: Record<string, string> = {
 
 /**
  * Reusable tool header component with custom icon
+ * Memoized to prevent unnecessary re-renders
  */
 export const ToolHeader = memo(function ToolHeader({ toolName, toolColor, description }: ToolHeaderProps) {
   const theme = useTheme();
@@ -68,4 +69,4 @@ export const ToolHeader = memo(function ToolHeader({ toolName, toolColor, descri
       )}
     </Box>
   );
-}
+});

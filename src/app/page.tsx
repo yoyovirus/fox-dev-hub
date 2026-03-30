@@ -10,6 +10,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import { motion, LayoutGroup } from "framer-motion";
 import {
     Box, Typography, Card, CardContent, Chip, useTheme, alpha, IconButton, Collapse, Fade,
@@ -118,7 +119,19 @@ export default function Home() {
                                 FoX Dev Hub
                             </Typography>
                             <Box sx={{ display: "flex", justifyContent: "center" }}>
-                                <Box component="img" src="/foxdevhub_logo.png" alt="FoX Dev Hub Mascot" sx={{ width: { xs: 180, sm: 220, md: 280 }, height: "auto", maxWidth: "100%" }} />
+                                <Image
+                                    src="/foxdevhub_logo.png"
+                                    alt="FoX Dev Hub Mascot"
+                                    width={280}
+                                    height={280}
+                                    priority
+                                    sizes="(max-width: 640px) 180px, (max-width: 900px) 220px, 280px"
+                                    style={{
+                                        width: '100%',
+                                        maxWidth: '280px',
+                                        height: 'auto'
+                                    }}
+                                />
                             </Box>
                         </Box>
 

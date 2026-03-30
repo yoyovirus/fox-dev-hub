@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { AppThemeProvider, useThemeContext } from "@/components/AppThemeProvider";
 import { Sidebar } from "@/components/Sidebar";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import {
     AppBar,
     Toolbar,
@@ -24,6 +25,7 @@ import {
     DarkMode as DarkModeIcon,
     Build as BuildIcon,
 } from "@mui/icons-material";
+import Image from 'next/image';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -90,7 +92,14 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
                                 {isMobile && (
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: 1 }}>
-                                        <Box component="img" src="/foxdevhub_logo.png" alt="FoX Dev Hub" sx={{ width: 28, height: 28, borderRadius: 1.5 }} />
+                                        <Image
+                                            src="/foxdevhub_logo.png"
+                                            alt="FoX Dev Hub"
+                                            width={28}
+                                            height={28}
+                                            priority
+                                            style={{ borderRadius: '6px' }}
+                                        />
                                         <Typography variant="subtitle2" fontWeight={800} color="text.primary" sx={{ letterSpacing: "-0.01em" }}>FoX Dev Hub</Typography>
                                     </Box>
                                 )}
@@ -189,7 +198,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 export function Shell({ children }: { children: React.ReactNode }) {
     return (
         <AppThemeProvider>
-            <LayoutContent>{children}</LayoutContent>
+            <ErrorBoundary>
+                <LayoutContent>{children}</LayoutContent>
+            </ErrorBoundary>
         </AppThemeProvider>
     );
 }

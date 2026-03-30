@@ -14,6 +14,7 @@ interface ToolIconProps {
 /**
  * Custom SVG icon component for tools
  * Maps tool names to their corresponding custom SVG icons
+ * Memoized to prevent unnecessary re-renders
  */
 export const ToolIcon = memo(function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProps) {
   const theme = useTheme();
@@ -71,7 +72,7 @@ export const ToolIcon = memo(function ToolIcon({ toolName, isActive = false, siz
       </SvgIcon>
     </Box>
   );
-}
+});
 
 const iconContent: Record<string, string> = {
   "JSON Formatter": `<path d="M9 4L5 12L9 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 4L19 12L15 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,

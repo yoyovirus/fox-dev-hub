@@ -1,9 +1,9 @@
 "use client";
 
-import MonacoEditor from "@monaco-editor/react";
+import dynamic from 'next/dynamic';
 import { useState, useEffect, memo } from "react";
 import { useThemeContext } from "@/components/AppThemeProvider";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 
 interface EditorProps {
     value: string;
@@ -13,6 +13,27 @@ interface EditorProps {
     placeholder?: string;
 }
 
+// Lazy load Monaco Editor with loading state
+const MonacoEditor = dynamic(
+    () => import('@monaco-editor/react'),
+    {
+        loading: () => (
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                gap: 2,
+            }}>
+                <CircularProgress size={24} />
+                <Typography variant="body2" color="text.secondary">Loading editor...</Typography>
+            </Box>
+        ),
+        ssr: false,
+    }
+);
+
+// Memoized to prevent unnecessary re-renders
 export const Editor = memo(function Editor({ value, onChange, language = "json", readOnly = false, placeholder }: EditorProps) {
     const [mounted, setMounted] = useState(false);
     const [cursorPos, setCursorPos] = useState({ line: 1, column: 1, position: 0 });
