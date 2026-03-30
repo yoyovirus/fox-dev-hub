@@ -2,26 +2,13 @@
 
 import React from "react";
 import { Box, Typography, alpha, useTheme, SvgIcon } from "@mui/material";
+import { getToolColor } from "@/lib/toolColors";
 
 interface ToolHeaderProps {
   toolName: string;
   toolColor: string;
   description?: string;
 }
-
-const iconColors: Record<string, string> = {
-  "JSON Formatter": "#7C3AED",
-  "JSON Validator": "#059669",
-  "JSON Diff": "#3B82F6",
-  "JSON Visualizer": "#8B5CF6",
-  "JSON Type Generator": "#0EA5E9",
-  "JSON to Table": "#EC4899",
-  "JSON Path Tester": "#14B8A6",
-  "JSON Relationship Visualizer": "#F97316",
-  "Base64 Encoder / Decoder": "#6366F1",
-  "Image to Base64": "#10B981",
-  "Base64 to Image": "#F472B6",
-};
 
 const iconContent: Record<string, string> = {
   "JSON Formatter": `<path d="M9 4L5 12L9 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 4L19 12L15 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
@@ -43,7 +30,7 @@ const iconContent: Record<string, string> = {
 export function ToolHeader({ toolName, toolColor, description }: ToolHeaderProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
-  const iconColor = iconColors[toolName] || toolColor;
+  const iconColor = getToolColor(toolName) || toolColor;
 
   return (
     <Box sx={{ mb: 2.5 }}>

@@ -86,21 +86,43 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
                 },
                 typography: {
                     fontFamily: '"Roboto", sans-serif',
-                    button: {
-                        textTransform: "none",
-                        fontWeight: 600,
-                        letterSpacing: "0.01em",
-                    },
+                    fontWeightLight: 300,
+                    fontWeightRegular: 400,
+                    fontWeightMedium: 500,
+                    fontWeightSemiBold: 600,
+                    fontWeightBold: 700,
+                    fontWeightExtraBold: 800,
                     h1: { fontWeight: 800 },
                     h2: { fontWeight: 800 },
                     h3: { fontWeight: 700 },
                     h4: { fontWeight: 700 },
                     h5: { fontWeight: 600 },
                     h6: { fontWeight: 600 },
+                    button: {
+                        textTransform: "none",
+                        fontWeight: 600,
+                        letterSpacing: "0.01em",
+                    },
+                    caption: {
+                        fontWeight: 500,
+                    },
                 },
                 shape: {
                     borderRadius: 12,
                 },
+                shadows: [
+                    "none",
+                    "0 2px 8px rgba(0,0,0,0.06)",
+                    "0 4px 12px rgba(0,0,0,0.08)",
+                    "0 4px 15px rgba(0,0,0,0.1)",
+                    "0 4px 20px rgba(0,0,0,0.12)",
+                    "0 6px 20px rgba(124, 58, 237, 0.35)",
+                    "0 8px 24px rgba(0,0,0,0.12)",
+                    "0 8px 32px rgba(0,0,0,0.15)",
+                    "0 12px 32px rgba(0,0,0,0.16)",
+                    "0 20px 40px rgba(0,0,0,0.2)",
+                    ...Array(15).fill("none") as any,
+                ],
                 components: {
                     MuiButton: {
                         defaultProps: {

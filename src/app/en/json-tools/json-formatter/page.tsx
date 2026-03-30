@@ -107,7 +107,6 @@ export default function FormatterPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Formatter"
-                toolColor="#7C3AED"
                 description="Beautify and minify JSON with customizable indentation."
             />
 

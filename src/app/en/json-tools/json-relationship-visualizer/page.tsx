@@ -651,7 +651,6 @@ export default function JsonRelationshipVisualizerPage() {
             {/* Header */}
             <ToolHeader
                 toolName="JSON Relationship Visualizer"
-                toolColor="#7C3AED"
                 description="Explore JSON structures as an interactive graph and understand their relationships."
             />
 

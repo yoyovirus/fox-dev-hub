@@ -774,7 +774,6 @@ export default function Base64EncoderDecoderPage() {
             {/* Header */}
             <ToolHeader
                 toolName="Base64 Encoder / Decoder"
-                toolColor="#7C3AED"
                 description="Encode text to Base64 or decode it back in real-time. Supports binary files, images, PDF, ZIP, and more."
             />
 

@@ -138,7 +138,6 @@ export default function TypeGeneratorPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Type Generator"
-                toolColor="#B45309"
                 description="Automatically generate TypeScript interfaces and Go structs from any JSON structure."
             />
 

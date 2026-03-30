@@ -25,6 +25,7 @@ import {
     AutoAwesomeOutlined as SparklesIcon,
 } from "@mui/icons-material";
 import { ToolIconSmall } from "@/components/ToolIconSmall";
+import { getToolColor } from "@/lib/toolColors";
 
 const CATEGORIES = [
     {
@@ -34,14 +35,14 @@ const CATEGORIES = [
         color: "#7C3AED",
         icon: <DataObjectIcon />,
         tools: [
-            { id: "fmt", name: "JSON Formatter", description: "Beautify and minify JSON with customizable indentation.", href: "/en/json-tools/json-formatter", icon: <ToolIconSmall toolName="JSON Formatter" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Formatter" size={32} />, iconColor: "#7C3AED", tags: ["Format", "Minify"] },
-            { id: "val", name: "JSON Validator", description: "Quickly validate your JSON data to pinpoint syntax errors.", href: "/en/json-tools/json-validator", icon: <ToolIconSmall toolName="JSON Validator" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Validator" size={32} />, iconColor: "#059669", tags: ["Validate", "Syntax"] },
-            { id: "dif", name: "JSON Diff", description: "Compare two JSON objects and highlight their differences.", href: "/en/json-tools/json-diff", icon: <ToolIconSmall toolName="JSON Diff" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Diff" size={32} />, iconColor: "#3B82F6", tags: ["Compare", "Changes"] },
-            { id: "viz", name: "JSON Visualizer", description: "Explore JSON structures in an interactive, collapsible tree view.", href: "/en/json-tools/json-visualizer", icon: <ToolIconSmall toolName="JSON Visualizer" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Visualizer" size={32} />, iconColor: "#8B5CF6", tags: ["Tree View", "Navigate"] },
-            { id: "gen", name: "JSON Type Generator", description: "Automatically generate TypeScript interfaces and Go structs from any JSON structure.", href: "/en/json-tools/json-type-generator", icon: <ToolIconSmall toolName="JSON Type Generator" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Type Generator" size={32} />, iconColor: "#0EA5E9", tags: ["TypeScript", "Types"] },
-            { id: "tbl", name: "JSON to Table", description: "Convert JSON arrays into clean, readable tables instantly.", href: "/en/json-tools/json-to-table", icon: <ToolIconSmall toolName="JSON to Table" size={20} />, iconLarge: <ToolIconSmall toolName="JSON to Table" size={32} />, iconColor: "#EC4899", tags: ["Table", "Convert"] },
-            { id: "pth", name: "JSON Path Tester", description: "Test JSONPath expressions against your data and see matched values instantly.", href: "/en/json-tools/json-path-tester", icon: <ToolIconSmall toolName="JSON Path Tester" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Path Tester" size={32} />, iconColor: "#14B8A6", tags: ["JSONPath", "Query"] },
-            { id: "rel", name: "JSON Relationship Visualizer", description: "Explore JSON structures as an interactive node graph and understand their relationships.", href: "/en/json-tools/json-relationship-visualizer", icon: <ToolIconSmall toolName="JSON Relationship Visualizer" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Relationship Visualizer" size={32} />, iconColor: "#F97316", tags: ["Graph", "Structure"] },
+            { id: "fmt", name: "JSON Formatter", description: "Beautify and minify JSON with customizable indentation.", href: "/en/json-tools/json-formatter", icon: <ToolIconSmall toolName="JSON Formatter" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Formatter" size={32} />, tags: ["Format", "Minify"] },
+            { id: "val", name: "JSON Validator", description: "Quickly validate your JSON data to pinpoint syntax errors.", href: "/en/json-tools/json-validator", icon: <ToolIconSmall toolName="JSON Validator" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Validator" size={32} />, tags: ["Validate", "Syntax"] },
+            { id: "dif", name: "JSON Diff", description: "Compare two JSON objects and highlight their differences.", href: "/en/json-tools/json-diff", icon: <ToolIconSmall toolName="JSON Diff" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Diff" size={32} />, tags: ["Compare", "Changes"] },
+            { id: "viz", name: "JSON Visualizer", description: "Explore JSON structures in an interactive, collapsible tree view.", href: "/en/json-tools/json-visualizer", icon: <ToolIconSmall toolName="JSON Visualizer" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Visualizer" size={32} />, tags: ["Tree View", "Navigate"] },
+            { id: "gen", name: "JSON Type Generator", description: "Automatically generate TypeScript interfaces and Go structs from any JSON structure.", href: "/en/json-tools/json-type-generator", icon: <ToolIconSmall toolName="JSON Type Generator" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Type Generator" size={32} />, tags: ["TypeScript", "Types"] },
+            { id: "tbl", name: "JSON to Table", description: "Convert JSON arrays into clean, readable tables instantly.", href: "/en/json-tools/json-to-table", icon: <ToolIconSmall toolName="JSON to Table" size={20} />, iconLarge: <ToolIconSmall toolName="JSON to Table" size={32} />, tags: ["Table", "Convert"] },
+            { id: "pth", name: "JSON Path Tester", description: "Test JSONPath expressions against your data and see matched values instantly.", href: "/en/json-tools/json-path-tester", icon: <ToolIconSmall toolName="JSON Path Tester" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Path Tester" size={32} />, tags: ["JSONPath", "Query"] },
+            { id: "rel", name: "JSON Relationship Visualizer", description: "Explore JSON structures as an interactive node graph and understand their relationships.", href: "/en/json-tools/json-relationship-visualizer", icon: <ToolIconSmall toolName="JSON Relationship Visualizer" size={20} />, iconLarge: <ToolIconSmall toolName="JSON Relationship Visualizer" size={32} />, tags: ["Graph", "Structure"] },
         ]
     },
     {
@@ -51,9 +52,9 @@ const CATEGORIES = [
         color: "#0EA5E9",
         icon: <SparklesIcon />,
         tools: [
-            { id: "enc", name: "Base64 Encoder / Decoder", description: "Encode text to Base64 or decode it back in real-time.", href: "/en/base64-tools/base64-encoder-decoder", icon: <ToolIconSmall toolName="Base64 Encoder / Decoder" size={20} />, iconLarge: <ToolIconSmall toolName="Base64 Encoder / Decoder" size={32} />, iconColor: "#6366F1", tags: ["Encode", "Decode"] },
-            { id: "i2b", name: "Image to Base64", description: "Convert images to Base64 strings instantly.", href: "/en/base64-tools/image-to-base64", icon: <ToolIconSmall toolName="Image to Base64" size={20} />, iconLarge: <ToolIconSmall toolName="Image to Base64" size={32} />, iconColor: "#10B981", tags: ["Image", "Convert"] },
-            { id: "b2i", name: "Base64 to Image", description: "Decode Base64 strings back into images.", href: "/en/base64-tools/base64-to-image", icon: <ToolIconSmall toolName="Base64 to Image" size={20} />, iconLarge: <ToolIconSmall toolName="Base64 to Image" size={32} />, iconColor: "#F472B6", tags: ["Base64", "Image"] },
+            { id: "enc", name: "Base64 Encoder / Decoder", description: "Encode text to Base64 or decode it back in real-time.", href: "/en/base64-tools/base64-encoder-decoder", icon: <ToolIconSmall toolName="Base64 Encoder / Decoder" size={20} />, iconLarge: <ToolIconSmall toolName="Base64 Encoder / Decoder" size={32} />, tags: ["Encode", "Decode"] },
+            { id: "i2b", name: "Image to Base64", description: "Convert images to Base64 strings instantly.", href: "/en/base64-tools/image-to-base64", icon: <ToolIconSmall toolName="Image to Base64" size={20} />, iconLarge: <ToolIconSmall toolName="Image to Base64" size={32} />, tags: ["Image", "Convert"] },
+            { id: "b2i", name: "Base64 to Image", description: "Decode Base64 strings back into images.", href: "/en/base64-tools/base64-to-image", icon: <ToolIconSmall toolName="Base64 to Image" size={20} />, iconLarge: <ToolIconSmall toolName="Base64 to Image" size={32} />, tags: ["Base64", "Image"] },
         ]
     }
 ];
@@ -253,13 +254,16 @@ export default function Home() {
                                     >
                                         <CardContent sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1, justifyContent: "center" }}>
                                             <Box sx={{ width: 120, height: 86, mb: 3, borderRadius: 3.5, bgcolor: isDark ? alpha(cat.color, 0.1) : "#F8FAFC", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridTemplateRows: "repeat(2, 1fr)", gap: 0.75, p: 1.25 }}>
-                                                {cat.tools.map((tool) => (
-                                                    <motion.div key={tool.id} layoutId={`icon-${cat.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} style={{ backgroundColor: alpha(tool.iconColor, 0.12), borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, width: "100%", height: "100%" }}>
-                                                        <Box sx={{ width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", color: tool.iconColor }}>
-                                                            {tool.icon}
-                                                        </Box>
-                                                    </motion.div>
-                                                ))}
+                                                {cat.tools.map((tool) => {
+                                                    const toolColor = getToolColor(tool.name);
+                                                    return (
+                                                        <motion.div key={tool.id} layoutId={`icon-${cat.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} style={{ backgroundColor: alpha(toolColor, 0.12), borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, width: "100%", height: "100%" }}>
+                                                            <Box sx={{ width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", color: toolColor }}>
+                                                                {tool.icon}
+                                                            </Box>
+                                                        </motion.div>
+                                                    );
+                                                })}
                                             </Box>
                                             <Typography variant="h6" fontWeight={950} sx={{ mb: 0.5 }}>{cat.name}</Typography>
                                             <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ textTransform: "uppercase", opacity: 0.6 }}>{cat.tools.length} Tools Available</Typography>
@@ -368,7 +372,9 @@ export default function Home() {
                                             px: { xs: 2, sm: 0 },
                                             justifyContent: "center"
                                         }}>
-                                            {activeCategory?.tools.map((tool) => (
+                                            {activeCategory?.tools.map((tool) => {
+                                                const toolColor = getToolColor(tool.name);
+                                                return (
                                                 <motion.div
                                                     key={tool.href}
                                                     style={{
@@ -379,8 +385,8 @@ export default function Home() {
                                                         maxWidth: GLOBAL_TILE_WIDTH,
                                                     }}
                                                 >
-                                                    <Card 
-                                                        component={Link} 
+                                                    <Card
+                                                        component={Link}
                                                         href={tool.href}
                                                         sx={{
                                                             height: "100%",
@@ -389,24 +395,24 @@ export default function Home() {
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             textDecoration: "none",
-                                                            bgcolor: alpha(tool.iconColor, isDark ? 0.05 : 0.03),
+                                                            bgcolor: alpha(toolColor, isDark ? 0.05 : 0.03),
                                                             border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"}`,
                                                             borderRadius: `${TILE_RADIUS}px`,
                                                             transition: "all 0.25s ease",
                                                             cursor: "pointer",
-                                                            boxSizing: "border-box", // Explicitly enforce border-box
+                                                            boxSizing: "border-box",
                                                             "&:hover": {
                                                                 transform: "translateY(-4px)",
-                                                                boxShadow: `0 12px 30px ${alpha(tool.iconColor, isDark ? 0.25 : 0.08)}`,
-                                                                borderColor: alpha(tool.iconColor, 0.3),
-                                                                bgcolor: alpha(tool.iconColor, isDark ? 0.08 : 0.06)
+                                                                boxShadow: `0 12px 30px ${alpha(toolColor, isDark ? 0.25 : 0.08)}`,
+                                                                borderColor: alpha(toolColor, 0.3),
+                                                                bgcolor: alpha(toolColor, isDark ? 0.08 : 0.06)
                                                             }
                                                         }}
                                                     >
                                                         <CardContent sx={{ p: 4, flexGrow: 1, display: "flex", flexDirection: "column", gap: 2, justifyContent: "space-between", boxSizing: "border-box" }}>
                                                             <Box>
                                                                 <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                                                                    <motion.div layoutId={`icon-${activeCategory.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} className="tool-icon-box" style={{ width: 52, height: 52, borderRadius: 3, backgroundColor: alpha(tool.iconColor, 0.12), display: "flex", alignItems: "center", justifyContent: "center", color: tool.iconColor }}>
+                                                                    <motion.div layoutId={`icon-${activeCategory.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} className="tool-icon-box" style={{ width: 52, height: 52, borderRadius: 3, backgroundColor: alpha(toolColor, 0.12), display: "flex", alignItems: "center", justifyContent: "center", color: toolColor }}>
                                                                         {tool.iconLarge}
                                                                     </motion.div>
                                                                     <Typography variant="subtitle1" fontWeight={950}>{tool.name}</Typography>
@@ -415,13 +421,14 @@ export default function Home() {
                                                             </Box>
                                                             <Box sx={{ display: "flex", gap: 0.75, flexWrap: "wrap", mt: "auto" }}>
                                                                 {tool.tags.map(tag => (
-                                                                    <Chip key={tag} label={tag} size="small" variant="outlined" sx={{ fontSize: "0.65rem", height: 20, borderColor: alpha(tool.iconColor, 0.2), color: tool.iconColor, fontWeight: 700 }} />
+                                                                    <Chip key={tag} label={tag} size="small" variant="outlined" sx={{ fontSize: "0.65rem", height: 20, borderColor: alpha(toolColor, 0.2), color: toolColor, fontWeight: 700 }} />
                                                                 ))}
                                                             </Box>
                                                         </CardContent>
                                                     </Card>
                                                 </motion.div>
-                                            ))}
+                                                );
+                                            })}
                                         </Box>
                                     </Box>
                                 </motion.div>

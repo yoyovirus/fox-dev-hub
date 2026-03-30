@@ -3,6 +3,7 @@
 import React from "react";
 import { alpha, useTheme, Box } from "@mui/material";
 import { SvgIcon } from "@mui/material";
+import { getToolColor } from "@/lib/toolColors";
 
 interface ToolIconProps {
   toolName: string;
@@ -16,6 +17,7 @@ interface ToolIconProps {
  */
 export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProps) {
   const theme = useTheme();
+  const toolColor = getToolColor(toolName);
 
   if (!iconContent[toolName]) {
     return (
@@ -46,8 +48,8 @@ export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProp
         height: size,
         borderRadius: 1,
         backgroundColor: isActive
-          ? alpha(iconColors[toolName], 0.15)
-          : alpha(iconColors[toolName], 0.08),
+          ? alpha(toolColor, 0.15)
+          : alpha(toolColor, 0.08),
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -62,7 +64,7 @@ export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProp
           width: size - 6,
           height: size - 6,
           flexShrink: 0,
-          color: iconColors[toolName],
+          color: toolColor,
         }}
       >
         <g dangerouslySetInnerHTML={{ __html: iconContent[toolName] || "" }} />
@@ -70,20 +72,6 @@ export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProp
     </Box>
   );
 }
-
-const iconColors: Record<string, string> = {
-  "JSON Formatter": "#7C3AED",
-  "JSON Validator": "#059669",
-  "JSON Diff": "#3B82F6",
-  "JSON Visualizer": "#8B5CF6",
-  "JSON Type Generator": "#0EA5E9",
-  "JSON to Table": "#EC4899",
-  "JSON Path Tester": "#14B8A6",
-  "JSON Relationship Visualizer": "#F97316",
-  "Base64 Encoder / Decoder": "#6366F1",
-  "Image to Base64": "#10B981",
-  "Base64 to Image": "#F472B6",
-};
 
 const iconContent: Record<string, string> = {
   "JSON Formatter": `<path d="M9 4L5 12L9 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 4L19 12L15 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,

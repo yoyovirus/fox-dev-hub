@@ -131,7 +131,6 @@ export default function ImageToBase64Page() {
             {/* Header */}
             <ToolHeader
                 toolName="Image to Base64"
-                toolColor="#059669"
                 description="Convert image files into Base64 strings for CSS, HTML, or data transfer."
             />
 

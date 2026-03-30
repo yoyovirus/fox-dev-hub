@@ -90,7 +90,6 @@ export default function DiffPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Diff"
-                toolColor="#DC2626"
                 description="Compare two JSON objects and highlight their differences."
             />
 

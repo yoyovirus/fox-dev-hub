@@ -107,7 +107,6 @@ export default function ToTablePage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON to Table"
-                toolColor="#7C3AED"
                 description="Convert JSON arrays into clean, readable tables instantly."
             />
 

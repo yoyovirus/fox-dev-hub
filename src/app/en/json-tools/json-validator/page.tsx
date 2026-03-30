@@ -69,7 +69,6 @@ export default function ValidatorPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Validator"
-                toolColor="#059669"
                 description="Quickly validate your JSON data to pinpoint syntax errors."
             />
 

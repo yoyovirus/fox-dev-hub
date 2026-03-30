@@ -81,7 +81,6 @@ export default function VisualizerPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Visualizer"
-                toolColor="#0284C7"
                 description="Explore JSON structures in an interactive, collapsible tree view."
             />
 

@@ -118,7 +118,6 @@ export default function Base64ToImagePage() {
             {/* Header */}
             <ToolHeader
                 toolName="Base64 to Image"
-                toolColor="#0EA5E9"
                 description="Decode Base64 strings or Data URIs back into images and view their properties."
             />
 

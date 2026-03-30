@@ -412,7 +412,6 @@ export default function JsonPathTesterPage() {
             {/* Header */}
             <ToolHeader
                 toolName="JSON Path Tester"
-                toolColor="#0EA5E9"
                 description="Test JSONPath expressions against your JSON data and see matched values instantly."
             />
 
