@@ -170,10 +170,11 @@ export default function ImageToBase64Page() {
                             }}
                             onClick={() => document.getElementById("file-input")?.click()}
                         >
-                            <input
+                            <Box
+                                component="input"
                                 type="file"
                                 id="file-input"
-                                style={{ display: "none" }}
+                                sx={{ display: "none" }}
                                 accept="image/*"
                                 onChange={handleFileChange}
                             />

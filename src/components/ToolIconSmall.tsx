@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { SvgIcon } from "@mui/material";
 
 interface ToolIconSmallProps {
   toolName: string;
@@ -44,18 +45,16 @@ export function ToolIconSmall({ toolName, size = 20 }: ToolIconSmallProps) {
   }
 
   return (
-    <svg
+    <SvgIcon
       viewBox="0 0 24 24"
-      fill="none"
-      style={{
+      sx={{
         width: size,
         height: size,
         flexShrink: 0,
         color: iconColors[toolName],
       }}
-      dangerouslySetInnerHTML={{
-        __html: iconContent[toolName]
-      }}
-    />
+    >
+      <g dangerouslySetInnerHTML={{ __html: iconContent[toolName] }} />
+    </SvgIcon>
   );
 }

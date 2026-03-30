@@ -10,7 +10,6 @@
 
 import { useState, useEffect } from "react";
 import { Editor } from "@/components/Editor";
-import { Copy, Download, Trash2, CheckCircle, AlertTriangle, Minimize2, Code2 } from "lucide-react";
 import {
     Box, Typography, Button, IconButton, Tooltip, Stack, Alert, Snackbar,
     Select, MenuItem, FormControl, InputLabel, Divider, alpha, useTheme, Chip

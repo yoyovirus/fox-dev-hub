@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { alpha, useTheme } from "@mui/material";
+import { alpha, useTheme, Box } from "@mui/material";
+import { SvgIcon } from "@mui/material";
 
 interface ToolIconProps {
   toolName: string;
@@ -15,15 +16,14 @@ interface ToolIconProps {
  */
 export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProps) {
   const theme = useTheme();
-  
+
   if (!iconContent[toolName]) {
-    // Fallback to a generic icon if tool name doesn't match
     return (
-      <div
-        style={{
+      <Box
+        sx={{
           width: size,
           height: size,
-          borderRadius: 6,
+          borderRadius: 1,
           backgroundColor: alpha(theme.palette.text.secondary, 0.08),
           display: "flex",
           alignItems: "center",
@@ -36,16 +36,16 @@ export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProp
         }}
       >
         ?
-      </div>
+      </Box>
     );
   }
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         width: size,
         height: size,
-        borderRadius: 6,
+        borderRadius: 1,
         backgroundColor: isActive
           ? alpha(iconColors[toolName], 0.15)
           : alpha(iconColors[toolName], 0.08),
@@ -57,20 +57,18 @@ export function ToolIcon({ toolName, isActive = false, size = 32 }: ToolIconProp
         transition: "background-color 0.2s ease",
       }}
     >
-      <svg
+      <SvgIcon
         viewBox="0 0 24 24"
-        fill="none"
-        style={{
+        sx={{
           width: size - 6,
           height: size - 6,
           flexShrink: 0,
           color: iconColors[toolName],
         }}
-        dangerouslySetInnerHTML={{
-          __html: iconContent[toolName] || ""
-        }}
-      />
-    </div>
+      >
+        <g dangerouslySetInnerHTML={{ __html: iconContent[toolName] || "" }} />
+      </SvgIcon>
+    </Box>
   );
 }
 

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { AppThemeProvider, useThemeContext } from "@/components/AppThemeProvider";
 import { Sidebar } from "@/components/Sidebar";
 import {
@@ -15,6 +14,8 @@ import {
     Typography,
     alpha,
     Collapse,
+    Fade,
+    Zoom,
 } from "@mui/material";
 import {
     ChevronLeft as ChevronLeftIcon,
@@ -127,28 +128,24 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        overflow: "auto",
+                        overflow: "hidden",
                         p: { xs: 2, sm: 3 },
                         position: "relative",
                     }}
                 >
                     {/* Floating Toggle for Sidebar in navbar-collapsed mode (One-Tile Mode) */}
-                    <AnimatePresence>
-                        {isOneTileMode && (
-                            <Box
-                                component={motion.div}
-                                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                                sx={{
-                                    position: "fixed",
-                                    bottom: 24,
-                                    right: 24,
-                                    zIndex: 1000,
-                                    display: "flex",
-                                    gap: 1.5,
-                                }}
-                            >
+                    <Collapse in={isOneTileMode}>
+                        <Box
+                            sx={{
+                                position: "fixed",
+                                bottom: 24,
+                                right: 24,
+                                zIndex: 1000,
+                                display: "flex",
+                                gap: 1.5,
+                            }}
+                        >
+                            <Fade in={isOneTileMode} timeout={300}>
                                 <IconButton
                                     onClick={toggleColorMode}
                                     sx={{
@@ -163,6 +160,8 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                                 >
                                     {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
                                 </IconButton>
+                            </Fade>
+                            <Zoom in={isOneTileMode} timeout={300}>
                                 <IconButton
                                     onClick={toggleSidebar}
                                     sx={{
@@ -176,9 +175,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                                 >
                                     {sidebarOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                                 </IconButton>
-                            </Box>
-                        )}
-                    </AnimatePresence>
+                            </Zoom>
+                        </Box>
+                    </Collapse>
 
                     {children}
                 </Box>

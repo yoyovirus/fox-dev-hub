@@ -10,9 +10,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, LayoutGroup } from "framer-motion";
 import {
-    Box, Typography, Card, CardContent, Chip, useTheme, alpha, IconButton, Collapse
+    Box, Typography, Card, CardContent, Chip, useTheme, alpha, IconButton, Collapse, Fade,
 } from "@mui/material";
 import {
     ArrowForward as ArrowForwardIcon,
@@ -71,16 +71,16 @@ export default function Home() {
     const GLOBAL_TILE_WIDTH = 360; 
 
     return (
-        <Box sx={{ minHeight: "100%", pb: 8 }}>
+        <Box sx={{ minHeight: "100%", pb: { xs: 4, md: 8 }, overflow: "hidden" }}>
             <LayoutGroup>
                 {/* Hero Section */}
                 <Collapse in={!openCategory}>
                     <Box
                         sx={{
                             textAlign: "center",
-                            py: { xs: 5, md: 6 },
+                            py: { xs: 3, md: 4 },
                             px: 2,
-                            mb: 4,
+                            mb: 3,
                             position: "relative",
                             "&::before": {
                                 content: '""',
@@ -203,157 +203,153 @@ export default function Home() {
 
                 {/* Content Area */}
                 <Box sx={{ maxWidth: 1280, mx: "auto", px: { xs: 2.5, md: 4 }, position: "relative" }}>
-                    <AnimatePresence mode="wait">
-                        {!openCategory ? (
-                            /* Dashboard Grid Layout - Truly Responsive 3rd/2nd Column Wrap */
-                            <motion.div
-                                key="dashboard-matrix"
-                                layout
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.98 }}
-                                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                            >
-                                <Box sx={{ 
-                                    display: "grid", 
-                                    // Use 1fr max to allow slight expansion before wrapping, preventing immediate cropping
-                                    gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, ${GLOBAL_TILE_WIDTH}px), 1fr))`, 
-                                    gap: 3, 
-                                    justifyContent: "center"
-                                }}>
-                                    {CATEGORIES.map((cat) => (
-                                        <motion.div 
-                                            key={cat.id} 
-                                            layoutId={`card-${cat.id}`}
-                                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                                            style={{ 
-                                                height: GLOBAL_TILE_HEIGHT, 
-                                                display: "flex", 
-                                                justifyContent: "center", 
-                                                position: "relative", 
-                                                zIndex: 1, 
-                                                borderRadius: TILE_RADIUS 
-                                            }}
-                                        >
-                                            <Card
-                                                onClick={() => setOpenCategory(cat.id)}
-                                                sx={{
-                                                    height: GLOBAL_TILE_HEIGHT,
-                                                    width: "100%",
-                                                    maxWidth: GLOBAL_TILE_WIDTH,
-                                                    position: "relative",
-                                                    cursor: "pointer",
-                                                    bgcolor: "background.paper",
-                                                    borderRadius: `${TILE_RADIUS}px`,
-                                                    border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#F1F5F9"}`,
-                                                    boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 15px rgba(0,0,0,0.05)",
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    boxSizing: "border-box", // Explicitly enforce border-box
-                                                    transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-                                                    "&:hover": {
-                                                        transform: "translateY(-6px)",
-                                                        boxShadow: `0 20px 40px ${alpha(cat.color, 0.15)}`,
-                                                        borderColor: alpha(cat.color, 0.4),
-                                                    },
-                                                }}
-                                            >
-                                                <CardContent sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1, justifyContent: "center" }}>
-                                                    <Box sx={{ width: 120, height: 86, mb: 3, borderRadius: 3.5, bgcolor: isDark ? alpha(cat.color, 0.1) : "#F8FAFC", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridTemplateRows: "repeat(2, 1fr)", gap: 0.75, p: 1.25 }}>
-                                                        {cat.tools.map((tool) => (
-                                                            <motion.div key={tool.id} layoutId={`icon-${cat.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} style={{ backgroundColor: alpha(tool.iconColor, 0.12), borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, width: "100%", height: "100%" }}>
-                                                                <Box sx={{ width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", color: tool.iconColor }}>
-                                                                    {tool.icon}
-                                                                </Box>
-                                                            </motion.div>
-                                                        ))}
-                                                    </Box>
-                                                    <Typography variant="h6" fontWeight={950} sx={{ mb: 0.5 }}>{cat.name}</Typography>
-                                                    <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ textTransform: "uppercase", opacity: 0.6 }}>{cat.tools.length} Tools Available</Typography>
-                                                </CardContent>
-                                                <Box sx={{ position: "absolute", bottom: 16, right: 16, width: 24, height: 24, borderRadius: "50%", bgcolor: alpha(cat.color, 0.1), display: "flex", alignItems: "center", justifyContent: "center", color: cat.color }}><ArrowForwardIcon sx={{ fontSize: 14 }} /></Box>
-                                            </Card>
-                                        </motion.div>
-                                    ))}
-
-                                    <motion.div
-                                        style={{
-                                            height: GLOBAL_TILE_HEIGHT,
-                                            display: "flex",
-                                            justifyContent: "center",
-                                            position: "relative",
-                                            zIndex: 1,
-                                            borderRadius: TILE_RADIUS
-                                        }}
-                                    >
-                                        <Card
-                                            sx={{
-                                                height: GLOBAL_TILE_HEIGHT,
-                                                width: "100%",
-                                                maxWidth: GLOBAL_TILE_WIDTH,
-                                                position: "relative",
-                                                borderRadius: `${TILE_RADIUS}px`,
-                                                bgcolor: isDark ? "rgba(255,255,255,0.01)" : "rgba(0,0,0,0.01)",
-                                                border: `1px dashed ${isDark ? "rgba(255,255,255,0.08)" : "#E2E8F0"}`,
-                                                transition: "all 0.3s ease",
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                boxSizing: "border-box",
-                                                "&:hover": {
-                                                    borderColor: theme.palette.primary.main,
-                                                    bgcolor: isDark ? alpha(theme.palette.primary.main, 0.05) : alpha(theme.palette.primary.main, 0.01),
-                                                    "& .coming-soon-icon": { transform: "scale(1.1) rotate(15deg)", color: theme.palette.primary.main }
-                                                }
-                                            }}
-                                        >
-                                            <CardContent sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1, justifyContent: "center" }}>
-                                                <Box sx={{ width: 120, height: 86, mb: 3, borderRadius: 3.5, bgcolor: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", display: "flex", alignItems: "center", justifyContent: "center", border: `2px dashed ${isDark ? "rgba(255,255,255,0.08)" : "#E2E8F0"}` }}>
-                                                    <SparklesIcon className="coming-soon-icon" sx={{ fontSize: 32, color: "text.disabled", opacity: 0.5, transition: "all 0.3s ease" }} />
-                                                </Box>
-                                                <Typography variant="h6" fontWeight={950} color="text.disabled" sx={{ mb: 0.5 }}>More Tools Coming Soon</Typography>
-                                                <Typography variant="caption" color="text.disabled" fontWeight={700} sx={{ textTransform: "uppercase", opacity: 0.6 }}>Development in Progress</Typography>
-                                            </CardContent>
-                                        </Card>
-                                    </motion.div>
-                                </Box>
-                            </motion.div>
-                        ) : (
-                            /* Expanded Category View - Robust No-Crop Responsive Grid */
-                            <Box key="expanded-box" sx={{ width: "100%", display: "flex", justifyContent: "center", position: "relative" }}>
-                                <Box 
-                                    onClick={() => setOpenCategory(null)}
-                                    sx={{ 
-                                        position: "fixed", 
-                                        inset: 0, 
-                                        zIndex: 40,
-                                        bgcolor: "transparent",
-                                        cursor: "default" 
-                                    }} 
-                                />
-
+                    {/* Dashboard Grid Layout - Truly Responsive 3rd/2nd Column Wrap */}
+                    <Collapse in={!openCategory}>
+                        <Box sx={{
+                            display: "grid",
+                            gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, ${GLOBAL_TILE_WIDTH}px), 1fr))`,
+                            gap: 3,
+                            justifyContent: "center",
+                            justifyItems: "center"
+                        }}>
+                            {CATEGORIES.map((cat) => (
                                 <motion.div
-                                    layoutId={`card-${activeCategory?.id}`}
-                                    onClick={(e) => e.stopPropagation()}
+                                    key={cat.id}
+                                    layoutId={`card-${cat.id}`}
                                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                     style={{
-                                        position: "relative", 
-                                        width: "fit-content",
-                                        maxWidth: "100%",
-                                        backgroundColor: theme.palette.background.paper, 
+                                        height: GLOBAL_TILE_HEIGHT,
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        position: "relative",
+                                        zIndex: 1,
                                         borderRadius: TILE_RADIUS,
-                                        border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#F1F5F9"}`, 
-                                        boxShadow: isDark ? "0 30px 60px rgba(0,0,0,0.5)" : "0 30px 60px rgba(0,0,0,0.05)", 
-                                        zIndex: 50,
-                                        overflow: "hidden" 
-                                    }} 
+                                        width: "100%",
+                                        maxWidth: GLOBAL_TILE_WIDTH,
+                                    }}
                                 >
-                                    <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                        <Box sx={{ width: "100%", display: "flex", alignItems: "center", mb: 3.5, gap: 2.5, px: 2 }}>
-                                            <IconButton onClick={() => setOpenCategory(null)} sx={{ bgcolor: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.1) } }}>
-                                                <ChevronLeftIcon />
-                                            </IconButton>
-                                            <Box>
-                                                <Typography variant="h4" fontWeight={950} sx={{ letterSpacing: "-0.015em", color: "text.primary" }}>{activeCategory?.name}</Typography>
+                                    <Card
+                                        onClick={() => setOpenCategory(cat.id)}
+                                        sx={{
+                                            height: GLOBAL_TILE_HEIGHT,
+                                            width: "100%",
+                                            maxWidth: GLOBAL_TILE_WIDTH,
+                                            position: "relative",
+                                            cursor: "pointer",
+                                            bgcolor: "background.paper",
+                                            borderRadius: `${TILE_RADIUS}px`,
+                                            border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#F1F5F9"}`,
+                                            boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 15px rgba(0,0,0,0.05)",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            boxSizing: "border-box",
+                                            transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+                                            "&:hover": {
+                                                transform: "translateY(-6px)",
+                                                boxShadow: `0 20px 40px ${alpha(cat.color, 0.15)}`,
+                                                borderColor: alpha(cat.color, 0.4),
+                                            },
+                                        }}
+                                    >
+                                        <CardContent sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1, justifyContent: "center" }}>
+                                            <Box sx={{ width: 120, height: 86, mb: 3, borderRadius: 3.5, bgcolor: isDark ? alpha(cat.color, 0.1) : "#F8FAFC", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridTemplateRows: "repeat(2, 1fr)", gap: 0.75, p: 1.25 }}>
+                                                {cat.tools.map((tool) => (
+                                                    <motion.div key={tool.id} layoutId={`icon-${cat.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} style={{ backgroundColor: alpha(tool.iconColor, 0.12), borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, width: "100%", height: "100%" }}>
+                                                        <Box sx={{ width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", color: tool.iconColor }}>
+                                                            {tool.icon}
+                                                        </Box>
+                                                    </motion.div>
+                                                ))}
+                                            </Box>
+                                            <Typography variant="h6" fontWeight={950} sx={{ mb: 0.5 }}>{cat.name}</Typography>
+                                            <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ textTransform: "uppercase", opacity: 0.6 }}>{cat.tools.length} Tools Available</Typography>
+                                        </CardContent>
+                                        <Box sx={{ position: "absolute", bottom: 16, right: 16, width: 24, height: 24, borderRadius: "50%", bgcolor: alpha(cat.color, 0.1), display: "flex", alignItems: "center", justifyContent: "center", color: cat.color }}><ArrowForwardIcon sx={{ fontSize: 14 }} /></Box>
+                                    </Card>
+                                </motion.div>
+                            ))}
+
+                            <motion.div
+                                style={{
+                                    height: GLOBAL_TILE_HEIGHT,
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    position: "relative",
+                                    zIndex: 1,
+                                    borderRadius: TILE_RADIUS,
+                                    width: "100%",
+                                    maxWidth: GLOBAL_TILE_WIDTH,
+                                }}
+                            >
+                                <Card
+                                    sx={{
+                                        height: GLOBAL_TILE_HEIGHT,
+                                        width: "100%",
+                                        maxWidth: GLOBAL_TILE_WIDTH,
+                                        position: "relative",
+                                        borderRadius: `${TILE_RADIUS}px`,
+                                        bgcolor: isDark ? "rgba(255,255,255,0.01)" : "rgba(0,0,0,0.01)",
+                                        border: `1px dashed ${isDark ? "rgba(255,255,255,0.08)" : "#E2E8F0"}`,
+                                        transition: "all 0.3s ease",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        boxSizing: "border-box",
+                                        "&:hover": {
+                                            borderColor: theme.palette.primary.main,
+                                            bgcolor: isDark ? alpha(theme.palette.primary.main, 0.05) : alpha(theme.palette.primary.main, 0.01),
+                                            "& .coming-soon-icon": { transform: "scale(1.1) rotate(15deg)", color: theme.palette.primary.main }
+                                        }
+                                    }}
+                                >
+                                    <CardContent sx={{ p: 4, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flexGrow: 1, justifyContent: "center" }}>
+                                        <Box sx={{ width: 120, height: 86, mb: 3, borderRadius: 3.5, bgcolor: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", display: "flex", alignItems: "center", justifyContent: "center", border: `2px dashed ${isDark ? "rgba(255,255,255,0.08)" : "#E2E8F0"}` }}>
+                                            <SparklesIcon className="coming-soon-icon" sx={{ fontSize: 32, color: "text.disabled", opacity: 0.5, transition: "all 0.3s ease" }} />
+                                        </Box>
+                                        <Typography variant="h6" fontWeight={950} color="text.disabled" sx={{ mb: 0.5 }}>More Tools Coming Soon</Typography>
+                                        <Typography variant="caption" color="text.disabled" fontWeight={700} sx={{ textTransform: "uppercase", opacity: 0.6 }}>Development in Progress</Typography>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        </Box>
+                    </Collapse>
+
+                    {/* Expanded Category View - Robust No-Crop Responsive Grid */}
+                    <Fade in={!!openCategory}>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", position: "relative" }}>
+                            <Box
+                                onClick={() => setOpenCategory(null)}
+                                sx={{
+                                    position: "fixed",
+                                    inset: 0,
+                                    zIndex: 40,
+                                    bgcolor: "transparent",
+                                    cursor: "default"
+                                }}
+                            />
+
+                            <motion.div
+                                layoutId={`card-${activeCategory?.id}`}
+                                onClick={(e) => e.stopPropagation()}
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                style={{
+                                    position: "relative",
+                                    width: "fit-content",
+                                    maxWidth: "100%",
+                                    backgroundColor: theme.palette.background.paper,
+                                    borderRadius: TILE_RADIUS,
+                                    border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "#F1F5F9"}`,
+                                    boxShadow: isDark ? "0 30px 60px rgba(0,0,0,0.5)" : "0 30px 60px rgba(0,0,0,0.05)",
+                                    zIndex: 50,
+                                    overflow: "hidden",
+                                }}
+                            >
+                                <Box sx={{ p: { xs: 2, sm: 3, md: 4 }, width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                    <Box sx={{ width: "100%", display: "flex", alignItems: "center", mb: 3.5, gap: 2.5, px: 2 }}>
+                                        <IconButton onClick={() => setOpenCategory(null)} sx={{ bgcolor: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.1) } }}>
+                                            <ChevronLeftIcon />
+                                        </IconButton>
+                                        <Box>
+                                            <Typography variant="h4" fontWeight={950} sx={{ letterSpacing: "-0.015em", color: "text.primary" }}>{activeCategory?.name}</Typography>
                                                 <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>{activeCategory?.description}</Typography>
                                             </Box>
                                         </Box>
@@ -373,12 +369,14 @@ export default function Home() {
                                             justifyContent: "center"
                                         }}>
                                             {activeCategory?.tools.map((tool) => (
-                                                <motion.div 
-                                                    key={tool.href} 
-                                                    style={{ 
-                                                        height: GLOBAL_TILE_HEIGHT, 
-                                                        display: "flex", 
-                                                        justifyContent: "center" 
+                                                <motion.div
+                                                    key={tool.href}
+                                                    style={{
+                                                        height: GLOBAL_TILE_HEIGHT,
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        width: "100%",
+                                                        maxWidth: GLOBAL_TILE_WIDTH,
                                                     }}
                                                 >
                                                     <Card 
@@ -408,7 +406,7 @@ export default function Home() {
                                                         <CardContent sx={{ p: 4, flexGrow: 1, display: "flex", flexDirection: "column", gap: 2, justifyContent: "space-between", boxSizing: "border-box" }}>
                                                             <Box>
                                                                 <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                                                                    <motion.div layoutId={`icon-${activeCategory.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} className="tool-icon-box" style={{ width: "52px", height: "52px", borderRadius: "12px", backgroundColor: alpha(tool.iconColor, 0.12), display: "flex", alignItems: "center", justifyContent: "center", color: tool.iconColor }}>
+                                                                    <motion.div layoutId={`icon-${activeCategory.id}-${tool.id}`} transition={{ type: "spring", stiffness: 500, damping: 35 }} className="tool-icon-box" style={{ width: 52, height: 52, borderRadius: 3, backgroundColor: alpha(tool.iconColor, 0.12), display: "flex", alignItems: "center", justifyContent: "center", color: tool.iconColor }}>
                                                                         {tool.iconLarge}
                                                                     </motion.div>
                                                                     <Typography variant="subtitle1" fontWeight={950}>{tool.name}</Typography>
@@ -428,8 +426,7 @@ export default function Home() {
                                     </Box>
                                 </motion.div>
                             </Box>
-                        )}
-                    </AnimatePresence>
+                        </Fade>
                 </Box>
             </LayoutGroup>
         </Box>

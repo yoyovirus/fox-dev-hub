@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
-import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline, Box } from "@mui/material";
 
 interface ThemeContextType {
     mode: "light" | "dark";
@@ -85,7 +85,6 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
                         }),
                 },
                 typography: {
-                    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                     button: {
                         textTransform: "none",
                         fontWeight: 600,
@@ -191,6 +190,17 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
                         defaultProps: {
                             arrow: true,
                         },
+                        styleOverrides: {
+                            tooltip: {
+                                backgroundColor: '#000000',
+                                color: '#ffffff',
+                                fontSize: '0.875rem',
+                                fontWeight: 500,
+                            },
+                            arrow: {
+                                color: '#000000',
+                            },
+                        },
                     },
                 },
             }),
@@ -198,7 +208,7 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
     );
 
     if (!mounted) {
-        return <div style={{ visibility: "hidden" }}>{children}</div>;
+        return <Box sx={{ visibility: "hidden" }}>{children}</Box>;
     }
 
     return (

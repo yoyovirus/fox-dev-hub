@@ -175,8 +175,8 @@ export default function VisualizerPage() {
                         p: 2,
                     }}>
                         {parsedJson ? (
-                            <Box sx={{ ...(mode === "dark" ? darkTheme : {}), backgroundColor: "transparent" }}>
-                                <JsonView value={parsedJson} style={{ backgroundColor: "transparent", fontFamily: "'JetBrains Mono', monospace", fontSize: "13px" }} displayDataTypes={false} />
+                            <Box sx={{ ...(mode === "dark" ? darkTheme : {}), backgroundColor: "transparent", fontFamily: "'JetBrains Mono', monospace", fontSize: "13px" }}>
+                                <JsonView value={parsedJson} displayDataTypes={false} />
                             </Box>
                         ) : (
                             <Box sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>

@@ -25,7 +25,6 @@ export default function RootLayout({
         <meta name="author" content="Rahul Khedekar" />
       </head>
       <body>
-        <div dangerouslySetInnerHTML={{ __html: '<!-- Website: FoX Dev Hub - Tools for Developers | Author: Rahul Khedekar | Copyright © 2026 FoX Dev Hub. All rights reserved. -->' }} />
         <Shell>{children}</Shell>
       </body>
     </html>
