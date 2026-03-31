@@ -137,7 +137,8 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        overflow: "hidden",
+                        overflow: "auto",
+                        minHeight: 0,
                         p: { xs: 2, sm: 3 },
                         position: "relative",
                     }}

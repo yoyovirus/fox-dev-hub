@@ -73,10 +73,10 @@ export default function Home() {
     const GLOBAL_TILE_WIDTH = 360; 
 
     return (
-        <Box sx={{ minHeight: "100%", pb: { xs: 4, md: 8 }, overflow: "hidden" }}>
+        <Box sx={{ minHeight: "100%", pb: { xs: 4, md: 8 }, overflow: "hidden", boxSizing: "border-box" }}>
             <LayoutGroup>
                 {/* Hero Section */}
-                <Collapse in={!openCategory}>
+                <Collapse in={!openCategory} unmountOnExit>
                     <Box
                         sx={{
                             textAlign: "center",
@@ -218,7 +218,7 @@ export default function Home() {
                 {/* Content Area */}
                 <Box sx={{ maxWidth: 1280, mx: "auto", px: { xs: 2.5, md: 4 }, position: "relative" }}>
                     {/* Dashboard Grid Layout - Truly Responsive 3rd/2nd Column Wrap */}
-                    <Collapse in={!openCategory}>
+                    <Collapse in={!openCategory} unmountOnExit>
                         <Box sx={{
                             display: "grid",
                             gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, ${GLOBAL_TILE_WIDTH}px), 1fr))`,
@@ -331,7 +331,7 @@ export default function Home() {
                     </Collapse>
 
                     {/* Expanded Category View - Robust No-Crop Responsive Grid */}
-                    <Fade in={!!openCategory}>
+                    <Fade in={!!openCategory} unmountOnExit>
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "center", position: "relative" }}>
                             <Box
                                 onClick={() => setOpenCategory(null)}
