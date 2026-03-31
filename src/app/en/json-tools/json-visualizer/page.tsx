@@ -16,6 +16,7 @@ import { Box, Typography, Button, alpha, useTheme, IconButton, Tooltip, Divider,
 import { DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
 import { useThemeContext } from "@/components/AppThemeProvider";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_VISUALIZER } from "@/lib/sampleData";
 
 export default function VisualizerPage() {
@@ -71,6 +72,7 @@ export default function VisualizerPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Visualizer"
+                toolColor={getToolColor("JSON Visualizer")}
                 description="Explore JSON structures in an interactive, collapsible tree view."
             />
 

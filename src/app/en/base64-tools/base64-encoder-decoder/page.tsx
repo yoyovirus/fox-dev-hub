@@ -19,6 +19,7 @@ import {
     SwapHoriz as SwapHorizIcon, FilePresent, FolderZip
 } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 
 export default function Base64EncoderDecoderPage() {
     const theme = useTheme();
@@ -761,6 +762,7 @@ export default function Base64EncoderDecoderPage() {
             {/* Header */}
             <ToolHeader
                 toolName="Base64 Encoder / Decoder"
+                toolColor={getToolColor("Base64 Encoder / Decoder")}
                 description="Encode text to Base64 or decode it back in real-time. Supports binary files, images, PDF, ZIP, and more."
             />
 

@@ -24,27 +24,27 @@ import {
     ExpandMore,
 } from "@mui/icons-material";
 import { ToolIcon } from "./ToolIcon";
-import { TOOL_COLORS } from "@/lib/toolColors";
+import { TOOL_COLORS, getToolColor } from "@/lib/toolColors";
 import Image from 'next/image';
 
 const drawerWidth = 300;
 const collapsedDrawerWidth = 84;
 
 const JSON_TOOLS = [
-    { name: "JSON Formatter", href: "/en/json-tools/json-formatter", icon: <ToolIcon toolName="JSON Formatter" size={24} /> },
-    { name: "JSON Validator", href: "/en/json-tools/json-validator", icon: <ToolIcon toolName="JSON Validator" size={24} /> },
-    { name: "JSON Diff", href: "/en/json-tools/json-diff", icon: <ToolIcon toolName="JSON Diff" size={24} /> },
-    { name: "JSON Visualizer", href: "/en/json-tools/json-visualizer", icon: <ToolIcon toolName="JSON Visualizer" size={24} /> },
-    { name: "JSON Type Generator", href: "/en/json-tools/json-type-generator", icon: <ToolIcon toolName="JSON Type Generator" size={24} /> },
-    { name: "JSON to Table", href: "/en/json-tools/json-to-table", icon: <ToolIcon toolName="JSON to Table" size={24} /> },
-    { name: "JSON Path Tester", href: "/en/json-tools/json-path-tester", icon: <ToolIcon toolName="JSON Path Tester" size={24} /> },
-    { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ToolIcon toolName="JSON Relationship Visualizer" size={24} /> },
+    { name: "JSON Formatter", href: "/en/json-tools/json-formatter", icon: <ToolIcon toolName="JSON Formatter" size={24} />, color: getToolColor("JSON Formatter") },
+    { name: "JSON Validator", href: "/en/json-tools/json-validator", icon: <ToolIcon toolName="JSON Validator" size={24} />, color: getToolColor("JSON Validator") },
+    { name: "JSON Diff", href: "/en/json-tools/json-diff", icon: <ToolIcon toolName="JSON Diff" size={24} />, color: getToolColor("JSON Diff") },
+    { name: "JSON Visualizer", href: "/en/json-tools/json-visualizer", icon: <ToolIcon toolName="JSON Visualizer" size={24} />, color: getToolColor("JSON Visualizer") },
+    { name: "JSON Type Generator", href: "/en/json-tools/json-type-generator", icon: <ToolIcon toolName="JSON Type Generator" size={24} />, color: getToolColor("JSON Type Generator") },
+    { name: "JSON to Table", href: "/en/json-tools/json-to-table", icon: <ToolIcon toolName="JSON to Table" size={24} />, color: getToolColor("JSON to Table") },
+    { name: "JSON Path Tester", href: "/en/json-tools/json-path-tester", icon: <ToolIcon toolName="JSON Path Tester" size={24} />, color: getToolColor("JSON Path Tester") },
+    { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ToolIcon toolName="JSON Relationship Visualizer" size={24} />, color: getToolColor("JSON Relationship Visualizer") },
 ];
 
 const BASE64_TOOLS = [
-    { name: "Base64 Encoder / Decoder", href: "/en/base64-tools/base64-encoder-decoder", icon: <ToolIcon toolName="Base64 Encoder / Decoder" size={24} /> },
-    { name: "Image to Base64", href: "/en/base64-tools/image-to-base64", icon: <ToolIcon toolName="Image to Base64" size={24} /> },
-    { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ToolIcon toolName="Base64 to Image" size={24} /> },
+    { name: "Base64 Encoder / Decoder", href: "/en/base64-tools/base64-encoder-decoder", icon: <ToolIcon toolName="Base64 Encoder / Decoder" size={24} />, color: getToolColor("Base64 Encoder / Decoder") },
+    { name: "Image to Base64", href: "/en/base64-tools/image-to-base64", icon: <ToolIcon toolName="Image to Base64" size={24} />, color: getToolColor("Image to Base64") },
+    { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ToolIcon toolName="Base64 to Image" size={24} />, color: getToolColor("Base64 to Image") },
 ];
 
 interface ToolCategoryProps {

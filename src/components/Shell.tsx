@@ -31,10 +31,10 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const { mode, toggleColorMode } = useThemeContext();
     const theme = useTheme();
-    
+
     // md: 900px, sm: 600px
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-    
+
     // One Tile Mode threshold (~744px based on 2 * 360px + gaps)
     const isOneTileMode = useMediaQuery("(max-width:768px)");
 

@@ -19,6 +19,7 @@ import {
 } from "@mui/icons-material";
 import { Editor } from "@/components/Editor";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 
 export default function Base64ToImagePage() {
     const theme = useTheme();
@@ -118,6 +119,7 @@ export default function Base64ToImagePage() {
             {/* Header */}
             <ToolHeader
                 toolName="Base64 to Image"
+                toolColor={getToolColor("Base64 to Image")}
                 description="Decode Base64 strings or Data URIs back into images and view their properties."
             />
 

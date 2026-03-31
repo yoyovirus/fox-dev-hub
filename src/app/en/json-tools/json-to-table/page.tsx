@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { Search as SearchIcon, Download as DownloadIcon, ContentCopy as ContentCopyIcon, Clear as ClearIcon, DeleteOutline } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_TO_TABLE } from "@/lib/sampleData";
 
 export default function ToTablePage() {
@@ -102,6 +103,7 @@ export default function ToTablePage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON to Table"
+                toolColor={getToolColor("JSON to Table")}
                 description="Convert JSON arrays into clean, readable tables instantly."
             />
 

@@ -19,6 +19,7 @@ import {
 } from "@mui/icons-material";
 import { Editor } from "@/components/Editor";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 
 export default function ImageToBase64Page() {
     const theme = useTheme();
@@ -131,6 +132,7 @@ export default function ImageToBase64Page() {
             {/* Header */}
             <ToolHeader
                 toolName="Image to Base64"
+                toolColor={getToolColor("Image to Base64")}
                 description="Convert image files into Base64 strings for CSS, HTML, or data transfer."
             />
 

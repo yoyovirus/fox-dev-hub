@@ -21,6 +21,7 @@ import {
     ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon,
 } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_RELATIONSHIP_VISUALIZER } from "@/lib/sampleData";
 
 type NodeType = "object" | "array" | "string" | "number" | "boolean" | "null";
@@ -622,6 +623,7 @@ export default function JsonRelationshipVisualizerPage() {
             {/* Header */}
             <ToolHeader
                 toolName="JSON Relationship Visualizer"
+                toolColor={getToolColor("JSON Relationship Visualizer")}
                 description="Explore JSON structures as an interactive graph and understand their relationships."
             />
 

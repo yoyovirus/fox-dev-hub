@@ -19,6 +19,7 @@ import {
     Search as SearchIcon, FilterList as FilterIcon,
 } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_PATH_TESTER } from "@/lib/sampleData";
 
 // ── Dynamic path generator ────────────────────────────────────────────────────
@@ -376,6 +377,7 @@ export default function JsonPathTesterPage() {
             {/* Header */}
             <ToolHeader
                 toolName="JSON Path Tester"
+                toolColor={getToolColor("JSON Path Tester")}
                 description="Test JSONPath expressions against your JSON data and see matched values instantly."
             />
 

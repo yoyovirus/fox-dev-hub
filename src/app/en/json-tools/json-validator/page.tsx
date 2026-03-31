@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { CheckCircle, ErrorOutline, DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 
 export default function ValidatorPage() {
     const [input, setInput] = useState<string>("");
@@ -69,6 +70,7 @@ export default function ValidatorPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Validator"
+                toolColor={getToolColor("JSON Validator")}
                 description="Quickly validate your JSON data to pinpoint syntax errors."
             />
 

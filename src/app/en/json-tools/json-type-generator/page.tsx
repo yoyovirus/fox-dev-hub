@@ -13,6 +13,7 @@ import { Editor } from "@/components/Editor";
 import { Box, Typography, Button, Snackbar, alpha, useTheme, Select, IconButton, Tooltip, Divider, Alert } from "@mui/material";
 import { ContentCopy, Code as CodeIcon, DeleteOutline, Download as DownloadIcon } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 
 function generateTypeScript(jsonStr: string, rootName = "Root"): string {
     try {
@@ -138,6 +139,7 @@ export default function TypeGeneratorPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Type Generator"
+                toolColor={getToolColor("JSON Type Generator")}
                 description="Automatically generate TypeScript interfaces and Go structs from any JSON structure."
             />
 

@@ -13,6 +13,7 @@ import { JsonDiffEditor } from "@/components/JsonDiffEditor";
 import { Box, Typography, Button, Stack, Tooltip, IconButton, alpha, useTheme, Divider, Snackbar, Alert } from "@mui/material";
 import { SwapHoriz as SwapHorizIcon, Code as CodeIcon, DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 
 export default function DiffPage() {
     const [original, setOriginal] = useState<string>("");
@@ -90,6 +91,7 @@ export default function DiffPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Diff"
+                toolColor={getToolColor("JSON Diff")}
                 description="Compare two JSON objects and highlight their differences."
             />
 

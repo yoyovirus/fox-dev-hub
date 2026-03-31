@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { ContentCopy, Download as DownloadIcon, DeleteOutline, AutoAwesome, SwapHoriz as SwapHorizIcon } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
+import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_FORMATTER } from "@/lib/sampleData";
 
 export default function FormatterPage() {
@@ -97,6 +98,7 @@ export default function FormatterPage() {
             {/* Page Header */}
             <ToolHeader
                 toolName="JSON Formatter"
+                toolColor={getToolColor("JSON Formatter")}
                 description="Beautify and minify JSON with customizable indentation."
             />
 
