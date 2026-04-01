@@ -74,6 +74,28 @@ export default function Home() {
 
     return (
         <Box sx={{ minHeight: "100%", pb: { xs: 4, md: 8 }, overflow: "hidden", boxSizing: "border-box" }}>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "WebApplication",
+                        "name": "FoX Dev Hub",
+                        "description": "A fast, privacy-first suite of developer tools.",
+                        "applicationCategory": "DeveloperApplication",
+                        "operatingSystem": "Any",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        },
+                        "creator": {
+                            "@type": "Person",
+                            "name": "Rahul Khedekar"
+                        }
+                    })
+                }}
+            />
             <LayoutGroup>
                 {/* Hero Section */}
                 <Collapse in={!openCategory} unmountOnExit>
@@ -121,7 +143,7 @@ export default function Home() {
                             <Box sx={{ display: "flex", justifyContent: "center" }}>
                                 <Image
                                     src="/foxdevhub_logo.png"
-                                    alt="FoX Dev Hub Mascot"
+                                    alt="FoX Dev Hub - Privacy-First Developer Tools Mascot"
                                     width={280}
                                     height={280}
                                     priority
@@ -155,7 +177,7 @@ export default function Home() {
 
                         <Typography
                             variant="h2"
-                            component="h1"
+                            component="h2"
                             fontWeight={950}
                             sx={{
                                 mb: 2,
