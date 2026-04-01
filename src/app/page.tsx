@@ -1,7 +1,7 @@
 /*
-  Website: FoX Dev Hub - Tools for Developers
+  Website: FoX Dev Tools - Tools for Developers
   Author: Rahul Khedekar
-  Copyright © 2026 FoX Dev Hub. All rights reserved.
+  Copyright © 2026 FoX Dev Tools. All rights reserved.
 
   This code is proprietary and may not be copied, modified,
   or distributed without permission.
@@ -80,7 +80,7 @@ export default function Home() {
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "WebApplication",
-                        "name": "FoX Dev Hub",
+                        "name": "FoX Dev Tools",
                         "description": "A fast, privacy-first suite of developer tools.",
                         "applicationCategory": "DeveloperApplication",
                         "operatingSystem": "Any",
@@ -138,12 +138,12 @@ export default function Home() {
                                     mb: 2
                                 }}
                             >
-                                FoX Dev Hub
+                                FoX Dev Tools
                             </Typography>
                             <Box sx={{ display: "flex", justifyContent: "center" }}>
                                 <Image
-                                    src="/foxdevhub_logo.png"
-                                    alt="FoX Dev Hub - Privacy-First Developer Tools Mascot"
+                                    src="/foxdevtools_logo.png"
+                                    alt="FoX Dev Tools - Privacy-First Developer Tools Mascot"
                                     width={280}
                                     height={280}
                                     priority

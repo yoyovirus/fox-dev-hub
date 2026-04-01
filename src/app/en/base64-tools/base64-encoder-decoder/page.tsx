@@ -1,7 +1,7 @@
 /*
-  Website: FoX Dev Hub - Tools for Developers
+  Website: FoX Dev Tools - Tools for Developers
   Author: Rahul Khedekar
-  Copyright © 2026 FoX Dev Hub. All rights reserved.
+  Copyright © 2026 FoX Dev Tools. All rights reserved.
 
   This code is proprietary and may not be copied, modified,
   or distributed without permission.
@@ -737,7 +737,7 @@ export default function Base64EncoderDecoderPage() {
     };
 
     const loadSample = () => {
-        const sample = "Hello FoX Dev Hub! 🦊\nBase64 is awesome.";
+        const sample = "Hello FoX Dev Tools! 🦊\nBase64 is awesome.";
         // Clear any existing image preview and file detection
         setImagePreview("");
         setImageDimensions(null);

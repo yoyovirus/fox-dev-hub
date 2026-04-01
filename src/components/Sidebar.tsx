@@ -280,8 +280,8 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
                     }}
                 >
                     <Image
-                        src="/foxdevhub_logo.png"
-                        alt="FoX Dev Hub"
+                        src="/foxdevtools_logo.png"
+                        alt="FoX Dev Tools"
                         width={56}
                         height={56}
                         priority
@@ -300,7 +300,7 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
                                 fontSize: "1.5rem"
                             }}
                         >
-                            FoX Dev Hub
+                            FoX Dev Tools
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.3, display: "block", fontWeight: 500 }}>
                             Tools for Developers
@@ -340,7 +340,7 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
                 <Divider sx={{ mb: 2, opacity: 0.5 }} />
                 {open && (
                     <Typography variant="caption" color="text.secondary" sx={{ display: "block", textAlign: "center", opacity: 0.6 }}>
-                        © 2026 FoX Dev Hub
+                        © 2026 FoX Dev Tools
                     </Typography>
                 )}
             </Box>

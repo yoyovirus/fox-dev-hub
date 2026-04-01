@@ -1,7 +1,7 @@
 /*
-  Website: FoX Dev Hub - Tools for Developers
+  Website: FoX Dev Tools - Tools for Developers
   Author: Rahul Khedekar
-  Copyright © 2026 FoX Dev Hub. All rights reserved.
+  Copyright © 2026 FoX Dev Tools. All rights reserved.
 
   This code is proprietary and may not be copied, modified,
   or distributed without permission.
@@ -93,7 +93,7 @@ export default function Base64ToImagePage() {
 
     const loadSample = async () => {
         try {
-            const response = await fetch('/foxdevhub_logo.png');
+            const response = await fetch('/foxdevtools_logo.png');
             const blob = await response.blob();
             const reader = new FileReader();
             reader.onloadend = () => {

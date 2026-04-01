@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://fox-dev-hub.vercel.app'
+  const baseUrl = 'https://fox-dev-tools.vercel.app'
   
   const rules = [
     { url: baseUrl, priority: 1 },

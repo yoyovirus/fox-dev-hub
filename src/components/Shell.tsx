@@ -93,14 +93,14 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                                 {isMobile && (
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: 1 }}>
                                         <Image
-                                            src="/foxdevhub_logo.png"
-                                            alt="FoX Dev Hub"
+                                            src="/foxdevtools_logo.png"
+                                            alt="FoX Dev Tools"
                                             width={28}
                                             height={28}
                                             priority
                                             style={{ borderRadius: '6px' }}
                                         />
-                                        <Typography variant="subtitle2" fontWeight={800} color="text.primary" sx={{ letterSpacing: "-0.01em" }}>FoX Dev Hub</Typography>
+                                        <Typography variant="subtitle2" fontWeight={800} color="text.primary" sx={{ letterSpacing: "-0.01em" }}>FoX Dev Tools</Typography>
                                     </Box>
                                 )}
                             </Box>

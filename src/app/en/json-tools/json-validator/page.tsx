@@ -1,7 +1,7 @@
 /*
-  Website: FoX Dev Hub - Tools for Developers
+  Website: FoX Dev Tools - Tools for Developers
   Author: Rahul Khedekar
-  Copyright © 2026 FoX Dev Hub. All rights reserved.
+  Copyright © 2026 FoX Dev Tools. All rights reserved.
 
   This code is proprietary and may not be copied, modified,
   or distributed without permission.

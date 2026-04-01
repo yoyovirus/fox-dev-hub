@@ -1,4 +1,4 @@
-# 🦊 Fox Dev Hub
+# 🦊 Fox Dev Tools
 
 > **All essential dev tools in one place**
 
@@ -13,12 +13,12 @@ A fast, free, browser-based collection of developer tools including JSON formatt
 
 ---
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/yoyovirus/fox-dev-hub/build.yml?style=flat-square&logo=github)](https://github.com/yoyovirus/fox-dev-hub/actions)
-[![Deploy Status](https://img.shields.io/badge/deploy-vercel-000000?style=flat-square&logo=vercel)](https://fox-dev-hub.vercel.app/)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/yoyovirus/fox-dev-tools/build.yml?style=flat-square&logo=github)](https://github.com/yoyovirus/fox-dev-tools/actions)
+[![Deploy Status](https://img.shields.io/badge/deploy-vercel-000000?style=flat-square&logo=vercel)](https://fox-dev-tools.vercel.app/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/next.js-16.x-000000?style=flat-square&logo=next.js)](https://nextjs.org/)
 
-🌐 **Live Demo:** [https://fox-dev-hub.vercel.app/](https://fox-dev-hub.vercel.app/)
+🌐 **Live Demo:** [https://fox-dev-tools.vercel.app/](https://fox-dev-tools.vercel.app/)
 
 ---
 
@@ -53,8 +53,8 @@ A fast, free, browser-based collection of developer tools including JSON formatt
 
 ```bash
 # Clone the repository
-git clone https://github.com/yoyovirus/fox-dev-hub.git
-cd fox-dev-hub
+git clone https://github.com/yoyovirus/fox-dev-tools.git
+cd fox-dev-tools
 
 # Install dependencies
 npm install
@@ -79,7 +79,7 @@ npm run lint    # Run ESLint
 ## 🏗️ Project Structure
 
 ```
-fox-dev-hub/
+fox-dev-tools/
 ├── src/
 │   ├── app/              # Next.js App Router pages & layouts
 │   ├── components/       # Reusable React components
@@ -111,9 +111,9 @@ fox-dev-hub/
 
 > *Screenshots coming soon!*
 
-<!-- 
+<!--
 ![Dashboard](./public/screenshots/dashboard.png)
-*Fox Dev Hub Dashboard*
+*Fox Dev Tools Dashboard*
 -->
 
 ---
@@ -130,7 +130,7 @@ fox-dev-hub/
 
 ## 🔍 SEO
 
-Fox Dev Hub is optimized for search engines and social sharing:
+Fox Dev Tools is optimized for search engines and social sharing:
 
 - ✅ Semantic HTML5 structure
 - ✅ Meta tags for title, description, keywords
@@ -145,7 +145,7 @@ Fox Dev Hub is optimized for search engines and social sharing:
 
 ### Deploy with Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yoyovirus/fox-dev-hub)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yoyovirus/fox-dev-tools)
 
 1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
 2. Import your project in Vercel
@@ -154,7 +154,7 @@ Fox Dev Hub is optimized for search engines and social sharing:
 
 ### Environment Variables
 
-No environment variables are required. Fox Dev Hub runs entirely in the browser.
+No environment variables are required. Fox Dev Tools runs entirely in the browser.
 
 ---
 
@@ -188,7 +188,7 @@ Contributions are welcome! Here's how you can help:
 - [ ] Customizable tool presets
 - [ ] Export/import tool configurations
 
-Have a tool suggestion? [Open an issue](https://github.com/yoyovirus/fox-dev-hub/issues)!
+Have a tool suggestion? [Open an issue](https://github.com/yoyovirus/fox-dev-tools/issues)!
 
 ---
 

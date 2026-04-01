@@ -3,32 +3,32 @@ import "./globals.css";
 import { Shell } from "@/components/Shell";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://fox-dev-hub.vercel.app'), // Assuming foxdevhub.com, or user can replace
+  metadataBase: new URL('https://fox-dev-tools.vercel.app'), // Assuming foxdevtools.com, or user can replace
   title: {
-    default: "FoX Dev Hub - Tools for Developers",
-    template: "%s | FoX Dev Hub"
+    default: "FoX Dev Tools - Tools for Developers",
+    template: "%s | FoX Dev Tools"
   },
   description: "A fast, privacy-first suite of developer tools. Format, validate, convert, and visualize data right in your browser.",
   keywords: ["developer tools", "JSON formatter", "Base64 encoder", "privacy-first tools", "local tools"],
   authors: [{ name: "Rahul Khedekar" }],
   creator: "Rahul Khedekar",
   openGraph: {
-    title: "FoX Dev Hub - Local Developer Tools",
+    title: "FoX Dev Tools - Local Developer Tools",
     description: "Zero backend, 100% private developer tools. Run formatting and validations instantly in your browser.",
-    url: "https://fox-dev-hub.vercel.app",
-    siteName: "FoX Dev Hub",
+    url: "https://fox-dev-tools.vercel.app",
+    siteName: "FoX Dev Tools",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FoX Dev Hub",
+    title: "FoX Dev Tools",
     description: "Fast, privacy-first tools for developers.",
   },
   alternates: {
     canonical: '/',
   },
   appleWebApp: {
-    title: "FoX Dev Hub",
+    title: "FoX Dev Tools",
   }
 };
 

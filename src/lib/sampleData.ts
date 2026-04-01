@@ -15,7 +15,7 @@ export const SAMPLE_JSON_FORMATTER = `{
 }`;
 
 export const SAMPLE_JSON_VISUALIZER = `{
-  "project": "FoX Dev Hub",
+  "project": "FoX Dev Tools",
   "version": "1.0.0",
   "tools": [
     {
