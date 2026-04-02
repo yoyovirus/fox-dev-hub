@@ -47,6 +47,19 @@ const BASE64_TOOLS = [
     { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ToolIcon toolName="Base64 to Image" size={24} />, color: getToolColor("Base64 to Image") },
 ];
 
+const TEXT_TOOLS = [
+    { name: "Text Compare", href: "/en/text-tools/text-compare", icon: <ToolIcon toolName="Text Compare" size={24} />, color: getToolColor("Text Compare") },
+    { name: "Case Converter", href: "/en/text-tools/case-converter", icon: <ToolIcon toolName="Case Converter" size={24} />, color: getToolColor("Case Converter") },
+    { name: "Line Tools", href: "/en/text-tools/line-tools", icon: <ToolIcon toolName="Line Tools" size={24} />, color: getToolColor("Line Tools") },
+    { name: "Text Diff", href: "/en/text-tools/text-diff", icon: <ToolIcon toolName="Text Diff" size={24} />, color: getToolColor("Text Diff") },
+    { name: "Find & Replace", href: "/en/text-tools/find-replace", icon: <ToolIcon toolName="Find & Replace" size={24} />, color: getToolColor("Find & Replace") },
+    { name: "Text Statistics", href: "/en/text-tools/text-statistics", icon: <ToolIcon toolName="Text Statistics" size={24} />, color: getToolColor("Text Statistics") },
+    { name: "Anagram", href: "/en/text-tools/anagram", icon: <ToolIcon toolName="Anagram" size={24} />, color: getToolColor("Anagram") },
+    { name: "Remove Duplicates", href: "/en/text-tools/remove-duplicates", icon: <ToolIcon toolName="Remove Duplicates" size={24} />, color: getToolColor("Remove Duplicates") },
+    { name: "Lorem Ipsum", href: "/en/text-tools/lorem-ipsum", icon: <ToolIcon toolName="Lorem Ipsum" size={24} />, color: getToolColor("Lorem Ipsum") },
+    { name: "Blabber", href: "/en/text-tools/blabber", icon: <ToolIcon toolName="Blabber" size={24} />, color: getToolColor("Blabber") },
+];
+
 interface ToolCategoryProps {
     name: string;
     icon: React.ReactNode;
@@ -329,6 +342,17 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
                     tools={BASE64_TOOLS}
                     isOpen={base64Open}
                     onToggle={handleBase64Click}
+                    pathname={pathname}
+                    open={open}
+                    theme={theme}
+                />
+
+                <ToolCategory
+                    name="Text Tools"
+                    icon={<ToolIcon toolName="Text Compare" size={24} />}
+                    tools={TEXT_TOOLS}
+                    isOpen={true}
+                    onToggle={() => {}}
                     pathname={pathname}
                     open={open}
                     theme={theme}

@@ -11,6 +11,7 @@ interface EditorProps {
     language?: string;
     readOnly?: boolean;
     placeholder?: string;
+    onMount?: (editor: any) => void;
 }
 
 // Lazy load Monaco Editor with loading state
@@ -34,7 +35,7 @@ const MonacoEditor = dynamic(
 );
 
 // Memoized to prevent unnecessary re-renders
-export const Editor = memo(function Editor({ value, onChange, language = "json", readOnly = false, placeholder }: EditorProps) {
+export const Editor = memo(function Editor({ value, onChange, language = "json", readOnly = false, placeholder, onMount }: EditorProps) {
     const [mounted, setMounted] = useState(false);
     const [cursorPos, setCursorPos] = useState({ line: 1, column: 1, position: 0 });
     const { mode } = useThemeContext();
@@ -43,6 +44,9 @@ export const Editor = memo(function Editor({ value, onChange, language = "json",
     const lineCount = value ? value.split(/\r\n|\r|\n/).length : 0;
 
     const handleEditorDidMount = (editor: any) => {
+        if (onMount) {
+            onMount(editor);
+        }
         editor.onDidChangeCursorPosition((e: any) => {
             const position = e.position;
             const model = editor.getModel();

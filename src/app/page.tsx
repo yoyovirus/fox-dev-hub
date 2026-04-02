@@ -57,6 +57,25 @@ const CATEGORIES = [
             { id: "i2b", name: "Image to Base64", description: "Convert images to Base64 strings instantly.", href: "/en/base64-tools/image-to-base64", icon: <ToolIconSmall toolName="Image to Base64" size={20} />, iconLarge: <ToolIconSmall toolName="Image to Base64" size={32} />, tags: ["Image", "Convert"] },
             { id: "b2i", name: "Base64 to Image", description: "Decode Base64 strings back into images.", href: "/en/base64-tools/base64-to-image", icon: <ToolIconSmall toolName="Base64 to Image" size={20} />, iconLarge: <ToolIconSmall toolName="Base64 to Image" size={32} />, tags: ["Base64", "Image"] },
         ]
+    },
+    {
+        id: "text",
+        name: "Text Tools",
+        description: "A comprehensive suite for text manipulation, comparison, and generation.",
+        color: "#14B8A6",
+        icon: <SparklesIcon />,
+        tools: [
+            { id: "cmp", name: "Text Compare", description: "Compare two texts side by side and identify differences.", href: "/en/text-tools/text-compare", icon: <ToolIconSmall toolName="Text Compare" size={20} />, iconLarge: <ToolIconSmall toolName="Text Compare" size={32} />, tags: ["Compare", "Diff"] },
+            { id: "case", name: "Case Converter", description: "Convert text between uppercase, lowercase, title case, and more.", href: "/en/text-tools/case-converter", icon: <ToolIconSmall toolName="Case Converter" size={20} />, iconLarge: <ToolIconSmall toolName="Case Converter" size={32} />, tags: ["Convert", "Case"] },
+            { id: "line", name: "Line Tools", description: "Sort, reverse, shuffle, and manipulate text lines.", href: "/en/text-tools/line-tools", icon: <ToolIconSmall toolName="Line Tools" size={20} />, iconLarge: <ToolIconSmall toolName="Line Tools" size={32} />, tags: ["Lines", "Sort"] },
+            { id: "diff", name: "Text Diff", description: "Find differences between two texts with highlighted changes.", href: "/en/text-tools/text-diff", icon: <ToolIconSmall toolName="Text Diff" size={20} />, iconLarge: <ToolIconSmall toolName="Text Diff" size={32} />, tags: ["Diff", "Compare"] },
+            { id: "find", name: "Find & Replace", description: "Search and replace text with support for regex.", href: "/en/text-tools/find-replace", icon: <ToolIconSmall toolName="Find & Replace" size={20} />, iconLarge: <ToolIconSmall toolName="Find & Replace" size={32} />, tags: ["Search", "Replace"] },
+            { id: "stat", name: "Text Statistics", description: "Get detailed statistics about your text including word count, characters, and more.", href: "/en/text-tools/text-statistics", icon: <ToolIconSmall toolName="Text Statistics" size={20} />, iconLarge: <ToolIconSmall toolName="Text Statistics" size={32} />, tags: ["Stats", "Analysis"] },
+            { id: "ana", name: "Anagram", description: "Find anagrams and rearrange letters to form new words.", href: "/en/text-tools/anagram", icon: <ToolIconSmall toolName="Anagram" size={20} />, iconLarge: <ToolIconSmall toolName="Anagram" size={32} />, tags: ["Word", "Puzzle"] },
+            { id: "dup", name: "Remove Duplicates", description: "Remove duplicate lines or words from your text.", href: "/en/text-tools/remove-duplicates", icon: <ToolIconSmall toolName="Remove Duplicates" size={20} />, iconLarge: <ToolIconSmall toolName="Remove Duplicates" size={32} />, tags: ["Clean", "Deduplicate"] },
+            { id: "lorem", name: "Lorem Ipsum", description: "Generate placeholder Lorem Ipsum text for your designs.", href: "/en/text-tools/lorem-ipsum", icon: <ToolIconSmall toolName="Lorem Ipsum" size={20} />, iconLarge: <ToolIconSmall toolName="Lorem Ipsum" size={32} />, tags: ["Generate", "Placeholder"] },
+            { id: "blab", name: "Blabber", description: "Generate random placeholder text similar to Lorem Ipsum.", href: "/en/text-tools/blabber", icon: <ToolIconSmall toolName="Blabber" size={20} />, iconLarge: <ToolIconSmall toolName="Blabber" size={32} />, tags: ["Generate", "Random"] },
+        ]
     }
 ];
 
