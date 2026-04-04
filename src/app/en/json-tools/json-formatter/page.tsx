@@ -8,7 +8,7 @@
 */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Editor } from "@/components/Editor";
 import {
     Box, Typography, Button, IconButton, Tooltip, Stack, Alert, Snackbar,
@@ -18,76 +18,35 @@ import { ContentCopy, Download as DownloadIcon, DeleteOutline, AutoAwesome, Swap
 import { ToolHeader } from "@/components/ToolHeader";
 import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_FORMATTER } from "@/lib/sampleData";
+import { useToolPage } from "@/lib/hooks";
+import { formatJson, minifyJson } from "@/lib/utils";
 
 export default function FormatterPage() {
-    const [input, setInput] = useState<string>("");
-    const [output, setOutput] = useState<string>("");
-    const [error, setError] = useState<string | null>(null);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [indent, setIndent] = useState<number>(2);
     const theme = useTheme();
+    const {
+        input, setInput,
+        output, setOutput,
+        error, setError,
+        handleCopy, handleDownload, handleClear, handleLoadSample,
+        SnackbarProps,
+    } = useToolPage({ validateJson: true });
+    const [indent, setIndent] = useState<number>(2);
 
-    useEffect(() => {
-        if (!input.trim()) {
-            setError(null);
-            return;
-        }
-        try {
-            JSON.parse(input);
-            setError(null);
-        } catch (e: any) {
-            setError(e.message);
-        }
-    }, [input]);
-
-    const formatJson = () => {
+    const handleFormat = () => {
         try {
             if (!input.trim()) return;
-            const parsed = JSON.parse(input);
-            const formatted = JSON.stringify(parsed, null, indent);
-            setOutput(formatted);
+            setOutput(formatJson(input, indent));
         } catch (err) {}
     };
 
-    const minifyJson = () => {
+    const handleMinify = () => {
         try {
             if (!input.trim()) return;
-            const parsed = JSON.parse(input);
-            const minified = JSON.stringify(parsed);
-            setOutput(minified);
+            setOutput(minifyJson(input));
         } catch (err) {}
     };
 
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(output || input);
-            setSnackbarMessage("Copied to clipboard!");
-            setSnackbarOpen(true);
-        } catch (err) { }
-    };
-
-    const handleDownload = () => {
-        const textToSave = output || input;
-        if (!textToSave) return;
-        const blob = new Blob([textToSave], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "formatted.json";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
-
-    const clearEditor = () => {
-        setInput("");
-        setOutput("");
-        setError(null);
-    };
-
-    const swapEditors = () => {
+    const handleSwap = () => {
         const temp = input;
         setInput(output);
         setOutput(temp);
@@ -112,7 +71,7 @@ export default function FormatterPage() {
             }}>
                 <Button
                     variant="contained"
-                    onClick={formatJson}
+                    onClick={handleFormat}
                     startIcon={<AutoAwesome sx={{ fontSize: 16 }} />}
                     size="small"
                     sx={{ borderRadius: 2 }}
@@ -121,7 +80,7 @@ export default function FormatterPage() {
                 </Button>
                 <Button
                     variant="outlined"
-                    onClick={minifyJson}
+                    onClick={handleMinify}
                     size="small"
                     sx={{
                         borderRadius: 2,
@@ -146,7 +105,7 @@ export default function FormatterPage() {
                 <Tooltip title="Swap input ↔ output">
                     <Button
                         variant="outlined"
-                        onClick={swapEditors}
+                        onClick={handleSwap}
                         size="small"
                         startIcon={<SwapHorizIcon sx={{ fontSize: 16 }} />}
                         sx={{ borderRadius: 2 }}
@@ -157,7 +116,7 @@ export default function FormatterPage() {
                 <Box sx={{ flexGrow: 1 }} />
                 <Button
                     variant="outlined"
-                    onClick={() => { setInput(SAMPLE_JSON_FORMATTER); setOutput(""); setError(null); }}
+                    onClick={() => handleLoadSample(SAMPLE_JSON_FORMATTER)}
                     size="small"
                     sx={{ borderRadius: 2 }}
                 >
@@ -166,12 +125,12 @@ export default function FormatterPage() {
                 {(input || output) && (
                     <>
                         <Tooltip title="Copy JSON">
-                            <IconButton onClick={handleCopy} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleCopy()} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <ContentCopy sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Download JSON">
-                            <IconButton onClick={handleDownload} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleDownload(undefined, "formatted.json")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <DownloadIcon sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
@@ -180,7 +139,7 @@ export default function FormatterPage() {
                 )}
                 {(input || output) && (
                     <Tooltip title="Clear">
-                        <IconButton onClick={clearEditor} size="small" color="error" sx={{ borderRadius: 1.5 }}>
+                        <IconButton onClick={() => handleClear()} size="small" color="error" sx={{ borderRadius: 1.5 }}>
                             <DeleteOutline sx={{ fontSize: 17 }} />
                         </IconButton>
                     </Tooltip>
@@ -241,10 +200,7 @@ export default function FormatterPage() {
             </Box>
 
             <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={2000}
-                onClose={() => setSnackbarOpen(false)}
-                message={snackbarMessage}
+                {...SnackbarProps}
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             />
         </Box>

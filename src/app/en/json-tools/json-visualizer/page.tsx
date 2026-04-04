@@ -8,7 +8,7 @@
 */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import JsonView from "@uiw/react-json-view";
 import { darkTheme } from "@uiw/react-json-view/dark";
 import { Editor } from "@/components/Editor";
@@ -18,27 +18,18 @@ import { useThemeContext } from "@/components/AppThemeProvider";
 import { ToolHeader } from "@/components/ToolHeader";
 import { getToolColor } from "@/lib/toolColors";
 import { SAMPLE_JSON_VISUALIZER } from "@/lib/sampleData";
+import { useToolPage } from "@/lib/hooks";
+import { isValidJson } from "@/lib/utils";
 
 export default function VisualizerPage() {
-    const [input, setInput] = useState<string>("");
-    const [error, setError] = useState<string | null>(null);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
     const { mode } = useThemeContext();
     const theme = useTheme();
-
-    useEffect(() => {
-        if (!input.trim()) {
-            setError(null);
-            return;
-        }
-        try {
-            JSON.parse(input);
-            setError(null);
-        } catch (e: any) {
-            setError(e.message);
-        }
-    }, [input]);
+    const {
+        input, setInput,
+        error, setError,
+        handleCopy, handleDownload,
+        SnackbarProps,
+    } = useToolPage({ validateJson: true });
 
     let parsedJson: object | null = null;
     try {
@@ -46,26 +37,6 @@ export default function VisualizerPage() {
     } catch (e) {
         parsedJson = null;
     }
-
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(input);
-            setSnackbarMessage("Copied to clipboard!");
-            setSnackbarOpen(true);
-        } catch (err) { }
-    };
-
-    const handleDownload = () => {
-        const blob = new Blob([input], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "json-visualizer.json";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
 
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -96,12 +67,12 @@ export default function VisualizerPage() {
                 {input && (
                     <>
                         <Tooltip title="Copy JSON">
-                            <IconButton onClick={handleCopy} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleCopy()} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <ContentCopy sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Download JSON">
-                            <IconButton onClick={handleDownload} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleDownload(undefined, "json-visualizer.json")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <DownloadIcon sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
@@ -181,10 +152,7 @@ export default function VisualizerPage() {
             </Box>
 
             <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={2000}
-                onClose={() => setSnackbarOpen(false)}
-                message={snackbarMessage}
+                {...SnackbarProps}
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             />
         </Box>

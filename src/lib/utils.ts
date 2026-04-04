@@ -81,39 +81,3 @@ export function truncate(str: string, length: number): string {
     if (str.length <= length) return str;
     return str.slice(0, length) + "...";
 }
-
-/**
- * Copy text to clipboard
- */
-export async function copyToClipboard(text: string): Promise<boolean> {
-    try {
-        await navigator.clipboard.writeText(text);
-        return true;
-    } catch {
-        return false;
-    }
-}
-
-/**
- * Download content as file
- */
-export function downloadFile(
-    content: string,
-    filename: string,
-    type = "text/plain"
-): boolean {
-    try {
-        const blob = new Blob([content], { type });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        return true;
-    } catch {
-        return false;
-    }
-}

@@ -17,6 +17,7 @@ import {
 import { ContentCopy, Download as DownloadIcon, DeleteOutline, AutoAwesome, SwapHoriz } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
 import { getToolColor } from "@/lib/toolColors";
+import { computeWordDiff, normalizeText } from "@/lib/utils/diff";
 
 export default function TextDiffPage() {
     const [text1, setText1] = useState<string>("");
@@ -28,12 +29,23 @@ export default function TextDiffPage() {
     const [ignoreCase, setIgnoreCase] = useState(false);
     const theme = useTheme();
 
+    const showSnackbar = (msg: string) => { setSnackbarMessage(msg); setSnackbarOpen(true); };
+    const copyText = async (text: string, label: string) => {
+        try { await navigator.clipboard.writeText(text); showSnackbar(`${label} copied!`); } catch {}
+    };
+    const downloadText = (text: string, filename: string) => {
+        if (!text) return;
+        const blob = new Blob([text], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+        document.body.removeChild(a); URL.revokeObjectURL(url);
+    };
+
     // Update page title
     useEffect(() => {
         document.title = "Text Diff - FoX Dev Tools";
-        return () => {
-            document.title = "FoX Dev Tools";
-        };
+        return () => { document.title = "FoX Dev Tools"; };
     }, []);
 
     useEffect(() => {
@@ -42,101 +54,16 @@ export default function TextDiffPage() {
             return;
         }
 
-        const normalize = (text: string) => {
-            let result = text;
-            if (ignoreWhitespace) {
-                result = result.replace(/\s+/g, ' ').trim();
-            }
-            if (ignoreCase) {
-                result = result.toLowerCase();
-            }
-            return result;
-        };
-
-        const normalized1 = normalize(text1);
-        const normalized2 = normalize(text2);
+        const normalized1 = normalizeText(text1, ignoreWhitespace, ignoreCase);
+        const normalized2 = normalizeText(text2, ignoreWhitespace, ignoreCase);
 
         if (normalized1 === normalized2) {
             setDiffResult("✓ No differences found!");
             return;
         }
 
-        const words1 = text1.split(/(\s+)/);
-        const words2 = text2.split(/(\s+)/);
-        const result: string[] = [];
-        
-        const lcs = computeLCS(words1, words2, ignoreWhitespace, ignoreCase);
-        let i = 0, j = 0;
-        
-        for (const word of lcs) {
-            while (i < words1.length && !textsMatch(words1[i], word, ignoreWhitespace, ignoreCase)) {
-                result.push(`<del>${words1[i]}</del>`);
-                i++;
-            }
-            while (j < words2.length && !textsMatch(words2[j], word, ignoreWhitespace, ignoreCase)) {
-                result.push(`<ins>${words2[j]}</ins>`);
-                j++;
-            }
-            result.push(words1[i]);
-            i++;
-            j++;
-        }
-        
-        while (i < words1.length) {
-            result.push(`<del>${words1[i]}</del>`);
-            i++;
-        }
-        while (j < words2.length) {
-            result.push(`<ins>${words2[j]}</ins>`);
-            j++;
-        }
-
-        setDiffResult(result.join(''));
+        setDiffResult(computeWordDiff(text1, text2, ignoreWhitespace, ignoreCase));
     }, [text1, text2, ignoreWhitespace, ignoreCase]);
-
-    const computeLCS = (arr1: string[], arr2: string[], ignoreWS: boolean, ignoreC: boolean): string[] => {
-        const m = arr1.length;
-        const n = arr2.length;
-        const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
-
-        for (let i = 1; i <= m; i++) {
-            for (let j = 1; j <= n; j++) {
-                if (textsMatch(arr1[i - 1], arr2[j - 1], ignoreWS, ignoreC)) {
-                    dp[i][j] = dp[i - 1][j - 1] + 1;
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-                }
-            }
-        }
-
-        const lcs: string[] = [];
-        let i = m, j = n;
-        while (i > 0 && j > 0) {
-            if (textsMatch(arr1[i - 1], arr2[j - 1], ignoreWS, ignoreC)) {
-                lcs.unshift(arr1[i - 1]);
-                i--;
-                j--;
-            } else if (dp[i - 1][j] > dp[i][j - 1]) {
-                i--;
-            } else {
-                j--;
-            }
-        }
-        return lcs;
-    };
-
-    const textsMatch = (a: string, b: string, ignoreWS: boolean, ignoreC: boolean): boolean => {
-        let a2 = a, b2 = b;
-        if (ignoreWS) {
-            a2 = a2.replace(/\s+/g, '').trim();
-            b2 = b2.replace(/\s+/g, '').trim();
-        }
-        if (ignoreC) {
-            a2 = a2.toLowerCase();
-            b2 = b2.toLowerCase();
-        }
-        return a2 === b2;
-    };
 
     const clearEditors = () => {
         setText1("");
@@ -224,12 +151,12 @@ export default function TextDiffPage() {
                         {text1 && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <Tooltip title="Copy text">
-                                    <IconButton onClick={() => { navigator.clipboard.writeText(text1); setSnackbarMessage("Original text copied!"); setSnackbarOpen(true); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => copyText(text1, "Original")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <ContentCopy sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Download text">
-                                    <IconButton onClick={() => { const blob = new Blob([text1], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "original.txt"; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => downloadText(text1, "original.txt")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <DownloadIcon sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
@@ -260,12 +187,12 @@ export default function TextDiffPage() {
                         {text2 && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <Tooltip title="Copy text">
-                                    <IconButton onClick={() => { navigator.clipboard.writeText(text2); setSnackbarMessage("Modified text copied!"); setSnackbarOpen(true); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => copyText(text2, "Modified")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <ContentCopy sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Download text">
-                                    <IconButton onClick={() => { const blob = new Blob([text2], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "modified.txt"; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => downloadText(text2, "modified.txt")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <DownloadIcon sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>

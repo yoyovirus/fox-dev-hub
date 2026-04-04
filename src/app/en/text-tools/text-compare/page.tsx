@@ -26,6 +26,19 @@ export default function TextComparePage() {
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const theme = useTheme();
 
+    const showSnackbar = (msg: string) => { setSnackbarMessage(msg); setSnackbarOpen(true); };
+    const copyText = async (text: string, label: string) => {
+        try { await navigator.clipboard.writeText(text); showSnackbar(`${label} copied!`); } catch {}
+    };
+    const downloadText = (text: string, filename: string) => {
+        if (!text) return;
+        const blob = new Blob([text], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+        document.body.removeChild(a); URL.revokeObjectURL(url);
+    };
+
     // Update page title
     useEffect(() => {
         document.title = "Text Compare - FoX Dev Tools";
@@ -132,12 +145,12 @@ export default function TextComparePage() {
                         {text1 && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <Tooltip title="Copy text">
-                                    <IconButton onClick={() => { navigator.clipboard.writeText(text1); setSnackbarMessage("Text 1 copied!"); setSnackbarOpen(true); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => copyText(text1, "Text 1")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <ContentCopy sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Download text">
-                                    <IconButton onClick={() => { const blob = new Blob([text1], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "text1.txt"; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => downloadText(text1, "text1.txt")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <DownloadIcon sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
@@ -168,12 +181,12 @@ export default function TextComparePage() {
                         {text2 && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <Tooltip title="Copy text">
-                                    <IconButton onClick={() => { navigator.clipboard.writeText(text2); setSnackbarMessage("Text 2 copied!"); setSnackbarOpen(true); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => copyText(text2, "Text 2")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <ContentCopy sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Download text">
-                                    <IconButton onClick={() => { const blob = new Blob([text2], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "text2.txt"; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => downloadText(text2, "text2.txt")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <DownloadIcon sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>

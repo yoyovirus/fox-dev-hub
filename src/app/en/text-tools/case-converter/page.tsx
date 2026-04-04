@@ -17,11 +17,10 @@ import {
 import { ContentCopy, Download as DownloadIcon, DeleteOutline, AutoAwesome } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
 import { getToolColor } from "@/lib/toolColors";
+import { useToolPage } from "@/lib/hooks";
 
 export default function CaseConverterPage() {
-    const [input, setInput] = useState<string>("");
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const { input, setInput, handleCopy, handleDownload, SnackbarProps } = useToolPage();
     const theme = useTheme();
 
     // Update page title
@@ -71,38 +70,13 @@ export default function CaseConverterPage() {
     };
 
     const toInverseCase = () => {
-        setInput(input.split('').map(char => 
+        setInput(input.split('').map(char =>
             char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
         ).join(''));
     };
 
     const capitalizeFirst = () => {
         setInput(input.charAt(0).toUpperCase() + input.slice(1).toLowerCase());
-    };
-
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(input);
-            setSnackbarMessage("Copied to clipboard!");
-            setSnackbarOpen(true);
-        } catch (err) { }
-    };
-
-    const handleDownload = () => {
-        if (!input) return;
-        const blob = new Blob([input], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "converted-text.txt";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
-
-    const clearEditor = () => {
-        setInput("");
     };
 
     const loadSample = () => {
@@ -170,17 +144,17 @@ export default function CaseConverterPage() {
                         {input && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <Tooltip title="Copy text">
-                                    <IconButton onClick={handleCopy} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => handleCopy()} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <ContentCopy sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Download text">
-                                    <IconButton onClick={handleDownload} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                                    <IconButton onClick={() => handleDownload(undefined, "converted-text.txt")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                         <DownloadIcon sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Clear">
-                                    <IconButton onClick={clearEditor} size="small" color="error" sx={{ borderRadius: 1.5 }}>
+                                    <IconButton onClick={() => setInput("")} size="small" color="error" sx={{ borderRadius: 1.5 }}>
                                         <DeleteOutline sx={{ fontSize: 17 }} />
                                     </IconButton>
                                 </Tooltip>
@@ -200,10 +174,7 @@ export default function CaseConverterPage() {
             </Box>
 
             <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={2000}
-                onClose={() => setSnackbarOpen(false)}
-                message={snackbarMessage}
+                {...SnackbarProps}
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             />
         </Box>

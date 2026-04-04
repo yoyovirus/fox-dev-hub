@@ -15,13 +15,30 @@ import { SwapHoriz as SwapHorizIcon, Code as CodeIcon, DeleteOutline, ContentCop
 import { ToolHeader } from "@/components/ToolHeader";
 import { getToolColor } from "@/lib/toolColors";
 
+function usePageSnackbar() {
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const showSnackbar = (msg: string) => { setSnackbarMessage(msg); setSnackbarOpen(true); };
+    const handleCopy = async (text: string) => {
+        try { await navigator.clipboard.writeText(text); showSnackbar("Copied to clipboard!"); } catch {}
+    };
+    const handleDownload = (content: string, filename: string) => {
+        if (!content) return;
+        const blob = new Blob([content], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+        document.body.removeChild(a); URL.revokeObjectURL(url);
+    };
+    return { snackbarOpen, snackbarMessage, setSnackbarOpen, handleCopy, handleDownload };
+}
+
 export default function DiffPage() {
     const [original, setOriginal] = useState<string>("");
     const [modified, setModified] = useState<string>("");
     const [origError, setOrigError] = useState<string | null>(null);
     const [modError, setModError] = useState<string | null>(null);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const { snackbarOpen, snackbarMessage, setSnackbarOpen, handleCopy, handleDownload } = usePageSnackbar();
     const theme = useTheme();
 
     useEffect(() => {
@@ -66,26 +83,6 @@ export default function DiffPage() {
         setModified("");
     };
 
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(modified);
-            setSnackbarMessage("Copied to clipboard!");
-            setSnackbarOpen(true);
-        } catch (err) { }
-    };
-
-    const handleDownload = () => {
-        const blob = new Blob([modified], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "json-diff.json";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
-
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
             {/* Page Header */}
@@ -126,12 +123,12 @@ export default function DiffPage() {
                 {modified && (
                     <>
                         <Tooltip title="Copy JSON">
-                            <IconButton onClick={handleCopy} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleCopy(modified)} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <ContentCopy sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Download JSON">
-                            <IconButton onClick={handleDownload} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleDownload(modified, "json-diff.json")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <DownloadIcon sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
@@ -197,6 +194,8 @@ export default function DiffPage() {
                     />
                 </Box>
             </Box>
+
+            {snackbarOpen && <Snackbar open={snackbarOpen} autoHideDuration={2000} onClose={() => setSnackbarOpen(false)} message={snackbarMessage} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} />}
         </Box>
     );
 }

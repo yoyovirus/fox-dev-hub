@@ -8,7 +8,7 @@
 */
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Editor } from "@/components/Editor";
 import {
     Box, Typography, Button, Alert, Snackbar,
@@ -17,15 +17,20 @@ import {
 import { CheckCircle, ErrorOutline, DeleteOutline, ContentCopy, Download as DownloadIcon } from "@mui/icons-material";
 import { ToolHeader } from "@/components/ToolHeader";
 import { getToolColor } from "@/lib/toolColors";
+import { useToolPage } from "@/lib/hooks";
+
+const SAMPLE = "{\n  \"name\": \"Alice\",\n  \"age\": 30,\n  \"active\": true,\n  \"roles\": [\"admin\", \"editor\"],\n  \"address\": {\n    \"city\": \"New York\",\n    \"zip\": \"10001\"\n  }\n}";
 
 export default function ValidatorPage() {
-    const [input, setInput] = useState<string>("");
-    const [validationResult, setValidationResult] = useState<{ isValid: boolean; message: string } | null>(null);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
     const theme = useTheme();
+    const {
+        input, setInput,
+        handleCopy, handleDownload, handleClear, handleLoadSample,
+        SnackbarProps,
+    } = useToolPage();
+    const [validationResult, setValidationResult] = useState<{ isValid: boolean; message: string } | null>(null);
 
-    const handleInputChange = (val: string | undefined) => {
+    const handleInputChange = useCallback((val: string | undefined) => {
         const newValue = val || "";
         setInput(newValue);
         if (!newValue.trim()) {
@@ -38,32 +43,7 @@ export default function ValidatorPage() {
         } catch (err: any) {
             setValidationResult({ isValid: false, message: err.message || "Invalid JSON syntax" });
         }
-    };
-
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(input);
-            setSnackbarMessage("Copied to clipboard!");
-            setSnackbarOpen(true);
-        } catch (err) { }
-    };
-
-    const handleDownload = () => {
-        const blob = new Blob([input], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "json-validator.json";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
-
-    const loadSample = () => {
-        const sample = "{\n  \"name\": \"Alice\",\n  \"age\": 30,\n  \"active\": true,\n  \"roles\": [\"admin\", \"editor\"],\n  \"address\": {\n    \"city\": \"New York\",\n    \"zip\": \"10001\"\n  }\n}";
-        handleInputChange(sample);
-    };
+    }, [setInput]);
 
     return (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -82,8 +62,6 @@ export default function ValidatorPage() {
                 borderRadius: 2.5,
                 border: `1px solid ${theme.palette.divider}`,
             }}>
-                {/* Validate button removed for real-time validation */}
-                <Box sx={{ flexGrow: 1 }} />
                 {/* Result badge */}
                 {validationResult && (
                     <Chip
@@ -101,7 +79,7 @@ export default function ValidatorPage() {
                 )}
                 <Button
                     variant="outlined"
-                    onClick={loadSample}
+                    onClick={() => handleLoadSample(SAMPLE)}
                     size="small"
                     sx={{ borderRadius: 2, ml: 1 }}
                 >
@@ -110,18 +88,18 @@ export default function ValidatorPage() {
                 {input && (
                     <>
                         <Tooltip title="Copy JSON">
-                            <IconButton onClick={handleCopy} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleCopy()} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <ContentCopy sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Download JSON">
-                            <IconButton onClick={handleDownload} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
+                            <IconButton onClick={() => handleDownload(undefined, "json-validator.json")} size="small" sx={{ borderRadius: 1.5, color: "text.secondary" }}>
                                 <DownloadIcon sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
                         <Divider orientation="vertical" flexItem sx={{ mx: 0.5, height: 20, alignSelf: "center" }} />
                         <Tooltip title="Clear">
-                            <IconButton onClick={() => { setInput(""); setValidationResult(null); }} size="small" color="error" sx={{ borderRadius: 1.5 }}>
+                            <IconButton onClick={() => { handleClear(); setValidationResult(null); }} size="small" color="error" sx={{ borderRadius: 1.5 }}>
                                 <DeleteOutline sx={{ fontSize: 17 }} />
                             </IconButton>
                         </Tooltip>
@@ -141,10 +119,7 @@ export default function ValidatorPage() {
             )}
 
             <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={2000}
-                onClose={() => setSnackbarOpen(false)}
-                message={snackbarMessage}
+                {...SnackbarProps}
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             />
 

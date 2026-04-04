@@ -6,31 +6,22 @@ import Link from "next/link";
 import {
     Drawer,
     List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Collapse,
     Box,
     Typography,
     Divider,
     useTheme,
     useMediaQuery,
-    Tooltip,
-    alpha,
 } from "@mui/material";
-import {
-    ExpandLess,
-    ExpandMore,
-} from "@mui/icons-material";
 import { ToolIcon } from "./ToolIcon";
-import { TOOL_COLORS, getToolColor } from "@/lib/toolColors";
+import { ToolCategory } from "./ToolCategory";
+import { getToolColor } from "@/lib/toolColors";
+import type { ToolEntry, ToolCategory as ToolCategoryType } from "@/types";
 import Image from 'next/image';
 
 const drawerWidth = 300;
 const collapsedDrawerWidth = 84;
 
-const JSON_TOOLS = [
+const JSON_TOOLS: ToolEntry[] = [
     { name: "JSON Formatter", href: "/en/json-tools/json-formatter", icon: <ToolIcon toolName="JSON Formatter" size={24} />, color: getToolColor("JSON Formatter") },
     { name: "JSON Validator", href: "/en/json-tools/json-validator", icon: <ToolIcon toolName="JSON Validator" size={24} />, color: getToolColor("JSON Validator") },
     { name: "JSON Diff", href: "/en/json-tools/json-diff", icon: <ToolIcon toolName="JSON Diff" size={24} />, color: getToolColor("JSON Diff") },
@@ -41,13 +32,13 @@ const JSON_TOOLS = [
     { name: "JSON Relationship Visualizer", href: "/en/json-tools/json-relationship-visualizer", icon: <ToolIcon toolName="JSON Relationship Visualizer" size={24} />, color: getToolColor("JSON Relationship Visualizer") },
 ];
 
-const BASE64_TOOLS = [
+const BASE64_TOOLS: ToolEntry[] = [
     { name: "Base64 Encoder / Decoder", href: "/en/base64-tools/base64-encoder-decoder", icon: <ToolIcon toolName="Base64 Encoder / Decoder" size={24} />, color: getToolColor("Base64 Encoder / Decoder") },
     { name: "Image to Base64", href: "/en/base64-tools/image-to-base64", icon: <ToolIcon toolName="Image to Base64" size={24} />, color: getToolColor("Image to Base64") },
     { name: "Base64 to Image", href: "/en/base64-tools/base64-to-image", icon: <ToolIcon toolName="Base64 to Image" size={24} />, color: getToolColor("Base64 to Image") },
 ];
 
-const TEXT_TOOLS = [
+const TEXT_TOOLS: ToolEntry[] = [
     { name: "Text Compare", href: "/en/text-tools/text-compare", icon: <ToolIcon toolName="Text Compare" size={24} />, color: getToolColor("Text Compare") },
     { name: "Case Converter", href: "/en/text-tools/case-converter", icon: <ToolIcon toolName="Case Converter" size={24} />, color: getToolColor("Case Converter") },
     { name: "Line Tools", href: "/en/text-tools/line-tools", icon: <ToolIcon toolName="Line Tools" size={24} />, color: getToolColor("Line Tools") },
@@ -60,207 +51,34 @@ const TEXT_TOOLS = [
     { name: "Blabber", href: "/en/text-tools/blabber", icon: <ToolIcon toolName="Blabber" size={24} />, color: getToolColor("Blabber") },
 ];
 
-interface ToolCategoryProps {
-    name: string;
-    icon: React.ReactNode;
-    tools: { name: string; href: string; icon: React.ReactNode; emoji?: React.ReactNode; color: string }[];
-    isOpen: boolean;
-    onToggle: () => void;
-    pathname: string;
-    open: boolean;
-    theme: any;
-}
-
-function ToolCategory({ name, icon, tools, isOpen, onToggle, pathname, open, theme }: ToolCategoryProps) {
-    return (
-        <>
-            <ListItem disablePadding sx={{ display: "block", mt: name === "JSON Tools" ? 0 : 1 }}>
-                <Tooltip title={!open ? name : ""} placement="right">
-                    <ListItemButton
-                        onClick={onToggle}
-                        sx={{
-                            minHeight: 44,
-                            justifyContent: open ? "initial" : "center",
-                            px: 1.5,
-                            borderRadius: 2.5,
-                            mb: 0.5,
-                            position: "relative",
-                            bgcolor: isOpen ? alpha(theme.palette.primary.main, 0.08) : "transparent",
-                            "&:hover": {
-                                bgcolor: alpha(theme.palette.primary.main, 0.08),
-                            },
-                        }}
-                    >
-                        <ListItemIcon
-                            sx={{
-                                minWidth: 0,
-                                mr: open ? 1.5 : "auto",
-                                justifyContent: "center",
-                                color: "primary.main",
-                            }}
-                        >
-                            {icon}
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={name}
-                            sx={{ opacity: open ? 1 : 0 }}
-                            primaryTypographyProps={{
-                                fontWeight: 700,
-                                fontSize: "0.78rem",
-                                textTransform: "uppercase",
-                                letterSpacing: "0.08em",
-                                color: "text.secondary",
-                            }}
-                        />
-                        {open && (isOpen ? (
-                            <ExpandLess sx={{ fontSize: 18 }} />
-                        ) : (
-                            <ExpandMore sx={{ fontSize: 18 }} />
-                        ))}
-                    </ListItemButton>
-                </Tooltip>
-            </ListItem>
-
-            <Collapse in={isOpen && open} timeout="auto" unmountOnExit>
-                <Box sx={{
-                    mx: 0.5,
-                    mb: 1,
-                    borderRadius: 2,
-                    bgcolor: alpha(theme.palette.text.secondary, 0.03),
-                }}>
-                    <List component="div" disablePadding>
-                        {tools.map((item) => {
-                            const isActive = pathname === item.href;
-                            return (
-                                <ListItemButton
-                                    key={item.href}
-                                    component={Link}
-                                    href={item.href}
-                                    selected={isActive}
-                                    sx={{
-                                        pl: 2,
-                                        pr: 1.5,
-                                        py: 0.75,
-                                        mb: 0.25,
-                                        mx: 0.5,
-                                        borderRadius: 2,
-                                        position: "relative",
-                                        "&.Mui-selected": {
-                                            bgcolor: alpha(theme.palette.primary.main, 0.1),
-                                            color: "primary.main",
-                                            "&::before": {
-                                                content: '""',
-                                                position: "absolute",
-                                                left: 0,
-                                                top: "50%",
-                                                transform: "translateY(-50%)",
-                                                width: 3,
-                                                height: "60%",
-                                                borderRadius: "0 4px 4px 0",
-                                                bgcolor: "primary.main",
-                                            },
-                                            "& .MuiListItemIcon-root": {
-                                                color: "primary.main",
-                                            },
-                                            "&:hover": {
-                                                bgcolor: alpha(theme.palette.primary.main, 0.15),
-                                            },
-                                        },
-                                        "&:hover": {
-                                            bgcolor: alpha(theme.palette.primary.main, 0.06),
-                                        },
-                                    }}
-                                >
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: 1.5,
-                                            justifyContent: "center",
-                                            color: isActive ? "primary.main" : "text.secondary",
-                                            width: 32,
-                                            height: 32,
-                                            display: "flex",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        {item.icon}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={item.name}
-                                        primaryTypographyProps={{
-                                            fontSize: "0.875rem",
-                                            fontWeight: isActive ? 700 : 500,
-                                            color: isActive ? "primary.main" : "text.primary",
-                                        }}
-                                    />
-                                </ListItemButton>
-                            );
-                        })}
-                    </List>
-                </Box>
-            </Collapse>
-
-            {!open && (
-                <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding sx={{ mt: 0.5 }}>
-                        {tools.map((item) => {
-                            const isActive = pathname === item.href;
-                            return (
-                                <Tooltip key={item.href} title={item.name} placement="right">
-                                    <ListItemButton
-                                        component={Link}
-                                        href={item.href}
-                                        sx={{
-                                            justifyContent: "center",
-                                            py: 1.2,
-                                            px: 1,
-                                            mb: 0.5,
-                                            borderRadius: 2.5,
-                                            bgcolor: isActive ? alpha(theme.palette.primary.main, 0.1) : "transparent",
-                                            "&:hover": {
-                                                bgcolor: alpha(theme.palette.primary.main, 0.08),
-                                            },
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                width: 36,
-                                                height: 36,
-                                                borderRadius: 1.5,
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            {React.cloneElement(item.icon as React.ReactElement<{ isActive?: boolean; size?: number }>, {
-                                                isActive,
-                                                size: 24,
-                                            })}
-                                        </Box>
-                                    </ListItemButton>
-                                </Tooltip>
-                            );
-                        })}
-                    </List>
-                </Collapse>
-            )}
-        </>
-    );
-}
+const TOOL_CATEGORIES: ToolCategoryType[] = [
+    {
+        name: "JSON Tools",
+        icon: <ToolIcon toolName="JSON Formatter" size={24} />,
+        tools: JSON_TOOLS,
+    },
+    {
+        name: "Base64 Tools",
+        icon: <ToolIcon toolName="Base64 Encoder / Decoder" size={24} />,
+        tools: BASE64_TOOLS,
+    },
+    {
+        name: "Text Tools",
+        icon: <ToolIcon toolName="Text Compare" size={24} />,
+        tools: TEXT_TOOLS,
+    },
+];
 
 export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
     const pathname = usePathname();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-    const [jsonOpen, setJsonOpen] = useState(true);
-    const [base64Open, setBase64Open] = useState(true);
+    const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(
+        Object.fromEntries(TOOL_CATEGORIES.map((cat) => [cat.name, true]))
+    );
 
-    const handleJsonClick = () => {
-        setJsonOpen(!jsonOpen);
-    };
-
-    const handleBase64Click = () => {
-        setBase64Open(!base64Open);
+    const toggleCategory = (name: string) => {
+        setOpenCategories((prev) => ({ ...prev, [name]: !prev[name] }));
     };
 
     const drawerContent = (
@@ -325,38 +143,20 @@ export function Sidebar({ open, onToggle }: { open: boolean; onToggle: () => voi
             <Divider sx={{ mx: 2, opacity: 0.5 }} />
 
             <List sx={{ px: 1.5, pt: 2, pb: 1 }}>
-                <ToolCategory
-                    name="JSON Tools"
-                    icon={<ToolIcon toolName="JSON Formatter" size={24} />}
-                    tools={JSON_TOOLS}
-                    isOpen={jsonOpen}
-                    onToggle={handleJsonClick}
-                    pathname={pathname}
-                    open={open}
-                    theme={theme}
-                />
-
-                <ToolCategory
-                    name="Base64 Tools"
-                    icon={<ToolIcon toolName="Base64 Encoder / Decoder" size={24} />}
-                    tools={BASE64_TOOLS}
-                    isOpen={base64Open}
-                    onToggle={handleBase64Click}
-                    pathname={pathname}
-                    open={open}
-                    theme={theme}
-                />
-
-                <ToolCategory
-                    name="Text Tools"
-                    icon={<ToolIcon toolName="Text Compare" size={24} />}
-                    tools={TEXT_TOOLS}
-                    isOpen={true}
-                    onToggle={() => {}}
-                    pathname={pathname}
-                    open={open}
-                    theme={theme}
-                />
+                {TOOL_CATEGORIES.map((category, index) => (
+                    <ToolCategory
+                        key={category.name}
+                        name={category.name}
+                        icon={category.icon}
+                        tools={category.tools}
+                        isOpen={openCategories[category.name]}
+                        onToggle={() => toggleCategory(category.name)}
+                        pathname={pathname}
+                        open={open}
+                        theme={theme}
+                        isFirst={index === 0}
+                    />
+                ))}
             </List>
 
             {/* Footer */}

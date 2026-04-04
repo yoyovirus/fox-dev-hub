@@ -2,7 +2,8 @@
 
 > **All essential dev tools in one place**
 
-A fast, free, browser-based collection of developer tools including JSON formatters, validators, converters, and utilities. Built for developers who value speed, privacy, and simplicity.
+A fast, free, browser-based collection of developer tools including JSON formatters, validators, converters, and
+utilities. Built for developers who value speed, privacy, and simplicity.
 
 ---
 
@@ -24,14 +25,14 @@ A fast, free, browser-based collection of developer tools including JSON formatt
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🚀 **Blazing Fast** | Client-side processing with zero backend latency |
-| 🔒 **Privacy First** | No data leaves your browser - 100% local processing |
-| 🎨 **Clean UI** | Minimal, modern design focused on developer experience |
-| 📱 **Responsive** | Works seamlessly on desktop, tablet, and mobile |
-| 🔍 **SEO Optimized** | Meta tags, Open Graph support, and clean URLs |
-| ⚡ **Static Generation** | Pre-built assets for instant page loads |
+| Feature                 | Description                                            |
+|-------------------------|--------------------------------------------------------|
+| 🚀 **Blazing Fast**     | Client-side processing with zero backend latency       |
+| 🔒 **Privacy First**    | No data leaves your browser - 100% local processing    |
+| 🎨 **Clean UI**         | Minimal, modern design focused on developer experience |
+| 📱 **Responsive**       | Works seamlessly on desktop, tablet, and mobile        |
+| 🔍 **SEO Optimized**    | Meta tags, Open Graph support, and clean URLs          |
+| ⚡ **Static Generation** | Pre-built assets for instant page loads                |
 
 ### 🛠️ Available Tools
 
@@ -46,7 +47,7 @@ A fast, free, browser-based collection of developer tools including JSON formatt
 
 ### Prerequisites
 
-- Node.js 20+ 
+- Node.js 20+
 - npm, yarn, pnpm, or bun
 
 ### Installation
@@ -95,15 +96,15 @@ fox-dev-tools/
 
 ## 🧰 Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Framework** | [Next.js 16](https://nextjs.org/) (App Router) |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) |
+| Category          | Technology                                                                       |
+|-------------------|----------------------------------------------------------------------------------|
+| **Framework**     | [Next.js 16](https://nextjs.org/) (App Router)                                   |
+| **Language**      | [TypeScript](https://www.typescriptlang.org/)                                    |
+| **Styling**       | [Tailwind CSS](https://tailwindcss.com/)                                         |
 | **UI Components** | [Material UI](https://mui.com/), [Framer Motion](https://www.framer.com/motion/) |
-| **Code Editor** | [Monaco Editor](https://microsoft.github.io/monaco-editor/) |
-| **Deployment** | [Vercel](https://vercel.com/) |
-| **Rendering** | Static Site Generation (SSG) |
+| **Code Editor**   | [Monaco Editor](https://microsoft.github.io/monaco-editor/)                      |
+| **Deployment**    | [Vercel](https://vercel.com/)                                                    |
+| **Rendering**     | Static Site Generation (SSG)                                                     |
 
 ---
 
